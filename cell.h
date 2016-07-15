@@ -1,3 +1,6 @@
+#ifndef _CELL_HEADER_
+#define _CELL_HEADER_
+
 #include <vector>
 #include <unique_ptr>
 #include <shared_ptr>
@@ -35,3 +38,5 @@ class Cell {
 	~Cell();
 
 };
+
+#endif
