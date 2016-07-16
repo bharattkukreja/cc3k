@@ -16,6 +16,10 @@ class GameMap {
 	// Populates the grid, i.e. spawns all Sprites
 	// Called by init()
 	void populate();
+
+	// static constants
+	static const unsigned int width;
+	static const unsigned int height;
 	
    public:
 
