@@ -1,7 +1,7 @@
-#ifndef __COMMANDS_H__
-#define __COMMANDS_H__
+#ifndef _COMMANDTYPE_HEADER_
+#define _COMMANDTYPE_HEADER_
 
 // A list of commands that GameMap uses 
-enum class CommandType { n, s, e, w, u, a };
+enum CommandType {n, s, e, w, u, a};
 
 #endif

@@ -1,7 +1,6 @@
 #ifndef __UI_H__
 #define __UI_H__
 #include "ui.h"
-#include "commands.h"
 #include "vector.h"
 
 
