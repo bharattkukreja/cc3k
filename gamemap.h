@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <pair>
+#include <commands.h>
 
 class Cell;
 
@@ -29,6 +30,9 @@ class GameMap {
 
 	// Initializes the grid
 	void initialize();
+
+	// Adjusts state to reflect effects of next turn of the game
+	void nextTurn(CommandType c_type);
 
 	// Returns the Cell grid
 	std::vector<std::vector<Cell>> getGrid() const;

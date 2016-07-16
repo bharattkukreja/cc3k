@@ -13,6 +13,10 @@ const unsigned int GameMap::height = 30;
 
 GameMap::GameMap(){}
 
+void populate() {
+
+}
+
 void GameMap::initialize(SpriteType pc_type){
 	for(int r=0; r<width; r++){
 		grid[r] = vector<Cell>;
@@ -20,6 +24,12 @@ void GameMap::initialize(SpriteType pc_type){
 			grid[r][c] = Cell(CellType::Floor);
 		}
 	}
+	
+	populate();
+}
+
+void GameMap::nextTurn(CommandType c_type){
+	
 }
 
 vector<vector<Cell>> GameMap::getGrid() const {
