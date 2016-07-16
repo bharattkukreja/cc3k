@@ -2,6 +2,6 @@
 #define __COMMANDS_H__
 
 // A list of commands that GameMap uses 
-enum class CommandType { n, s, e, w, u, a };
+enum class CommandType {no, so, ea, we, ne, nw, se, sw, u, a};
 
 #endif
