@@ -2,6 +2,7 @@
 #define __UI_H__
 #include "ui.h"
 #include "commands.h"
+#include "cell.h"
 #include "vector.h"
 
 
