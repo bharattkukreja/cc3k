@@ -1,3 +1,6 @@
+#ifndef _GAME_MAP_HEADER_
+#define _GAME_MAP_HEADER_
+
 #include <vector>
 #include <pair>
 
@@ -29,3 +32,5 @@ class GameMap {
 
 	~GameMap();
 };
+
+#endif
