@@ -26,4 +26,8 @@ CellType Cell::getType() const {
 	return type;
 }
 
+bool Cell::isEmpty() const {
+	return (sprite == null);
+}
+
 Cell::~Cell() {}

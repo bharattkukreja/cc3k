@@ -13,6 +13,7 @@ class Cell {
 
 	vector<unique_ptr<Cell>> observers;
 	CellType type;
+	shared_ptr<Sprite> sprite;
 
    public:
 
@@ -33,7 +34,7 @@ class Cell {
 	CellType getType() const;
 
 	// Returns whether or not this Cell's sprite is a nullptr
-	//bool isEmpty() const;
+	bool isEmpty() const;
 
 	~Cell();
 

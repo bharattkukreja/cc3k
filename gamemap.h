@@ -11,7 +11,9 @@ class Cell;
 class GameMap {
 
 	std::vector<std::vector<Cell>> grid; // This is the grid of Cells
-	//bool won;
+	bool won;
+	pair<int, int> player_location;
+	vector<pair<int, int>> enemy_locations;
 
 	// Populates the grid, i.e. spawns all Sprites
 	// Called by init()
@@ -29,10 +31,10 @@ class GameMap {
 	void initialize();
 
 	// Returns the Cell grid
-	//std::vector<std::vector<Cell>> getGrid() const;
+	std::vector<std::vector<Cell>> getGrid() const;
 
 	// Returns the value of won
-	//bool isWon() const;
+	bool isWon() const;
 
 	~GameMap();
 };

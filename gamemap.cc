@@ -13,7 +13,7 @@ const unsigned int GameMap::height = 30;
 
 GameMap::GameMap(){}
 
-void GameMap::initialize(){
+void GameMap::initialize(SpriteType pc_type){
 	for(int r=0; r<width; r++){
 		grid[r] = vector<Cell>;
 		for(int c=0; c<height; c++){
