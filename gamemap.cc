@@ -2,6 +2,7 @@
 #include <unique_ptr>
 #include "gamemap.h"
 #include "cell.h"
+#include "commands.h"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ void GameMap::populate() {
 }
 
 void GameMap::setUpMap(){
+	// temporary simplification of maps
 	for(int r=0; r<width; r++){
                 grid[r] = vector<Cell>;
                 for(int c=0; c<height; c++){
@@ -39,7 +41,7 @@ void GameMap::setUpMap(){
         }
 }
 
-void GameMap::initialize(unique_ptr<PC> hero){
+void GameMap::initialize(unique_ptr<PC> &hero){
 	this.hero = hero;
 	setUpMap();
 	populate();
@@ -54,8 +56,34 @@ void GameMap::clear(){
 	}
 }
 
-void GameMap::nextTurn(pair<CommandType c_type, CommandType c_type>){
+void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
+	// hero action
+	unique_ptr<Cell> target;
+	if(c_type.second == CommandType::nn){
+		target = grid[player_location.first-1][player_location.second];
+	} else if(c_type.second == CommandType::ne){
+		target = grid[player_location.first-1][player_location.second+1];
+	} else if(c_type.second == CommandType::nw){
+		target = grid[player_location.first-1][player_location.second-1];
+	} else if(c_type.second == CommandType::ss){
+		target = grid[player_location.first+1][player_location.second];
+        } else if(c_type.second == CommandType::se){
+		target = grid[player_location.first+1][player_location.second+1];
+        } else if(c_type.second == CommandType::sw){
+		target = grid[player_location.first+1][player_location.second-1];
+        } else if(c_type.second == CommandType::ee){
+		target = grid[player_location.first][player_location.second+1];
+        } else if(c_type.second == CommandType::ww){
+		target = grid[player_location.first][player_location.second-1];
+        }
 
+	if(c_type.first == CommandType::u){
+		// use potion at c_type.second
+	} else if(c_type.first == CommandType::a){
+		// attack at c_type.second
+	} else {
+
+	}
 }
 
 vector<vector<Cell>> GameMap::getGrid() const {

@@ -9,6 +9,7 @@
 class Cell;
 class Sprite;
 class PC;
+class AI;
 
 // This is the GameMap class. This class stores and manages the Cell grid,
 //   and Sprite interactions.
@@ -22,11 +23,11 @@ class GameMap {
 	std::unique_ptr<PC> hero;
 
 	// Populates the grid, i.e. spawns all Sprites
-	//    Called by initialize()
+	//    Called by initialize(...)
 	void populate();
 
 	// Sets up the grid, i.e. constructs all Cells
-	//    Called by initialize()
+	//    Called by initialize(...)
 	void setUpMap();
 
 	// static constants
@@ -38,10 +39,10 @@ class GameMap {
 	GameMap();
 
 	// Initializes the grid
-	void initialize();
+	void initialize(std::unique_ptr<Sprite> &hero);
 
 	// Adjusts state to reflect effects of next turn of the game
-	void nextTurn(std::pair<CommandType, CommandType> commands);
+	void nextTurn(std::pair<CommandType, CommandType> &commands);
 
 	// Returns the Cell grid
 	std::vector<std::vector<Cell>> getGrid() const;
