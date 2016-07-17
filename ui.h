@@ -10,6 +10,8 @@ class UI {
     public:
         CommandType getNextInput();
         void output(std::vector <std::vector <Cell>> grid);
+
+        void output_message(string s);
 }
 
 #endif

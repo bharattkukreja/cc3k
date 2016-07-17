@@ -39,8 +39,16 @@ CommandType TextUI::getNextInput() {
         command = CommandType::o;
     else if(s == "r")
         command = CommandType::r;
-    else
+    else if(s == "q")
         command = CommandType::q;
+    else if(s == "h")
+        command = CommandType::h;
+    else if(s == "e")
+        command = CommandType::e;
+    else if(s == "d")
+        command = CommandType::d;
+    else
+        command = CommandType::o;
 
     return command;
 }
@@ -84,6 +92,10 @@ void TextUI::output(vector <vector <Cell>> grid) {
         }        
     }        
 
+}
+
+void TextUI::output_message(string s) {
+    out << s << endl;
 }
 
 
