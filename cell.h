@@ -5,15 +5,15 @@
 #include <unique_ptr>
 #include <shared_ptr>
 
-// This class implements
+// This class implement Cells in the GameMap grid, determining the location of Sprites
 
 enum CellType {Floor, Door, Passage, Wall};
 
 class Cell {
 
-	vector<unique_ptr<Cell>> observers;
+	std::vector<std::unique_ptr<Cell>> observers;
 	CellType type;
-	shared_ptr<Sprite> sprite;
+	std::shared_ptr<Sprite> sprite;
 
    public:
 
@@ -27,7 +27,7 @@ class Cell {
 	void notifyAll();
 
 	// Method to add a Cell as an observer
-	void attach(unique_ptr<Cell>);
+	void attach(std::unique_ptr<Cell>);
 
 	// Method to return the type of the Cell
 	//   see the CellType enum for the different kinds
