@@ -9,7 +9,10 @@ using namespace std;
 Cell::Cell(CellType type) : type{type} {}
 
 void Cell::notify(Cell &a_cell) {
-	// tell your sprites
+	if(sprite != nullptr && a_cell.sprite!=nullptr && 
+		a_cell.sprite.isPC() && sprite.isNPC() && sprite.isHostile()){
+		
+	}
 }
 
 void Cell::notifyAll() {

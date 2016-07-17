@@ -15,6 +15,8 @@ class GameMap {
 	bool won;
 	pair<int, int> player_location;
 	vector<pair<int, int>> enemy_locations;
+	vector<NPC> enemies;
+	unique_ptr<PC> hero;
 
 	// Populates the grid, i.e. spawns all Sprites
 	// Called by init()
@@ -32,13 +34,16 @@ class GameMap {
 	void initialize();
 
 	// Adjusts state to reflect effects of next turn of the game
-	void nextTurn(CommandType c_type);
+	void nextTurn(pair<CommandType, CommandType> commands);
 
 	// Returns the Cell grid
 	std::vector<std::vector<Cell>> getGrid() const;
 
 	// Returns the value of won
 	bool isWon() const;
+
+	// Removes all sprites from grid
+	void clear();
 
 	~GameMap();
 };
