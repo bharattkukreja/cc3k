@@ -10,7 +10,7 @@ class TextUI : public UI {
         TextUI();
         CommandType getNextInput() override;
         void output(vector <vector <Cell>> grid) override;
-
+        void output_message(string s) override;
 }
 
 #endif
