@@ -17,10 +17,6 @@ const unsigned int GameMap::height = 30;
 
 GameMap::GameMap(){}
 
-void GameMap::populate() {
-
-}
-
 void GameMap::setUpMap(){
 	// temporary simplification of maps
 	for(int r=0; r<width; r++){
@@ -41,6 +37,19 @@ void GameMap::setUpMap(){
         }
 }
 
+void GameMap::populate(){
+	// place hero
+
+	// spawn stairs
+	
+	// spawn potions
+
+	// spawn gold
+
+	// spawn enemies
+
+}
+
 void GameMap::initialize(unique_ptr<PC> &hero){
 	this.hero = hero;
 	setUpMap();
@@ -56,34 +65,83 @@ void GameMap::clear(){
 	}
 }
 
+// Based on command, change target direction (r, c)
+void decideDirection(pair<CommandType, CommandType> &c_type, unsigned int & r, unsigned int & c){
+	if(c_type.second == CommandType::nn && r>0){
+                r--;
+        } else if(c_type.second == CommandType::ne && r>0
+                                                   && c<width){
+                r--;
+                c++;
+        } else if(c_type.second == CommandType::nw && r>0
+                                                   && c>0){
+                r--;
+                c--;
+        } else if(c_type.second == CommandType::ss && r<height){
+                r++;
+        } else if(c_type.second == CommandType::se && r<height
+                                                   && c<width){
+                r++;
+                c++;
+        } else if(c_type.second == CommandType::sw && r<height
+                                                   && c>0){
+                r++;
+                c--;
+        } else if(c_type.second == CommandType::ee && c<width){
+                c++;
+        } else if(c_type.second == CommandType::ww && c>0){
+                c--;
+        }
+}
+
 void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 	// hero action
 	unique_ptr<Cell> target;
-	if(c_type.second == CommandType::nn){
-		target = grid[player_location.first-1][player_location.second];
-	} else if(c_type.second == CommandType::ne){
-		target = grid[player_location.first-1][player_location.second+1];
-	} else if(c_type.second == CommandType::nw){
-		target = grid[player_location.first-1][player_location.second-1];
-	} else if(c_type.second == CommandType::ss){
-		target = grid[player_location.first+1][player_location.second];
-        } else if(c_type.second == CommandType::se){
-		target = grid[player_location.first+1][player_location.second+1];
-        } else if(c_type.second == CommandType::sw){
-		target = grid[player_location.first+1][player_location.second-1];
-        } else if(c_type.second == CommandType::ee){
-		target = grid[player_location.first][player_location.second+1];
-        } else if(c_type.second == CommandType::ww){
-		target = grid[player_location.first][player_location.second-1];
-        }
+	unsigned int r = player_location.first;
+	unsigned int c = player_location.second;
+
+	decideDirection(c_type, r, c);
+	target = grid[r][c];
+
+	if((r==player_location.first && c==player_location.second) 
+		|| target.getType() == CellType::Wall){
+		target = nullptr;
+		// invalid location to move to
+	}
 
 	if(c_type.first == CommandType::u){
 		// use potion at c_type.second
-	} else if(c_type.first == CommandType::a){
-		// attack at c_type.second
-	} else {
+		if(target!=nullptr && !target->isEmpty() && target->sprite->isItem()){
+			dynamic_pointer_cast<Item>(target->sprite)->use(hero);
+			delete target->sprite;
+			target->sprite = nullptr;
+		}
 
+	} else if(c_type.first == CommandType::a){
+		// attack enemy at c_type.second
+		if(target!=nullptr && !target->isEmpty() && target->sprite->isEnemy()){
+			hero->hit(dynamic_pointer_cast<Enemy>(target->sprite));
+		}
+
+	} else {
+		// try to move to this location
+		if(target!=nullptr && (target->isEmpty() || target->sprite->Type() == SpriteType::Gold)){
+			// use gold
+			if(target->sprite->getType() == SpriteType::Gold){
+				dynamic_pointer_cast<Potion>(target->sprite)->use(hero);
+                        	delete target->sprite;
+                        	target->sprite = nullptr;
+			}
+			
+			// move hero
+			target->sprite = hero;
+			grid[player_location.first][player_location.second] = nullptr;
+			player_location.first = r;
+			player_location.second = c;
+		}
 	}
+
+	ai.nextTurn();
 }
 
 vector<vector<Cell>> GameMap::getGrid() const {

@@ -39,4 +39,6 @@ bool Cell::isEmpty() const {
 	return (sprite == null);
 }
 
-Cell::~Cell() {}
+Cell::~Cell() {
+	delete sprite;
+}
