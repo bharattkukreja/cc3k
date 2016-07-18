@@ -13,11 +13,6 @@ void Cell::notify(Cell &a_cell) {
 	if(sprite != nullptr && a_cell.sprite!=nullptr && 
 		a_cell.sprite.isPC() && sprite.isNPC() && sprite.isHostile()){
 		sprite.hit(a_cell.sprite);
-
-		// remove attacked sprite from grid if health <=0
-		if(a_cell.sprite.getHP()<=0){
-			a_cell.sprite = nullptr;
-		}
 	}
 }
 

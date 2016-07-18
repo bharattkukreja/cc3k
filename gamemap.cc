@@ -120,7 +120,14 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 	} else if(c_type.first == CommandType::a){
 		// attack enemy at c_type.second
 		if(target!=nullptr && !target->isEmpty() && target->sprite->isEnemy()){
-			hero->hit(dynamic_pointer_cast<Enemy>(target->sprite));
+			unique_ptr<Enemy> e = dynamic_pointer_cast<Enemy>(target->sprite);
+			hero->hit(e);
+			
+			// remove npc if its HP is less than 0
+			if(e->getHP()<=0){
+				delete target->sprite;
+				target->sprite = nullptr;
+			}
 		}
 
 	} else {
