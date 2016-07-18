@@ -14,7 +14,8 @@ void AI::move() {
             
             int x_coord = x + rand1;
             int y_coord = y + rand2;
-            if((x_coord >= 0) && (y_coord >= 0)) {
+
+            if((x_coord >= 0) && (y_coord >= 0) && (x_coord <= grid.size) && (y_coord <= grid.at(0).size)) {
                 if(grid[x_coord][y_coord].getType() == CellType::Floor) {
                     grid[x_coord][y_coord].sprite = grid[x][y].sprite;
                     grid[x][y].sprite = nullptr;
