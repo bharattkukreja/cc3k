@@ -65,8 +65,25 @@ void GameMap::setUpMap(){
 
 void GameMap::populate(){
 	// place hero
-
+	for(int r=1; r<height-1; r++){
+		for(int c=1; c<width-1; c++){
+			if(grid[r][c].getType() == CellType::Floor){
+				grid[r][c].sprite = hero;
+				r = height;
+				c = width;
+			}
+		}
+	}
 	// spawn stairs
+	for(int r=height-2; r>0; r--){
+		for(int c=width-2; c>0; c--){
+			if(grid[r][c].getType() == CellType::Floor){
+                                grid[r][c].sprite = &(Stairs());
+                                r = height;     
+                                c = width;
+                        }
+		}
+	}
 	
 	// spawn potions
 
