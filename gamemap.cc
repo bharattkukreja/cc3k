@@ -23,17 +23,25 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
 		grid.emplace_back(vector<Cell>());
 		for(int c=0; c<height; c++){
 			grid.emplace_back(Cell(c_grid[r][c]));
+			
+			if(grid[r][c].getType()==CellType::Wall_horizontal
+				&& grid[r][c].getType()==CellType::Wall_vertical
+				&& grid[r][c].getType()==CellType::Space){
+				continue;
+			}
+			if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
+               		        && grid[r-1][c].getType()!=CellType::Wall_vertical
+		      		 && grid[r-1][c].getType()!=CellType::Space){
+	                	grid[r-1][c].attach(grid[r][c]);
+        	                grid[r][c].attach(grid[r-1][c]);
+               		}
+    	           	if(c>0 && grid[r][c-1].getType()!=CellType::Wall_horizontal
+        	               && grid[r][c-1].getType()!=CellType::Wall_vertical
+                	       && grid[r][c-1].getType()!=CellType::Space){
+     		           	grid[r][c-1].attach(grid[r][c]);
+                	        grid[r][c].attach(grid[r][c-1]);
+	               	}
 		}
-		if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
-                       && grid[r-1][c].getType()!=CellType::Wall_vertical){
-                	grid[r-1][c].attach(grid[r][c]);
-                        grid[r][c].attach(grid[r-1][c]);
-                }
-               	if(c>0 && grid[r][c-1].getType()!=CellType::Wall
-                       && grid[r][c].getType()!=CellType::Wall){
-                	grid[r][c-1].attach(grid[r][c]);
-                        grid[r][c].attach(grid[r][c-1]);
-               	}
 	}
 }
 
@@ -49,13 +57,21 @@ void GameMap::setUpMap(){
 			} else {
 				grid[r].emplace_back(Cell(CellType::Floor));
 			}
+
+			if(grid[r][c].getType()==CellType::Wall_horizontal
+                                && grid[r][c].getType()==CellType::Wall_vertical
+                                && grid[r][c].getType()==CellType::Space){
+                                continue;
+                        }
                         if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
-			       && grid[r-1][c].getType()!=CellType::Wall_vertical){
+                                && grid[r-1][c].getType()!=CellType::Wall_vertical
+                                 && grid[r-1][c].getType()!=CellType::Space){
                                 grid[r-1][c].attach(grid[r][c]);
                                 grid[r][c].attach(grid[r-1][c]);
                         }
-                        if(c>0 && grid[r][c-1].getType()!=CellType::Wall
-                               && grid[r][c].getType()!=CellType::Wall){
+                        if(c>0 && grid[r][c-1].getType()!=CellType::Wall_horizontal
+                               && grid[r][c-1].getType()!=CellType::Wall_vertical
+                               && grid[r][c-1].getType()!=CellType::Space){
                                 grid[r][c-1].attach(grid[r][c]);
                                 grid[r][c].attach(grid[r][c-1]);
                         }
