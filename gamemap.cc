@@ -18,17 +18,26 @@ const unsigned int GameMap::chamber_num = 5;
 
 GameMap::GameMap() : floor_count{0} {}
 
+void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
+	for(int r=0; r<width; r++){
+		grid.emplace_back(vector<Cell>());
+		for(int c=0; c<height; c++){
+			grid.emplace_back(Cell(c_grid[r][c]));
+		}
+	}
+}
+
 void GameMap::setUpMap(){
 	// temporary simplification of maps
 	for(int r=0; r<width; r++){
-                grid[r] = vector<Cell>;
+                grid.emplace_back(vector<Cell>());
                 for(int c=0; c<height; c++){
 			if(r==0 || r==width-1){
-				grid[r][c] = Cell(CellType::Wall_horizontal);
+				grid[r].emplace_back(Cell(CellType::Wall_horizontal));
 			} else if(c==0 || r==height-1) {
-				grid[r][c] = Cell(CellType::Wall_vertical);
+				grid[r].emplace_back(Cell(CellType::Wall_vertical));
 			} else {
-				grid[r][c] = Cell(CellType::Floor);
+				grid[r].emplace_back(Cell(CellType::Floor));
 			}
                         if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
 			       && grid[r-1][c].getType()!=CellType::Wall_vertical){
@@ -60,7 +69,6 @@ void GameMap::populate(){
 void GameMap::initialize(unique_ptr<PC> &hero){
 	this.hero = hero;
 	floor_count{1};
-	setUpMap();
 	populate();
 }
 
