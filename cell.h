@@ -7,7 +7,7 @@
 
 // This class implement Cells in the GameMap grid, determining the location of Sprites
 
-enum CellType {Floor, Door, Passage, Wall};
+enum CellType {Floor, Door, Passage, Wall_horizontal, Wall_vertical};
 
 class Cell {
 
