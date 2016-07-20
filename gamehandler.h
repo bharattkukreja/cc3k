@@ -6,7 +6,7 @@
 class GameHandler {
     GameMap g;
     UI ui;
-    std::unique_ptr<PlayerCharacter> hero;
+    std::unique_ptr<PC> hero;
 
     public:
         void play();

@@ -26,6 +26,7 @@ void GameHandler::play() {
         }       
         else if(input2 == Commandtype::r) {
             delete hero;
+            ui.output_message("Restarting the game");
             play();
         }
         else if(input2 == Commandtype::q) {
@@ -33,6 +34,17 @@ void GameHandler::play() {
             ui.output_message("Thanks for playing the game");
             break;
         }
+        else if(g.getFloorCount() > 5) {
+            delete hero;
+            ui.output_message("You Won! Congratulations!");
+            break;
+        }
+        else if(hero.hp == 0) {
+            delete hero;
+            ui.output_message("You Lost!");
+            break;
+        }
+
         command_pair = make_pair(input1, input2);
         g.nextTurn(command_pair);
     }
