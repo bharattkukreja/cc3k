@@ -21,6 +21,7 @@ class GameMap {
 	std::vector<std::pair<int, int>> enemy_locations;
 	std::vector<Sprite> sprites;
 	std::unique_ptr<PC> hero;
+	unsigned int floor_count;
 
 	// Populates the grid, i.e. spawns all Sprites
 	//    Called by initialize(...)
@@ -49,6 +50,9 @@ class GameMap {
 
 	// Returns the value of won
 	bool isWon() const;
+
+	// Returns the floor number
+	unsigned int getFloorCount() const;
 
 	// Removes all sprites from grid
 	void clear();

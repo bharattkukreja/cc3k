@@ -12,19 +12,45 @@ using namespace std;
 
 const unsigned int GameMap::width = 79;
 const unsigned int GameMap::height = 30;
+const unsigned int GameMap::chamber_num = 5;
 
 // Methods
 
-GameMap::GameMap(){}
+GameMap::GameMap() : floor_count{0} {}
+
+void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
+	for(int r=0; r<width; r++){
+		grid.emplace_back(vector<Cell>());
+		for(int c=0; c<height; c++){
+			grid.emplace_back(Cell(c_grid[r][c]));
+		}
+		if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
+                       && grid[r-1][c].getType()!=CellType::Wall_vertical){
+                	grid[r-1][c].attach(grid[r][c]);
+                        grid[r][c].attach(grid[r-1][c]);
+                }
+               	if(c>0 && grid[r][c-1].getType()!=CellType::Wall
+                       && grid[r][c].getType()!=CellType::Wall){
+                	grid[r][c-1].attach(grid[r][c]);
+                        grid[r][c].attach(grid[r][c-1]);
+               	}
+	}
+}
 
 void GameMap::setUpMap(){
 	// temporary simplification of maps
 	for(int r=0; r<width; r++){
-                grid[r] = vector<Cell>;
+                grid.emplace_back(vector<Cell>());
                 for(int c=0; c<height; c++){
-                        grid[r][c] = Cell(CellType::Floor);
-                        if(r>0 && grid[r-1][c].getType()!=CellType::Wall
-                               && grid[r][c].getType()!=CellType::Wall){
+			if(r==0 || r==width-1){
+				grid[r].emplace_back(Cell(CellType::Wall_horizontal));
+			} else if(c==0 || r==height-1) {
+				grid[r].emplace_back(Cell(CellType::Wall_vertical));
+			} else {
+				grid[r].emplace_back(Cell(CellType::Floor));
+			}
+                        if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
+			       && grid[r-1][c].getType()!=CellType::Wall_vertical){
                                 grid[r-1][c].attach(grid[r][c]);
                                 grid[r][c].attach(grid[r-1][c]);
                         }
@@ -52,12 +78,11 @@ void GameMap::populate(){
 
 void GameMap::initialize(unique_ptr<PC> &hero){
 	this.hero = hero;
-	setUpMap();
+	floor_count{1};
 	populate();
 }
 
 void GameMap::clear(){
-	enemies.clear();
 	for(auto row: grid){
 		for(auto cell: grid){
 			cell.sprite = nullptr;
@@ -104,7 +129,7 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 	target = grid[r][c];
 
 	if((r==player_location.first && c==player_location.second) 
-		|| target.getType() == CellType::Wall){
+		|| target.getType() == CellType::Wall_vertical || target.getType() == CellType::Wall_horizontal){
 		target = nullptr;
 		// invalid location to move to
 	}
@@ -132,7 +157,12 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 
 	} else {
 		// try to move to this location
-		if(target!=nullptr && (target->isEmpty() || target->sprite->Type() == SpriteType::Gold)){
+		if(target != nullptr && (target->getType() == SpriteType::Stairs)) {
+			floor_count++;
+			clear();
+			populate();
+			return;
+		} else if(target!=nullptr && (target->isEmpty() || target->sprite->Type() == SpriteType::Gold)){
 			// use gold
 			if(target->sprite->getType() == SpriteType::Gold){
 				dynamic_pointer_cast<Potion>(target->sprite)->use(hero);
@@ -151,6 +181,10 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 	ai.nextTurn();
 }
 
+unsigned int GameMap::getFloorCount() const {
+	return floor_count;
+}
+
 vector<vector<Cell>> GameMap::getGrid() const {
 	return grid;
 }
@@ -159,4 +193,6 @@ bool GameMap::isWon() const {
 	return won;
 }
 
-GameMap::~GameMap(){}
+GameMap::~GameMap(){
+	clear();
+}
