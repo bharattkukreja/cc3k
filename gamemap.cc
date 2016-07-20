@@ -24,6 +24,16 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
 		for(int c=0; c<height; c++){
 			grid.emplace_back(Cell(c_grid[r][c]));
 		}
+		if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
+                       && grid[r-1][c].getType()!=CellType::Wall_vertical){
+                	grid[r-1][c].attach(grid[r][c]);
+                        grid[r][c].attach(grid[r-1][c]);
+                }
+               	if(c>0 && grid[r][c-1].getType()!=CellType::Wall
+                       && grid[r][c].getType()!=CellType::Wall){
+                	grid[r][c-1].attach(grid[r][c]);
+                        grid[r][c].attach(grid[r][c-1]);
+               	}
 	}
 }
 
