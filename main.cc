@@ -1,8 +1,12 @@
 #include "gamehandler.h"
+#include <cstdlib>
 
-// This is the main program
-
-int main() {
-	GameHandler gh;
-	gh.play();
+int main(int argc, const char *argv[])
+{
+    GameHandler gh;
+    if(argc < 2) {
+        cout << "Please provide the floor layout" << endl;
+        exit(0);
+    }
+    gh.play(argv[1]);
 }

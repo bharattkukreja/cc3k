@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void GameHandler::play() {
+void GameHandler::play(string file) {
     
     ui.output_message("Enter the character you want to play with");
     Commandtype c = ui.getNextInput();
@@ -15,6 +15,43 @@ void GameHandler::play() {
     else
         hero = new Orc();
     
+    vector <vector <CellType>> layout;
+    
+    ifstream fin(file);
+    
+    while(!fin.eof()) {
+        string line;
+        getline(fin, line);
+        istringstream iss(line);
+        char ch;
+        vector <CellType> temp;
+
+        while(iss >> ch) {
+            CellType c_type;  
+            
+            if(ch == '|')
+                c_type = CellType::Wall_vertical;
+            else if(ch == '-')
+                c_type = CellType::Wall_horizontal;
+            else if(ch == '+')
+                c_type = CellType::Door;
+            else if(ch == '#')
+                c_type = CellType::Passage;
+            else if(ch == '.')
+                c_type = CellType::Floor;
+            else if(ch == ' ')
+                c_type = CellType::Space;
+            else
+                break;
+            
+            temp.emplace_back(c_type);
+        }
+
+        layout.emplace_back(temp);
+
+    }
+
+    g.setUpMap(layout);
     g.initialize(hero);
     
     while(true) {
@@ -44,7 +81,8 @@ void GameHandler::play() {
             ui.output_message("You Lost!");
             break;
         }
-
+        
+        ui.output(g.getGrid());
         command_pair = make_pair(input1, input2);
         g.nextTurn(command_pair);
     }

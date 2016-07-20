@@ -68,7 +68,9 @@ void TextUI::output(vector <vector <Cell>> grid) {
             else if(type == CellType::Wall_horizontal)
                 out << "-";
             else if(type == CellType::Wall_vertical)
-                out << "|"
+                out << "|";
+            else if(type == CellType::Space)
+                out << " ";
             else {
                 unique_ptr<Sprite> s = single_cell.sprite;
                 SpriteType sprite_type = s->getType();
@@ -102,7 +104,7 @@ void TextUI::output(vector <vector <Cell>> grid) {
     out << "HP: " << hero.hp << endl;
     out << "Atk: " << hero.atk << endl;
     out << "Def: " << hero.def << endl;
-    out << "Action: " << 
+    out << "Action: " << endl; 
 
 }
 
