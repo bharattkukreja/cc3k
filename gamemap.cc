@@ -25,7 +25,7 @@ void GameMap::setUpMap(){
                 for(int c=0; c<height; c++){
 			if(r==0 || r==width-1){
 				grid[r][c] = Cell(CellType::Wall_horizontal);
-			} else if() {
+			} else if(c==0 || r==height-1) {
 				grid[r][c] = Cell(CellType::Wall_vertical);
 			} else {
 				grid[r][c] = Cell(CellType::Floor);
@@ -111,7 +111,7 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 	target = grid[r][c];
 
 	if((r==player_location.first && c==player_location.second) 
-		|| target.getType() == CellType::Wall){
+		|| target.getType() == CellType::Wall_vertical || target.getType() == CellType::Wall_horizontal){
 		target = nullptr;
 		// invalid location to move to
 	}
