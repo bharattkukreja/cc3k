@@ -1,10 +1,12 @@
 #ifndef __PC_H_
 #define __PC_H_
 
-#include "sprite"
+#include "sprite.h"
 #include "character.h"
 #include "spritetype.h"
 #include "npc.h"
+
+class Potion;
 
 class PC : public Character {
     unsigned int baseHP, baseAtk, baseDef;

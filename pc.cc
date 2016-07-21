@@ -1,6 +1,7 @@
 #include "character.h"
 #include "pc.h"
 #include "npc.h"
+#include "potion.h"
 
 bool PC::isPC() { return true; }
 

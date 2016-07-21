@@ -1,10 +1,9 @@
 #ifndef __ENEMY_H_
 #define __ENEMY_H_
 
-#include "spritetype.h"
-#include "sprite.h"
 #include "character.h"
-#include "pc.h"
+
+class PC;
 
 class NPC : public Character {
     unsigned int goldDropped;

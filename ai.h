@@ -7,11 +7,12 @@
 
 class AI {
     std::vector <std::pair <int, int>> enemyLocations;
-    <vector <vector <Cell>> &grid;
+    std::vector <std::vector <Cell>> &grid;
 
-pubic:
-    void move(); 
-}
+public:
+    void move();
+    AI(std::vector <std::vector <Cell>> grid);
+};
 
 
 #endif

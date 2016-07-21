@@ -2,6 +2,7 @@
 #define __GAMEHANDLER_H__
 #include "ui.h"
 #include "gamemap.h"
+#include "pc.h"
 
 class GameHandler {
     GameMap g;

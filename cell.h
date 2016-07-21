@@ -14,9 +14,10 @@ class Cell {
 
 	std::vector<std::unique_ptr<Cell>> observers;
 	CellType type;
-	std::shared_ptr<Sprite> sprite;
-
+	
    public:
+
+        std::shared_ptr<Sprite> sprite;
 
 	Cell(CellType type);
 
