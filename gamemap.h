@@ -2,9 +2,8 @@
 #define _GAME_MAP_HEADER_
 
 #include <vector>
-#include <pair>
-#include <unique_ptr>
-#include <commands.h>
+#include <utility>
+#include "commands.h"
 
 class Cell;
 class Sprite;

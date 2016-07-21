@@ -2,9 +2,7 @@
 #define _CELL_HEADER_
 
 #include <vector>
-#include <unique_ptr>
-#include <shared_ptr>
-
+#include <memory>
 // This class implement Cells in the GameMap grid, determining the location of Sprites
 
 enum CellType {Floor, Door, Passage, Wall_horizontal, Wall_vertical, Space};
