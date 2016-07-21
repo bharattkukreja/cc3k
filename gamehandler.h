@@ -9,8 +9,8 @@ class GameHandler {
     std::unique_ptr<PC> hero;
 
     public:
-        void play();
-}
+        void play(std::string file);
+};
 
 
 
