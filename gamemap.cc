@@ -3,6 +3,8 @@
 #include "gamemap.h"
 #include "cell.h"
 #include "commands.h"
+#include "sprite.h"
+#include "pc.h"
 
 using namespace std;
 
