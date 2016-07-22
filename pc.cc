@@ -1,7 +1,6 @@
-#include "character.h"
 #include "pc.h"
 #include "npc.h"
-#include "potion.h"
+using namespace std;
 
 bool PC::isPC() { return true; }
 
@@ -35,9 +34,5 @@ virtual void PC::changeHP(const int amount) {
 virtual void PC::changeAtk(const int amount) { changeAttr(atk, amount, 1); }
 
 virtual void PC::changeDef(const int amount) { changeAttr(def, amount, 1); }
-
-virtual void PC::drink(Potion & p) {
-    p.use(*this);
-}
 
 virtual int PC::score() { return gold; }

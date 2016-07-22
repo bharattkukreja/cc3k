@@ -1,12 +1,9 @@
 #ifndef __PC_H_
 #define __PC_H_
 
-#include "sprite.h"
 #include "character.h"
-#include "spritetype.h"
-#include "npc.h"
 
-class Potion;
+class NPC;
 
 class PC : public Character {
     unsigned int baseHP, baseAtk, baseDef;
@@ -17,13 +14,7 @@ class PC : public Character {
     virtual bool hit(NPC & target);
     virtual void resetPotions();
     virtual void changeGold(const int amount);
-    virtual void changeHP(const int amount);
-    virtual void changeAtk(const int amount);
-    virtual void changeDef(const int amount);
-    virtual void drink(Potion & p);
     virtual int score() const;
 };
-
-void changeAttr(unsigned int & attribute, const int amount, const int minValue);
 
 #endif

@@ -2,9 +2,15 @@
 #include "pc.h"
 using namespace std;
 
-const int changeAtkPot = 5;
+extern const int valueAtkPot;
 
-AtkPot::AtkPot(const bool positive, const bool used = true): Potion::value{changeAtkPot}, Potion::positive{positive}, Item::used{used} {}
+extern bool visiblePosAtkPot;
+
+extern bool visibleNegAtkPot;
+
+AtkPot::AtkPot(const bool positive): Potion::value{valueAtkPot}, Potion::positive{positive} {
+    Potion::visible = positive ? visiblePosAtkPot : visibleNegAtkPot;
+}
 
 void AtkPot::use(PC & user) {
     int effect = change;

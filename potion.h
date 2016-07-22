@@ -4,9 +4,14 @@
 #include "item.h"
 
 class Potion : public Item {
- public:
-    bool isVisible, positive;
+    bool visible, positive;
     int value;
+ public:
+    bool getVisible() const;
+    bool getPositive() const;
+    int getValue() const;
+    void setVisible(bool nowVisible);
+    // don't need setters for positive or value because they don't change after the potion is ctor'd
 };
 
 #endif
