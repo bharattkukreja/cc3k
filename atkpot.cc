@@ -2,8 +2,8 @@
 #include "pc.h"
 using namespace std;
 
-static visiblePositive = false;
-static visibleNegative = false;
+static bool visiblePositive = false;
+static bool visibleNegative = false;
 
 bool AtkPot::isVisible() { return positive ? visiblePositive : visibleNegative; }
 

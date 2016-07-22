@@ -1,7 +1,7 @@
 #include "potion.h"
 using namespace std;
 
-bool Potion::getPositive() { return positive; }
+bool Potion::isPositive() { return positive; }
 
 int Potion::getValue() { return value; }
 

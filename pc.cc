@@ -2,6 +2,10 @@
 #include "npc.h"
 using namespace std;
 
+PC::PC(unsigned int HP, unsigned int atk, unsigned int def): Character{hp, atk, def}, maxHP{HP}, baseAtk{atk}, baseDef{def} {}
+
+PC::PC(const PC & other): Character{other.getHP(), other.getAtk(), other.getDef()}, maxHP{other.maxHP}, baseAtk{other.baseAtk}, baseDef{other.baseDef} {}
+
 bool PC::isPC() { return true; }
 
 int PC::resetPotions() {
