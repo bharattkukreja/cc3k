@@ -33,15 +33,15 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
             }
 
             if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
-                && grid[r-1][c].getType()!=CellType::Wall_vertical
-                 && grid[r-1][c].getType()!=CellType::Space){
+                   && grid[r-1][c].getType()!=CellType::Wall_vertical
+                   && grid[r-1][c].getType()!=CellType::Space){
                 grid[r-1][c].attach(grid[r][c]);
                 grid[r][c].attach(grid[r-1][c]);
             }
 
             if(c>0 && grid[r][c-1].getType()!=CellType::Wall_horizontal
-               && grid[r][c-1].getType()!=CellType::Wall_vertical
-               && grid[r][c-1].getType()!=CellType::Space){
+                   && grid[r][c-1].getType()!=CellType::Wall_vertical
+                   && grid[r][c-1].getType()!=CellType::Space){
                 grid[r][c-1].attach(grid[r][c]);
                 grid[r][c].attach(grid[r][c-1]);
             }
