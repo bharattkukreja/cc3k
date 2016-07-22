@@ -13,7 +13,7 @@ class AtkPot : public Potion {
  public:
     void use(PC & user) override; // AtkPots change their user's attack
     explicit AtkPot(const bool positive); // value is a default value and isVisible comes with them
-    AtkPot(const AtkPot & other): visible{other.visible}, positive{other.positive}, value{other.value} {}
+    AtkPot(const AtkPot & other): visible{other.getVisible()}, positive{other.getPositive()}, value{other.getValue()} {}
     AtkPot & operator=(const AtkPot & other);
     ~AtkPot() {};
 };
