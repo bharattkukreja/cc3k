@@ -10,7 +10,6 @@ class PC : public Character {
  protected:
     unsigned int gold; // players can pick up money, which goes here!
  public:
-    PC(unsigned int 
     bool isPC() override;
     virtual bool hit(NPC & target); // by default, this just calls strike() from character.h
     virtual void resetPotions(); // resets the effects of atk/def potions
