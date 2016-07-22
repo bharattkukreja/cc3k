@@ -21,144 +21,146 @@ const unsigned int GameMap::chamber_num = 5;
 GameMap::GameMap() : floor_count{0} {}
 
 void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
-	for(int r=0; r<width; r++){
-		grid.emplace_back(vector<Cell>());
-		for(int c=0; c<height; c++){
-			grid.emplace_back(Cell(c_grid[r][c]));
+    for(int r=0; r<width; r++){
+	grid.emplace_back(vector<Cell>());
+	for(int c=0; c<height; c++){
+	    grid.emplace_back(Cell(c_grid[r][c]));
 			
-			if(grid[r][c].getType()==CellType::Wall_horizontal
-				&& grid[r][c].getType()==CellType::Wall_vertical
-				&& grid[r][c].getType()==CellType::Space){
-				continue;
-			}
+            if(grid[r][c].getType()==CellType::Wall_horizontal
+                && grid[r][c].getType()==CellType::Wall_vertical
+                && grid[r][c].getType()==CellType::Space){
+                continue;
+            }
 
-			if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
-               		        && grid[r-1][c].getType()!=CellType::Wall_vertical
-		      		 && grid[r-1][c].getType()!=CellType::Space){
-	                	grid[r-1][c].attach(grid[r][c]);
-        	                grid[r][c].attach(grid[r-1][c]);
-               		}
+            if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
+                && grid[r-1][c].getType()!=CellType::Wall_vertical
+                 && grid[r-1][c].getType()!=CellType::Space){
+                grid[r-1][c].attach(grid[r][c]);
+                grid[r][c].attach(grid[r-1][c]);
+            }
 
-    	           	if(c>0 && grid[r][c-1].getType()!=CellType::Wall_horizontal
-        	               && grid[r][c-1].getType()!=CellType::Wall_vertical
-                	       && grid[r][c-1].getType()!=CellType::Space){
-     		           	grid[r][c-1].attach(grid[r][c]);
-                	        grid[r][c].attach(grid[r][c-1]);
-	               	}
-		}
+            if(c>0 && grid[r][c-1].getType()!=CellType::Wall_horizontal
+               && grid[r][c-1].getType()!=CellType::Wall_vertical
+               && grid[r][c-1].getType()!=CellType::Space){
+                grid[r][c-1].attach(grid[r][c]);
+                grid[r][c].attach(grid[r][c-1]);
+            }
 	}
+    }
 }
 
 void GameMap::setUpMap(){
-	// temporary simplification of maps
-	for(int r=0; r<width; r++){
-                grid.emplace_back(vector<Cell>());
-                for(int c=0; c<height; c++){
-			if(r==0 || r==width-1){
-				grid[r].emplace_back(Cell(CellType::Wall_horizontal));
-			} else if(c==0 || r==height-1) {
-				grid[r].emplace_back(Cell(CellType::Wall_vertical));
-			} else {
-				grid[r].emplace_back(Cell(CellType::Floor));
-			}
+    // temporary simplification of maps
+    for(int r=0; r<width; r++){
+        grid.emplace_back(vector<Cell>());
+        for(int c=0; c<height; c++){
+            if(r==0 || r==width-1){
+                grid[r].emplace_back(Cell(CellType::Wall_horizontal));
+            } else if(c==0 || r==height-1) {
+                grid[r].emplace_back(Cell(CellType::Wall_vertical));
+            } else {
+                grid[r].emplace_back(Cell(CellType::Floor));
+            }
 
-			if(grid[r][c].getType()==CellType::Wall_horizontal
-                                && grid[r][c].getType()==CellType::Wall_vertical
-                                && grid[r][c].getType()==CellType::Space){
-                                continue;
-                        }
+            if(grid[r][c].getType()==CellType::Wall_horizontal
+                && grid[r][c].getType()==CellType::Wall_vertical
+                && grid[r][c].getType()==CellType::Space){
+                continue;
+            }
 
-                        if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
-                                && grid[r-1][c].getType()!=CellType::Wall_vertical
-                                 && grid[r-1][c].getType()!=CellType::Space){
-                                grid[r-1][c].attach(grid[r][c]);
-                                grid[r][c].attach(grid[r-1][c]);
-                        }
+            if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
+                   && grid[r-1][c].getType()!=CellType::Wall_vertical
+                   && grid[r-1][c].getType()!=CellType::Space){
+                
+                grid[r-1][c].attach(grid[r][c]);
+                grid[r][c].attach(grid[r-1][c]);
+            
+            }
 
-                        if(c>0 && grid[r][c-1].getType()!=CellType::Wall_horizontal
-                               && grid[r][c-1].getType()!=CellType::Wall_vertical
-                               && grid[r][c-1].getType()!=CellType::Space){
-                                grid[r][c-1].attach(grid[r][c]);
-                                grid[r][c].attach(grid[r][c-1]);
-                        }
-                }
+            if(c>0 && grid[r][c-1].getType()!=CellType::Wall_horizontal
+                   && grid[r][c-1].getType()!=CellType::Wall_vertical
+                   && grid[r][c-1].getType()!=CellType::Space){
+                grid[r][c-1].attach(grid[r][c]);
+                grid[r][c].attach(grid[r][c-1]);
+            }
         }
+    }
 }
 
 void GameMap::populate(){
-	// place hero
-	for(int r=1; r<height-1; r++){
-		for(int c=1; c<width-1; c++){
-			if(grid[r][c].getType() == CellType::Floor){
-				grid[r][c].sprite = hero;
-				r = height;
-				c = width;
-			}
-		}
-	}
+    // place hero
+    for(int r=1; r<height-1; r++){
+	for(int c=1; c<width-1; c++){
+	    if(grid[r][c].getType() == CellType::Floor){
+	        grid[r][c].sprite = hero;
+		r = height;
+		c = width;
+	    }
+    	}
+    }
 	// spawn stairs
-	for(int r=height-2; r>0; r--){
-		for(int c=width-2; c>0; c--){
-			if(grid[r][c].getType() == CellType::Floor){
-                                grid[r][c].sprite = new Stairs();
-                                r = height;     
-                                c = width;
-                        }
-		}
+    for(int r=height-2; r>0; r--){
+	for(int c=width-2; c>0; c--){
+	    if(grid[r][c].getType() == CellType::Floor){
+                grid[r][c].sprite = new Stairs();
+                r = height;     
+                c = width;
+            }
 	}
+    }
 	
-	// spawn potions
+    // spawn potions
 
-	// spawn gold
+    // spawn gold
 
-	// spawn enemies
+    // spawn enemies
 
 }
 
 void GameMap::initialize(unique_ptr<PC> &hero){
-	this.hero = hero;
-	floor_count{1};
-	populate();
+    this.hero = hero;
+    floor_count{1};
+    populate();
 }
 
 void GameMap::clear(){
-	for(auto row: grid){
-		for(auto cell: grid){
-			if(!cell.sprite->isPC()){
-				delete cell.sprite;
-			}
-			cell.sprite = nullptr;
-		}
-	}
+    for(auto row: grid){
+        for(auto cell: grid){
+            if(!cell.sprite->isPC()){
+                delete cell.sprite;
+            }
+            cell.sprite = nullptr;
+        }
+    }
 }
 
 // Based on command, change target direction (r, c)
 void decideDirection(pair<CommandType, CommandType> &c_type, unsigned int & r, unsigned int & c){
-	if(c_type.second == CommandType::nn && r>0){
-                r--;
-        } else if(c_type.second == CommandType::ne && r>0
-                                                   && c<width){
-                r--;
-                c++;
-        } else if(c_type.second == CommandType::nw && r>0
-                                                   && c>0){
-                r--;
-                c--;
-        } else if(c_type.second == CommandType::ss && r<height){
-                r++;
-        } else if(c_type.second == CommandType::se && r<height
-                                                   && c<width){
-                r++;
-                c++;
-        } else if(c_type.second == CommandType::sw && r<height
-                                                   && c>0){
-                r++;
-                c--;
-        } else if(c_type.second == CommandType::ee && c<width){
-                c++;
-        } else if(c_type.second == CommandType::ww && c>0){
-                c--;
-        }
+    if(c_type.second == CommandType::nn && r>0){
+        r--;
+    } else if(c_type.second == CommandType::ne && r>0
+                                               && c<width){
+        r--;
+        c++;
+    } else if(c_type.second == CommandType::nw && r>0
+                                               && c>0){
+        r--;
+        c--;
+    } else if(c_type.second == CommandType::ss && r<height){
+        r++;
+    } else if(c_type.second == CommandType::se && r<height
+                                               && c<width){
+        r++;
+        c++;
+    } else if(c_type.second == CommandType::sw && r<height
+                                               && c>0){
+        r++;
+        c--;
+    } else if(c_type.second == CommandType::ee && c<width){
+        c++;
+    } else if(c_type.second == CommandType::ww && c>0){
+        c--;
+    }
 }
 
 void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
@@ -224,17 +226,17 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 }
 
 unsigned int GameMap::getFloorCount() const {
-	return floor_count;
+    return floor_count;
 }
 
 vector<vector<Cell>> &GameMap::getGrid() const {
-	return grid;
+    return grid;
 }
 
 bool GameMap::isWon() const {
-	return won;
+    return won;
 }
 
 GameMap::~GameMap(){
-	clear();
+    clear();
 }
