@@ -19,17 +19,17 @@ class Cell {
 
         std::shared_ptr<Sprite> sprite;
 
-	Cell(CellType type);
+	explicit Cell(CellType type);
 
 	// Method called by other cells this cell observes to notify this one
 	//    that a PC is in proximity
-	void notify();
+	void notify(Cell &a_cell);
 
 	// Method to notify all this Cell's observers that a PC is in proximity
 	void notifyAll();
 
 	// Method to add a Cell as an observer
-	void attach(std::unique_ptr<Cell>);
+	void attach(Cell &observer);
 
 	// Method to return the type of the Cell
 	//   see the CellType enum for the different kinds
