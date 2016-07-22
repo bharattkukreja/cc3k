@@ -12,7 +12,7 @@ class Sprite;
 
 class Cell {
 
-	std::vector<std::unique_ptr<Cell>> observers;
+	std::vector<std::shared_ptr<Cell>> observers;
 	CellType type;
 	
    public:

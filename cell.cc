@@ -1,7 +1,8 @@
 #include <vector>
-#include <unique_ptr>
-#include <shared_ptr>
+#include <memory>
+#include "npc.h"
 #include "cell.h"
+#include "pc.h"
 #include "sprite.h"
 
 using namespace std;
@@ -12,19 +13,19 @@ Cell::Cell(CellType type) : type{type}, sprite{nullptr} {}
 
 void Cell::notify(Cell &a_cell) {
 	if(sprite != nullptr && a_cell.sprite!=nullptr && 
-		a_cell.sprite->isPC() && sprite->isNPC() && sprite->isHostile()){
-		sprite->hit(a_cell.sprite);
+		a_cell.sprite->isPC() && sprite->isNPC() && (dynamic_pointer_cast<NPC>(sprite))->isHostile()){
+		(dynamic_pointer_cast<NPC>(sprite))->hit(*dynamic_pointer_cast<PC>(a_cell.sprite));
 	}
 }
 
 void Cell::notifyAll() {
 	for(auto observer: observers){
-		observer.notify(*this);
+		observer->notify(*this);
 	}
 }
 
 void Cell::attach(Cell &observer) {
-	observers.add(&observer);
+	observers.emplace_back(shared_ptr<Cell>(&observer));
 }
 
 CellType Cell::getType() const {
@@ -35,6 +36,4 @@ bool Cell::isEmpty() const {
 	return (sprite == nullptr);
 }
 
-Cell::~Cell() {
-	delete sprite;
-}
+Cell::~Cell() {}
