@@ -8,7 +8,6 @@
 
 class Item : public Stationary {
  public:
-    bool used;
     virtual void use(PC & user) = 0;
 };
 
