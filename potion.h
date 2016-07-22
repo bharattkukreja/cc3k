@@ -5,15 +5,14 @@
 
 class Potion : public Item {
  protected:
-    bool visible, positive;
+    bool positive;
     int value;
  public:
-    bool getVisible() const;
+    virtual bool getVisible() const = 0; // requires static variables from subclasses
     bool getPositive() const;
     int getValue() const;
-    void setVisible(bool nowVisible);
     // don't need setters for positive or value because they don't change after the potion is ctor'd
-    Potion(const bool positive, const int value, const bool visible);
+    Potion(const bool positive, const int value);
     Potion(const Potion & other);
 };
 

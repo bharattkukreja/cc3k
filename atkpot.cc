@@ -2,11 +2,10 @@
 #include "pc.h"
 using namespace std;
 
-extern const int valueAtkPot;
+static visiblePositive = false;
+static visibleNegative = false;
 
-extern bool visiblePosAtkPot;
-
-extern bool visibleNegAtkPot;
+bool AtkPot::getVisible() { return positive ? visiblePositive : visibleNegative; }
 
 AtkPot::AtkPot(const bool positive): Potion{positive, valueAtkPot, positive ? visiblePosAtkPot : visibleNegAtkPot} {}
 
@@ -14,6 +13,11 @@ AtkPot::AtkPot(const AtkPot & other): Potion{other.positive, other.value, other.
 
 void AtkPot::use(PC & user) {
     int effect = value;
-    if (!Potion::positive) effect *= -1;
+    if (!Potion::positive) {
+        effect *= -1;
+	visibleNegative = true;
+    } else {
+        visiblePositive = true;
+    }
     user.changeAtk(effect);
 }

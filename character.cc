@@ -18,12 +18,12 @@ bool strike(int attack, Character & target) {
     return true;
 }
 
+void changeAttr(unsigned int & attribute, const int amount, const int minValue) { attribute = max(minValue, attribute + amount); }
+
 virtual void getHit(int vsAtk) {
     int damage = (vsAtk*100) / (100+def) + ((vsAtk*100) % (100+def) > 0);
     changeAttr(hp, -damage, 0);
 }
-
-void changeAttr(unsigned int & attribute, const int amount, const int minValue) { attribute = max(minValue, attribute + amount); }
 
 void Character::changeAtk(const int amount) { changeAttr(atk, amount, 1); }
 

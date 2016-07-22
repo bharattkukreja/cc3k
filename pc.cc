@@ -24,8 +24,8 @@ void changeAttr(unsigned int & attribute, const int amount, const int minValue) 
 virtual void PC::changeGold(const int amount) { changeAttr(gold, amount, 0); }
 
 virtual void PC::changeHP(const int amount) {
-    if (hp + amount > baseHP) {
-        hp = baseHP;
+    if (hp + amount > maxHP) { // bounds the amount a potion can heal
+        hp = maxHP;
     } else {
         changeAttr(hp, amount, 0);
     }

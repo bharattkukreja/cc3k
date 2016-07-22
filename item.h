@@ -8,7 +8,7 @@
 
 class Item : public Stationary {
  public:
-    virtual void use(PC & user) = 0;
+    virtual void use(PC & user) = 0; // items (gold & potions & maybe other) are used differently
 };
 
 #endif

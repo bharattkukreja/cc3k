@@ -9,7 +9,7 @@ class NPC : public Character {
     unsigned int goldDropped;
     bool hostile;
  public:
-    bool getHostile();
+    bool isHostile();
     void setHostile(const bool newHostile);
     bool isNPC() override;
     int getGoldDropped() const;

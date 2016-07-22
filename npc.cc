@@ -2,6 +2,10 @@
 #include <cmath>
 using namespace std;
 
+bool NPC::isHostile() { return hostile; }
+
+void NPC::setHostile(const bool newHostile) { hostile = newHostile; }
+
 int NPC::getGoldDropped() { return goldDropped; }
 
 bool NPC::isNPC() { return true; }
