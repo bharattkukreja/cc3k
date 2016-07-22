@@ -5,7 +5,7 @@ using namespace std;
 static visiblePositive = false;
 static visibleNegative = false;
 
-bool AtkPot::getVisible() { return positive ? visiblePositive : visibleNegative; }
+bool AtkPot::isVisible() { return positive ? visiblePositive : visibleNegative; }
 
 AtkPot::AtkPot(const bool positive): Potion{positive, valueAtkPot, positive ? visiblePosAtkPot : visibleNegAtkPot} {}
 
