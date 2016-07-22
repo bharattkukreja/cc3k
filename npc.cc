@@ -1,5 +1,5 @@
 #include "npc.h"
-#include "basicmath.h"
+#include <cmath>
 #include "random.h"
 using namespace std;
 

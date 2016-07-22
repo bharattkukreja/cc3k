@@ -1,6 +1,6 @@
 #include "sprite.h"
 #include "character.h"
-#include "basicmath.h"
+#include <cmath>
 using namespace std;
 
 Character::Character(unsigned int hp, unsigned int atk, unsigned int def): hp{hp}, atk{atk}, def{def} {}
