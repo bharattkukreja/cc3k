@@ -45,7 +45,7 @@ class GameMap {
 	void nextTurn(std::pair<CommandType, CommandType> &commands);
 
 	// Returns the Cell grid
-	std::vector<std::vector<Cell>> getGrid() const;
+	std::vector<std::vector<Cell>> &getGrid() const;
 
 	// Returns the value of won
 	bool isWon() const;

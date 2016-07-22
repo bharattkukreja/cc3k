@@ -31,12 +31,14 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
 				&& grid[r][c].getType()==CellType::Space){
 				continue;
 			}
+
 			if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
                		        && grid[r-1][c].getType()!=CellType::Wall_vertical
 		      		 && grid[r-1][c].getType()!=CellType::Space){
 	                	grid[r-1][c].attach(grid[r][c]);
         	                grid[r][c].attach(grid[r-1][c]);
                		}
+
     	           	if(c>0 && grid[r][c-1].getType()!=CellType::Wall_horizontal
         	               && grid[r][c-1].getType()!=CellType::Wall_vertical
                 	       && grid[r][c-1].getType()!=CellType::Space){
@@ -65,12 +67,14 @@ void GameMap::setUpMap(){
                                 && grid[r][c].getType()==CellType::Space){
                                 continue;
                         }
+
                         if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
                                 && grid[r-1][c].getType()!=CellType::Wall_vertical
                                  && grid[r-1][c].getType()!=CellType::Space){
                                 grid[r-1][c].attach(grid[r][c]);
                                 grid[r][c].attach(grid[r-1][c]);
                         }
+
                         if(c>0 && grid[r][c-1].getType()!=CellType::Wall_horizontal
                                && grid[r][c-1].getType()!=CellType::Wall_vertical
                                && grid[r][c-1].getType()!=CellType::Space){
@@ -96,7 +100,7 @@ void GameMap::populate(){
 	for(int r=height-2; r>0; r--){
 		for(int c=width-2; c>0; c--){
 			if(grid[r][c].getType() == CellType::Floor){
-                                grid[r][c].sprite = &(Stairs());
+                                grid[r][c].sprite = new Stairs();
                                 r = height;     
                                 c = width;
                         }
@@ -120,6 +124,9 @@ void GameMap::initialize(unique_ptr<PC> &hero){
 void GameMap::clear(){
 	for(auto row: grid){
 		for(auto cell: grid){
+			if(!cell.sprite->isPC()){
+				delete cell.sprite;
+			}
 			cell.sprite = nullptr;
 		}
 	}
@@ -220,7 +227,7 @@ unsigned int GameMap::getFloorCount() const {
 	return floor_count;
 }
 
-vector<vector<Cell>> GameMap::getGrid() const {
+vector<vector<Cell>> &GameMap::getGrid() const {
 	return grid;
 }
 
