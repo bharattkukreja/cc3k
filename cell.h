@@ -31,6 +31,12 @@ class Cell {
 	// Method to add a Cell as an observer
 	void attach(Cell &observer);
 
+	// Method to get the observers of a cell
+	vector<shared_ptr<Cell>> getObservers();
+
+	// Method to remove all observers of a cell
+	void clear();
+
 	// Method to return the type of the Cell
 	//   see the CellType enum for the different kinds
 	CellType getType() const;
