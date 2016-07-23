@@ -18,7 +18,7 @@ class GameMap {
 	std::pair<int, int> player_location;
 	std::vector<std::pair<int, int>> enemy_locations;
 	std::vector<Sprite> sprites;
-	std::unique_ptr<PC> hero;
+	std::shared_ptr<PC> hero;
 	unsigned int floor_count;
 
 	// Populates the grid, i.e. spawns all Sprites
@@ -42,7 +42,7 @@ class GameMap {
         void setUpMap(std::vector<std::vector<CellType>> map);
 
 	// Initializes the GameMap
-	void initialize(std::unique_ptr<Sprite> &hero);
+	void initialize(std::shared_ptr<Sprite> &hero);
 
 	// Adjusts state to reflect effects of next turn of the game
 	void nextTurn(std::pair<CommandType, CommandType> &commands);
