@@ -35,6 +35,10 @@ class Cell {
 	//   see the CellType enum for the different kinds
 	CellType getType() const;
 
+	// Method to set the Type of the Cell
+	//   see the CellType enum for the different kinds
+	void setType(CellType type);
+
 	// Returns whether or not this Cell's sprite is a nullptr
 	bool isEmpty() const;
 

@@ -32,8 +32,14 @@ CellType Cell::getType() const {
 	return type;
 }
 
+CellType Cell::setType(CellType type) {
+	this.type = type;
+}
+
 bool Cell::isEmpty() const {
 	return (sprite == nullptr);
 }
 
-Cell::~Cell() {}
+Cell::~Cell() {
+	sprite.reset();
+}

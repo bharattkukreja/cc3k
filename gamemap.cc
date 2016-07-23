@@ -183,8 +183,7 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 		// use potion at c_type.second
 		if(target!=nullptr && !target->isEmpty() && target->sprite->isItem()){
 			dynamic_pointer_cast<Item>(target->sprite)->use(hero);
-			delete target->sprite;
-			target->sprite = nullptr;
+			target->sprite->reset();
 		}
 
 	} else if(c_type.first == CommandType::a){
@@ -195,8 +194,7 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 			
 			// remove npc if its HP is less than 0
 			if(e->getHP()<=0){
-				delete target->sprite;
-				target->sprite = nullptr;
+				target->sprite->reset();
 			}
 		}
 
@@ -211,7 +209,7 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 			// use gold
 			if(target->sprite->getType() == SpriteType::Gold){
 				dynamic_pointer_cast<Potion>(target->sprite)->use(hero);
-                        	delete target->sprite;
+                        	target->sprite->reset();
                         	target->sprite = nullptr;
 			}
 			
