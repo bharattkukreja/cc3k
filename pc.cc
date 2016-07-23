@@ -2,9 +2,9 @@
 #include "npc.h"
 using namespace std;
 
-PC::PC(unsigned int HP, unsigned int atk, unsigned int def): Character{hp, atk, def}, maxHP{HP}, baseAtk{atk}, baseDef{def} {}
+PC::PC(unsigned int HP, unsigned int atk, unsigned int def, unsigned int gold = 0): Character{hp, atk, def}, maxHP{HP}, baseAtk{atk}, baseDef{def}, gold{gold} {}
 
-PC::PC(const PC & other): Character{other.getHP(), other.getAtk(), other.getDef()}, maxHP{other.maxHP}, baseAtk{other.baseAtk}, baseDef{other.baseDef} {}
+PC::PC(const PC & other): Character{other.hp, other.atk, other.def}, maxHP{other.maxHP}, baseAtk{other.baseAtk}, baseDef{other.baseDef}, gold{other.gold} {}
 
 bool PC::isPC() { return true; }
 
@@ -25,6 +25,8 @@ void changeAttr(unsigned int & attribute, const int amount, const int minValue) 
     }
 }
 
+virtual int PC::getGold() const { return gold; }
+
 virtual void PC::changeGold(const int amount) { changeAttr(gold, amount, 0); }
 
 virtual void PC::changeHP(const int amount) {
@@ -39,4 +41,4 @@ virtual void PC::changeAtk(const int amount) { changeAttr(atk, amount, 1); }
 
 virtual void PC::changeDef(const int amount) { changeAttr(def, amount, 1); }
 
-virtual int PC::score() { return gold; }
+virtual int PC::score() { return this->getGold(); }
