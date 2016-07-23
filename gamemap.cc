@@ -98,7 +98,8 @@ void GameMap::populate(){
 	    }
     	}
     }
-	// spawn stairs
+
+    // spawn stairs
     for(int r=height-2; r>0; r--){
 	for(int c=width-2; c>0; c--){
 	    if(grid[r][c].getType() == CellType::Floor){
