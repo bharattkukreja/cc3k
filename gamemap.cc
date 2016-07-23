@@ -8,6 +8,7 @@
 #include "npc.h"
 #include "item.h"
 #include "potion.h"
+#include "stairs.h"
 
 using namespace std;
 
@@ -20,13 +21,15 @@ const unsigned int GameMap::height = 30;
 
 // Methods
 
-GameMap::GameMap() : ai{AI(grid)}, floor_count{1} {}
+GameMap::GameMap() : ai{AI(grid)}, floor_count{1} {
+	grid = vector<vector<Cell>>();
+}
 
 void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
-    for(int r=0; r<width; r++){
+    for(unsigned int r=0; r<width; r++){
 	grid.emplace_back(vector<Cell>());
-	for(int c=0; c<height; c++){
-	    grid.emplace_back(Cell(c_grid[r][c]));
+	for(unsigned int c=0; c<height; c++){
+	    grid[r].emplace_back(Cell(c_grid[r][c]));
 			
             if(grid[r][c].getType()==CellType::Wall_horizontal
                 && grid[r][c].getType()==CellType::Wall_vertical
@@ -53,9 +56,9 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
 
 void GameMap::setUpMap(){
     // temporary simplification of maps
-    for(int r=0; r<GameMap::width; r++){
+    for(unsigned int r=0; r<GameMap::width; r++){
         grid.emplace_back(vector<Cell>());
-        for(int c=0; c<GameMap::height; c++){
+        for(unsigned int c=0; c<GameMap::height; c++){
             if(r==0 || r==width-1){
                 grid[r].emplace_back(Cell(CellType::Wall_horizontal));
             } else if(c==0 || r==height-1) {
@@ -91,10 +94,10 @@ void GameMap::setUpMap(){
 
 void GameMap::populate(){
     // place hero
-    for(int r=1; r<GameMap::height-1; r++){
-	for(int c=1; c<GameMap::width-1; c++){
+    for(unsigned int r=1; r<GameMap::height-1; r++){
+	for(unsigned int c=1; c<GameMap::width-1; c++){
 	    if(grid[r][c].getType() == CellType::Floor){
-	        grid[r][c].sprite = hero;
+	        grid[r][c].sprite = shared_ptr<Sprite>(hero);
 		r = height;
 		c = width;
 	    }
@@ -102,10 +105,10 @@ void GameMap::populate(){
     }
 
     // spawn stairs
-    for(int r=GameMap::height-2; r>0; r--){
-	for(int c=GameMap::width-2; c>0; c--){
+    for(unsigned int r=GameMap::height-2; r>0; r--){
+	for(unsigned int c=GameMap::width-2; c>0; c--){
 	    if(grid[r][c].getType() == CellType::Floor){
-                grid[r][c].sprite = new Stairs();
+                grid[r][c].sprite = shared_ptr<Sprite>(new Stairs());
                 r = height;     
                 c = width;
             }
