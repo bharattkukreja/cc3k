@@ -5,8 +5,6 @@
 
 class PC;
 
-const int valueAtkPot = 5;
-
 class AtkPot : public Potion {
     static bool visiblePositive, visibleNegative;
  public:

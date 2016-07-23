@@ -1,5 +1,5 @@
-#ifndef __HUMAN_H_
-#define __HUMAN_H_
+#ifndef __ELF_H_
+#define __ELF_H_
 
 #include "spritetype.h"
 #include "sprite.h"
@@ -8,14 +8,13 @@
 
 const unsigned int humanHP = 140, humanAtk = 25, humanDef = 25;
 
-class Human : public PC {
+class Elf : public PC {
  public:
-    int score() const override;
-    Human();
-    Human(const Human & other);
-    Human & operator=(const Human & other);
+    Elf();
+    Elf(const Elf & other);
+    Elf & operator=(const Elf & other);
     // no move assignment operator or ctor since Human contains no pointers. copying is just as efficient
-    ~Human() {};
+    ~Elf() {};
 };
 
 #endif
