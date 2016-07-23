@@ -12,7 +12,7 @@ class Character : public Sprite {
     unsigned int getHP() const;
     unsigned int getAtk() const;
     unsigned int getDef() const;
-    
+ 
     // nothing needs to directly set HP, atk, or def -- all mutations are changes to the existing value
     void changeAtk(const int amount); // changes atk by amount, to a minimum of 1
     void changeDef(const int amount); // changes def by amount, to a minimum of 1
@@ -22,6 +22,8 @@ class Character : public Sprite {
 
     virtual ~Character() {}
 };
+
+
 template<typename Actor> bool strike(const unsigned int attack, Actor & target); // returns true after calling getHit() on target
 
 void changeAttr(unsigned int & attribute, const int amount, const int minValue); // changes an attribute by amount, bounded below by minValue
