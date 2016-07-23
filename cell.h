@@ -32,7 +32,7 @@ class Cell {
 	void attach(Cell &observer);
 
 	// Method to get the observers of a cell
-	vector<shared_ptr<Cell>> getObservers();
+        std::vector<std::shared_ptr<Cell>> getObservers();
 
 	// Method to remove all observers of a cell
 	void clear();

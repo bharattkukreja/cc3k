@@ -28,11 +28,11 @@ void Cell::attach(Cell &observer) {
 	observers.emplace_back(shared_ptr<Cell>(&observer));
 }
 
-vector<shared_ptr<Cell>> getObservers(){
+vector<shared_ptr<Cell>> Cell::getObservers(){
 	return observers;
 }
 
-void clear(){
+void Cell::clear(){
 	observers.clear();
 }
 
@@ -50,5 +50,4 @@ bool Cell::isEmpty() const {
 
 Cell::~Cell() {
 	observers.clear();
-	sprite.clear();
 }
