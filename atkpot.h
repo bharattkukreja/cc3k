@@ -11,7 +11,7 @@ class AtkPot : public Potion {
     static bool visiblePositive, visibleNegative;
  public:
     void use(PC & user) override; // AtkPots change their user's attack
-    void isVisible() override; // gets visible based on whether the potion is positive or negative
+    bool isVisible() const override; // gets visible based on whether the potion is positive or negative
     explicit AtkPot(const bool positive); // value is a default value and isVisible comes with them
     AtkPot(const AtkPot & other);
     AtkPot & operator=(const AtkPot & other);
