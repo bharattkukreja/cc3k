@@ -5,10 +5,10 @@
 #include <utility>
 #include "commands.h"
 #include "cell.h"
+#include "ai.h"
 
 class Sprite;
 class PC;
-class AI;
 
 // This is the GameMap class. This class stores and manages the Cell grid,
 //   and Sprite interactions.
@@ -19,11 +19,15 @@ class GameMap {
 	std::vector<std::pair<int, int>> enemy_locations;
 	std::vector<Sprite> sprites;
 	std::shared_ptr<PC> hero;
+	AI ai;
 	unsigned int floor_count;
 
 	// Populates the grid, i.e. spawns all Sprites
 	//    Called by initialize(...)
 	void populate();
+
+	// decides direction based on given command pair
+	void decideDirection(std::pair<CommandType, CommandType> &c_type, unsigned int & r, unsigned int & c);
 
 	// static constants
 	static const unsigned int width;
@@ -39,16 +43,16 @@ class GameMap {
 
 	// Sets up the grid, i.e. constructs all Cells
         //    with the types given by the CellType grid 'map'
-        void setUpMap(std::vector<std::vector<CellType>> map);
+        void setUpMap(std::vector<std::vector<CellType>> &map);
 
 	// Initializes the GameMap
-	void initialize(std::shared_ptr<Sprite> hero);
+	void initialize(std::shared_ptr<PC> hero);
 
 	// Adjusts state to reflect effects of next turn of the game
 	void nextTurn(std::pair<CommandType, CommandType> &commands);
 
 	// Returns the Cell grid
-	std::vector<std::vector<Cell>> &getGrid() const;
+	std::vector<std::vector<Cell>> &getGrid();
 
 	// Returns the value of won
 	bool isWon() const;

@@ -5,6 +5,9 @@
 #include "commands.h"
 #include "sprite.h"
 #include "pc.h"
+#include "npc.h"
+#include "item.h"
+#include "potion.h"
 
 using namespace std;
 
@@ -14,11 +17,10 @@ using namespace std;
 
 const unsigned int GameMap::width = 79;
 const unsigned int GameMap::height = 30;
-const unsigned int GameMap::chamber_num = 5;
 
 // Methods
 
-GameMap::GameMap() : floor_count{1} {}
+GameMap::GameMap() : ai{AI(grid)}, floor_count{1} {}
 
 void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
     for(int r=0; r<width; r++){
@@ -51,9 +53,9 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
 
 void GameMap::setUpMap(){
     // temporary simplification of maps
-    for(int r=0; r<width; r++){
+    for(int r=0; r<GameMap::width; r++){
         grid.emplace_back(vector<Cell>());
-        for(int c=0; c<height; c++){
+        for(int c=0; c<GameMap::height; c++){
             if(r==0 || r==width-1){
                 grid[r].emplace_back(Cell(CellType::Wall_horizontal));
             } else if(c==0 || r==height-1) {
@@ -89,8 +91,8 @@ void GameMap::setUpMap(){
 
 void GameMap::populate(){
     // place hero
-    for(int r=1; r<height-1; r++){
-	for(int c=1; c<width-1; c++){
+    for(int r=1; r<GameMap::height-1; r++){
+	for(int c=1; c<GameMap::width-1; c++){
 	    if(grid[r][c].getType() == CellType::Floor){
 	        grid[r][c].sprite = hero;
 		r = height;
@@ -100,8 +102,8 @@ void GameMap::populate(){
     }
 
     // spawn stairs
-    for(int r=height-2; r>0; r--){
-	for(int c=width-2; c>0; c--){
+    for(int r=GameMap::height-2; r>0; r--){
+	for(int c=GameMap::width-2; c>0; c--){
 	    if(grid[r][c].getType() == CellType::Floor){
                 grid[r][c].sprite = new Stairs();
                 r = height;     
@@ -119,15 +121,15 @@ void GameMap::populate(){
 }
 
 void GameMap::initialize(shared_ptr<PC> hero){
-    this.hero.reset();
-    this.hero = hero;
-    floor_count{1};
+    this->hero.reset();
+    this->hero = hero;
+    floor_count = 1;
     populate();
 }
 
 void GameMap::clear(){
     for(auto row: grid){
-        for(auto cell: grid){
+        for(auto cell: row){
             if(!cell.sprite->isPC()){
                 cell.sprite.reset();
             }
@@ -137,30 +139,30 @@ void GameMap::clear(){
 }
 
 // Based on command, change target direction (r, c)
-void decideDirection(pair<CommandType, CommandType> &c_type, unsigned int & r, unsigned int & c){
-    if(c_type.second == CommandType::nn && r>0){
+void GameMap::decideDirection(pair<CommandType, CommandType> &c_type, unsigned int & r, unsigned int & c){
+    if(c_type.second == CommandType::no && r>0){
         r--;
     } else if(c_type.second == CommandType::ne && r>0
-                                               && c<width){
+                                               && c<GameMap::width){
         r--;
         c++;
     } else if(c_type.second == CommandType::nw && r>0
                                                && c>0){
         r--;
         c--;
-    } else if(c_type.second == CommandType::ss && r<height){
+    } else if(c_type.second == CommandType::so && r<GameMap::height){
         r++;
-    } else if(c_type.second == CommandType::se && r<height
-                                               && c<width){
+    } else if(c_type.second == CommandType::se && r<GameMap::height
+                                               && c<GameMap::width){
         r++;
         c++;
-    } else if(c_type.second == CommandType::sw && r<height
+    } else if(c_type.second == CommandType::sw && r<GameMap::height
                                                && c>0){
         r++;
         c--;
-    } else if(c_type.second == CommandType::ee && c<width){
+    } else if(c_type.second == CommandType::ea && c<GameMap::width){
         c++;
-    } else if(c_type.second == CommandType::ww && c>0){
+    } else if(c_type.second == CommandType::we && c>0){
         c--;
     }
 }
@@ -172,10 +174,10 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 	unsigned int c = player_location.second;
 
 	decideDirection(c_type, r, c);
-	target = grid[r][c];
+	target = unique_ptr<Cell>(&grid[r][c]);
 
 	if((r==player_location.first && c==player_location.second) 
-		|| target.getType() == CellType::Wall_vertical || target.getType() == CellType::Wall_horizontal){
+		|| target->getType() == CellType::Wall_vertical || target->getType() == CellType::Wall_horizontal){
 		target = nullptr;
 		// invalid location to move to
 	}
@@ -183,53 +185,53 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 	if(c_type.first == CommandType::u){
 		// use potion at c_type.second
 		if(target!=nullptr && !target->isEmpty() && target->sprite->isItem()){
-			dynamic_pointer_cast<Item>(target->sprite)->use(hero);
-			target->sprite->reset();
+			(dynamic_pointer_cast<Item>(target->sprite))->use(*hero);
+			target->sprite.reset();
 		}
 
 	} else if(c_type.first == CommandType::a){
 		// attack enemy at c_type.second
-		if(target!=nullptr && !target->isEmpty() && target->sprite->isEnemy()){
-			unique_ptr<Enemy> e = dynamic_pointer_cast<Enemy>(target->sprite);
+		if(target!=nullptr && !target->isEmpty() && target->sprite->isNPC()){
+			NPC &e = *dynamic_pointer_cast<NPC>(target->sprite);
 			hero->hit(e);
 			
 			// remove npc if its HP is less than 0
-			if(e->getHP()<=0){
-				target->sprite->reset();
+			if(e.getHP()<=0){
+				target->sprite.reset();
 			}
 		}
 
 	} else {
 		// try to move to this location
-		if(target != nullptr && (target->getType() == SpriteType::Stairs)) {
+		if(target != nullptr && (target->sprite->getType() == SpriteType::Stairs)) {
 			floor_count++;
 			clear();
 			populate();
 			return;
-		} else if(target!=nullptr && (target->isEmpty() || target->sprite->Type() == SpriteType::Gold)){
+		} else if(target!=nullptr && (target->isEmpty() || target->sprite->getType() == SpriteType::Gold)){
 			// use gold
 			if(target->sprite->getType() == SpriteType::Gold){
-				dynamic_pointer_cast<Potion>(target->sprite)->use(hero);
-                        	target->sprite->reset();
+				dynamic_pointer_cast<Potion>(target->sprite)->use(*hero);
+                        	target->sprite.reset();
                         	target->sprite = nullptr;
 			}
 			
 			// move hero
 			target->sprite = hero;
-			grid[player_location.first][player_location.second] = nullptr;
+			grid[player_location.first][player_location.second].sprite = nullptr;
 			player_location.first = r;
 			player_location.second = c;
 		}
 	}
 
-	ai.nextTurn();
+	ai.move();
 }
 
 unsigned int GameMap::getFloorCount() const {
     return floor_count;
 }
 
-vector<vector<Cell>> &GameMap::getGrid() const {
+vector<vector<Cell>> &GameMap::getGrid() {
     return grid;
 }
 
