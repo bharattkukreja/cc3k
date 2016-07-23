@@ -14,6 +14,10 @@ class NPC : public Character {
     bool isNPC() const override;
     int getGoldDropped() const;
     virtual bool hit(PC & target);
+
+    NPC(const unsigned int hp, const unsigned int atk, const unsigned int def, const unsigned int goldDropped, const bool hostile);
+    NPC(const NPC & other);
+    ~NPC();
 };
 
 #endif
