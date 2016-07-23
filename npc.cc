@@ -1,4 +1,4 @@
-include "npc.h"
+#include "npc.h"
 using namespace std;
 
 bool NPC::isHostile() { return hostile; }
