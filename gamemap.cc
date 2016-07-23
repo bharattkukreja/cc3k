@@ -118,7 +118,7 @@ void GameMap::populate(){
 
 }
 
-void GameMap::initialize(shared_ptr<PC> &hero){
+void GameMap::initialize(shared_ptr<PC> hero){
     this.hero.reset();
     this.hero = hero;
     floor_count{1};
