@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <vector>
 #include <utility>
+#include <algorithm>
 #include "gamemap.h"
 #include "cell.h"
 #include "commands.h"
@@ -93,16 +94,35 @@ void GameMap::setUpMap(){
     }
 }
 
-/*
-void generate_batch() {
+/*void generate_batch(Cell &c, vector<shared_ptr<Cell>> &chamber) {
+	if(chamber.size() == 0 || find(chamber.begin(), chamber.end(), c) == chamber.end()){
+		chamber.add(shared_ptr<Cell>(*c));
+		auto observers = chamber.getObservers();
+		for(auto observer: observers){
+			generate_batch(*observer, chamber);
+		}
+	}
+}*/
 
-}
-*/
 void GameMap::populate(){
 
-    // spawning PC
-    
-   /* vector <vector <Cell>> 
+/*    // spawning PC
+    auto chambers = vector<vector<shared_ptr<Cell>>> 
+    int num_chambers = 5;
+    for(int i=0; i<num_chambers; i++){
+  	// get start index, Cell start
+	Cell &start;
+	for(auto row: grid){
+	    for(auto cell: row){
+		bool next_start =  
+	    }
+	}
+
+	auto chamber = vector<vector<shared_ptr<Cell>>>(); 
+	generate_batch();
+	chambers.emplace_back(start, chamber);
+    }
+
     int count = 1;
     for (int i = 1; i < GameMap::height - 1; i++) {
         for (int j = 1; j < GameMap::width - 1; j++) {
@@ -111,8 +131,7 @@ void GameMap::populate(){
             }
         }
     }
-    */
-
+*/
     // place hero
     for(unsigned int r=1; r<GameMap::height-1; r++){
 	for(unsigned int c=1; c<GameMap::width-1; c++){
@@ -190,7 +209,7 @@ void GameMap::decideDirection(pair<CommandType, CommandType> &c_type, unsigned i
     }
 }
 
-void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
+void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 	// hero action
 	unique_ptr<Cell> target;
 	unsigned int r = player_location.first;
