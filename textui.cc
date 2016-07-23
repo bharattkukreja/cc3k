@@ -1,4 +1,6 @@
 #include "textui.h"
+#include "sprite.h"
+#include "spritetype.h"
 
 using namespace std;
 
@@ -72,7 +74,7 @@ void TextUI::output(vector <vector <Cell>> grid) {
             else if(type == CellType::Space)
                 out << " ";
             else {
-                unique_ptr<Sprite> s = single_cell.sprite;
+                shared_ptr<Sprite> s = single_cell.sprite;
                 SpriteType sprite_type = s->getType();
                 if(sprite_type == SpriteType::Human || sprite_type == SpriteType::Elf ||
                    sprite_type == SpriteType::Dwarf || sprite_type == SpriteType::Orc) {
@@ -97,22 +99,33 @@ void TextUI::output(vector <vector <Cell>> grid) {
     } 
 
     out << endl;
-    out << "Race: " << hero.getType() << " " << "Gold: " << hero.score();
-    for(int i = 0; i < 30; i++)
-        out << " ";
-    out << g.getFloorCount() << endl;
-    out << "HP: " << hero.hp << endl;
-    out << "Atk: " << hero.atk << endl;
-    out << "Def: " << hero.def << endl;
-    out << "Action: " << endl; 
 
 }
 
-void TextUI::output_message(string s) {
-    out << s << endl;
+string TextUI::convert(SpriteType s) {
+    string str;
+    if(s == SpriteType::Human)
+        str = "Human";
+    else if(s == SpriteType::Elf)
+        str = "Elf";
+    else if(s == SpriteType::Dwarf)
+        str = "Dwarf";
+    else
+        str = "Orc";
+
+    return str;
 }
 
+void TextUI::output_message(string str) {
+    out << str;
+}
 
+void TextUI::output_number(int n) {
+    out << n;
+}
 
+void TextUI::newline() {
+    out << endl;
+}
 
 
