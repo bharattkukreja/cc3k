@@ -118,7 +118,8 @@ void GameMap::populate(){
 
 }
 
-void GameMap::initialize(unique_ptr<PC> &hero){
+void GameMap::initialize(shared_ptr<PC> &hero){
+    this.hero.reset();
     this.hero = hero;
     floor_count{1};
     populate();
@@ -128,7 +129,7 @@ void GameMap::clear(){
     for(auto row: grid){
         for(auto cell: grid){
             if(!cell.sprite->isPC()){
-                delete cell.sprite;
+                cell.sprite.reset();
             }
             cell.sprite = nullptr;
         }
