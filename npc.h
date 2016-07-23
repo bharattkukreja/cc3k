@@ -6,6 +6,7 @@
 class PC;
 
 class NPC : public Character {
+ protected:
     unsigned int goldDropped;
     bool hostile;
  public:
