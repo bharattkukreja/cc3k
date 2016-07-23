@@ -210,6 +210,7 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 		if(target!=nullptr && !target->isEmpty() && target->sprite->isItem()){
 			(dynamic_pointer_cast<Item>(target->sprite))->use(*hero);
 			target->sprite.reset();
+			target->sprite = nullptr;
 		}
 
 	} else if(c_type.first == CommandType::a){
@@ -221,6 +222,7 @@ void GameMap::nextTurn(pair<CommandType, CommandType> &c_type){
 			// remove npc if its HP is less than 0
 			if(e.getHP()<=0){
 				target->sprite.reset();
+				target->sprite = nullptr;
 			}
 		}
 
