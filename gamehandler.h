@@ -10,7 +10,7 @@ class UI;
 class GameHandler {
     GameMap &g;
     UI &ui;
-    std::unique_ptr<PC> hero;
+    std::shared_ptr<PC> hero;
 
     public:
         void play(std::string file);

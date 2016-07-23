@@ -2,6 +2,10 @@
 #include "ui.h"
 #include "gamemap.h"
 #include "pc.h"
+#include "human.h"
+#include "elf.h"
+#include "dwarf.h"
+#include "orc.h"
 
 using namespace std;
 
@@ -81,7 +85,7 @@ void GameHandler::play(string file) {
             ui.output_message("You Won! Congratulations!");
             break;
         }
-        else if(hero.hp == 0) {
+        else if(hero->hp == 0) {
             delete hero;
             ui.output_message("You Lost!");
             break;
