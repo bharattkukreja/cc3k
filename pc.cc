@@ -6,7 +6,7 @@ PC::PC(unsigned int HP, unsigned int atk, unsigned int def, unsigned int gold = 
 
 PC::PC(const PC & other): Character{other.hp, other.atk, other.def}, maxHP{other.maxHP}, baseAtk{other.baseAtk}, baseDef{other.baseDef}, gold{other.gold} {}
 
-bool PC::isPC() { return true; }
+bool PC::isPC() const override { return true; }
 
 int PC::resetPotions() {
     atk = baseAtk;

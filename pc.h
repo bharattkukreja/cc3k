@@ -11,7 +11,7 @@ class PC : public Character {
  public:
     PC(unsigned int HP, unsigned int atk, unsigned int def, unsigned int gold = 0);
     PC(const PC & other);
-    bool isPC() override;
+    bool isPC() const override;
 
     virtual int getGold() const;
 
