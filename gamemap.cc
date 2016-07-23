@@ -18,7 +18,7 @@ const unsigned int GameMap::chamber_num = 5;
 
 // Methods
 
-GameMap::GameMap() : floor_count{0} {}
+GameMap::GameMap() : floor_count{1} {}
 
 void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
     for(int r=0; r<width; r++){
@@ -231,10 +231,6 @@ unsigned int GameMap::getFloorCount() const {
 
 vector<vector<Cell>> &GameMap::getGrid() const {
     return grid;
-}
-
-bool GameMap::isWon() const {
-    return won;
 }
 
 GameMap::~GameMap(){

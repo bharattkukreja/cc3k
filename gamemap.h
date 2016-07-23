@@ -15,7 +15,6 @@ class AI;
 class GameMap {
 
 	std::vector<std::vector<Cell>> grid; // This is the grid of Cells
-	bool won;
 	std::pair<int, int> player_location;
 	std::vector<std::pair<int, int>> enemy_locations;
 	std::vector<Sprite> sprites;
