@@ -19,6 +19,8 @@ class Character : public Sprite {
 
     Character(unsigned int hp, unsigned int atk, unsigned int def);
     Character(const Character & other);
+
+    virtual ~Character() = 0;
 };
 template<typename Actor> bool strike(const unsigned int attack, Actor & target); // returns true after calling getHit() on target
 

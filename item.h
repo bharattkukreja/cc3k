@@ -11,6 +11,8 @@ class Item : public Stationary {
     bool isItem() const override;
 
     virtual void use(PC & user) = 0; // items (gold & potions & maybe other) are used differently
+
+    virtual ~Item() = 0;
 };
 
 #endif

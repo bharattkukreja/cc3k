@@ -13,7 +13,7 @@ class PC : public Character {
     PC(unsigned int HP, unsigned int atk, unsigned int def);
     PC(const PC & other);
     PC & operator=(const PC & other);
-    ~PC();
+    virtual ~PC() = 0;
 
     bool isPC() const override;
 
