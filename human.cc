@@ -3,11 +3,9 @@
 #include "human.h"
 using namespace std;
 
-int Human::score() {
-    return 2 * gold;
-}
+int Human::score() const { return 1.5 * this->getGold(); }
 
-extern const unsigned int humanHP, humanAtk, humanDef;
+const unsigned int humanHP = 140, humanAtk = 25, humanDef = 25;
 
 Human::Human(): PC{humanHP, humanAtk, humanDef} {}
 
@@ -20,3 +18,5 @@ Human & Human::operator=(const Human & other) {
     def = other.def;
     return *this;
 }
+
+Human::~Human() {};
