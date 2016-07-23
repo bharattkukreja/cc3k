@@ -5,7 +5,7 @@
 
 class Dwarf : public PC {
  public:
-    void getGold() const override;
+    int getGold() const override;
 
     Dwarf();
     Dwarf(const Dwarf & other);

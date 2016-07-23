@@ -1,6 +1,8 @@
 #include "sprite.h"
 using namespace std;
 
-bool Sprite::isPC() { return false; }
+virtual bool Sprite::isPC() const { return false; }
 
-bool Sprite::isNPC() { return false; }
+virtual bool Sprite::isNPC() const { return false; }
+
+virtual bool Sprite::isItem() const { return false; }
