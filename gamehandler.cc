@@ -97,8 +97,39 @@ void GameHandler::play(string file) {
         }
         
         ui.output(g.getGrid());
-        command_pair = make_pair(input1, input2);
-        g.nextTurn(command_pair);
+
+        ui.output_message("Race: " + ui.convert(hero->getType()) + " Gold: ");
+        ui.output_number(hero->score());
+
+        for(int i = 0; i < 30; i++)
+            ui.output_message(" ");
+        
+        ui.output_message("Floor ");
+        ui.output_number(g.getFloorCount());
+        ui.newline();
+
+        ui.output_message("HP: ");
+        ui.output_number(hero->getHP());
+        ui.newline();
+        
+        ui.output_message("Atk: ");
+        ui.output_number(hero->getAtk());
+        ui.newline();
+        
+            
+        ui.output_message("Def: ");
+        ui.output_number(hero->getDef());
+        ui.newline();
+        
+        ui.output_message("Action: ");
+        ui.newline();
+
+    
+
+
+       // pair <CommandType CommandType> command_pair = make_pair(input1, input2);
+       // g.nextTurn(command_pair);
+        g.nextTurn(make_pair(input1, input2));
     }
 
 }

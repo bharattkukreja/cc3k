@@ -2,11 +2,11 @@
 #include "orc.h"
 using namespace std;
 
-int Orc::getGold() const override { return gold / 2; }
+int Orc::getGold() const { return gold / 2; }
 
 const unsigned int orcHP = 180, orcAtk = 35, orcDef = 25;
 
-Orc::Orc(): PC{humanHP, humanAtk, humanDef} {}
+Orc::Orc(): PC{orcHP, orcAtk, orcDef} {}
 
 Orc::Orc(const Orc & other): PC{other} {}
 

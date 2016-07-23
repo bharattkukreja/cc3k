@@ -4,9 +4,9 @@ using namespace std;
 
 const unsigned int dwarfHP = 100, dwarfAtk = 20, dwarfDef = 30;
 
-int Dwarf::getGold() const override { return 2 * gold; }
+int Dwarf::getGold() const { return 2 * gold; }
 
-Dwarf::Dwarf(): PC{humanHP, humanAtk, humanDef} {}
+Dwarf::Dwarf(): PC{dwarfHP, dwarfAtk, dwarfDef} {}
 
 Dwarf::Dwarf(const Dwarf & other): PC{other} {}
 

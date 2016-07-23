@@ -2,15 +2,20 @@
 #define __TEXTUI_H__
 #include "ui.h"
 #include <iostream>
+#include <string>
 
 class TextUI : public UI {
-    istream &in;
-    ostream &out;
+    std::istream &in;
+    std::ostream &out;
+    
     public:
-        TextUI();
-        CommandType getNextInput() override;
-        void output(vector <vector <Cell>> grid) override;
-        void output_message(string s) override;
-}
+        TextUI(std::istream &in, std::ostream &out);
+        CommandType getNextInput();
+        void output(std::vector <std::vector <Cell>> grid);
+        std::string convert(SpriteType s);
+        void output_message(std::string s);
+        void output_number(int n);
+        void newline();
+};
 
 #endif
