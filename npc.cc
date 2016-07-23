@@ -5,7 +5,7 @@ bool NPC::isHostile() { return hostile; }
 
 void NPC::setHostile(const bool newHostile) { hostile = newHostile; }
 
-int NPC::getGoldDropped() { return goldDropped; }
+int NPC::getGoldDropped() const { return goldDropped; }
 
 bool NPC::isNPC() const override { return true; }
 
