@@ -14,7 +14,9 @@ DefPot::DefPot(const DefPot & other): Potion{other.positive, other.value} {}
 
 void DefPot::use(PC & user) {
     int effect = value;
-    if (!positive) { effect *= -1; }
+    if (!(positive || user.isElf())) { effect *= -1; }
     positive ? visiblePositive : visibleNegative = true;
     user.changeDef(effect);
 }
+
+DefPot::~DefPot() {};

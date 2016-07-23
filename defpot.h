@@ -14,7 +14,7 @@ class DefPot : public Potion {
     DefPot(const DefPot & other);
     DefPot & operator=(const DefPot & other);
     // no move ctor/assignment operator because there are no pointers to move -- it wouldn't be faster.
-    ~DefPot() {};
+    ~DefPot();
 };
 
 #endif

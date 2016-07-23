@@ -10,6 +10,7 @@ class Sprite { // abstract class for Cells in the Map to point to
     virtual bool isPC() const; // virtual because PC overrides it to return true
     virtual bool isNPC() const; // ibid but with NPC
     virtual bool isItem() const; // ibid but with Item
+    virtual bool isElf() const; // for elves so potions don't negatively affect their stats
 
     virtual ~Sprite() = 0;
 };

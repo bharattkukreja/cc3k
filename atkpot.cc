@@ -14,7 +14,9 @@ AtkPot::AtkPot(const AtkPot & other): Potion{other.positive, other.value} {}
 
 void AtkPot::use(PC & user) {
     int effect = value;
-    if (!Potion::positive) { effect *= -1; }
+    if (!(positive || user.isElf())) { effect *= -1; }
     positive ? visiblePositive : visibleNegative = true;
     user.changeAtk(effect);
 }
+
+AtkPot::~AtkPot() {};
