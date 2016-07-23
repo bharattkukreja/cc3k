@@ -1,6 +1,5 @@
 #ifndef __VAMPIRE_H_
 #define __VAMPIRE_H_
-#define __DR_ACULA_
 
 #include "npc.h"
 

@@ -11,7 +11,7 @@ class NPC : public Character {
     bool hostile;
  public:
     bool isHostile();
-    void setHostile(const bool newHostile);
+    virtual void setHostile(const bool newHostile);
     bool isNPC() const override;
     unsigned int getGoldDropped() const;
     virtual bool hit(PC & target);
