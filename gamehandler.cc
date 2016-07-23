@@ -3,10 +3,10 @@
 #include "gamemap.h"
 #include "pc.h"
 #include "human.h"
-/*#include "elf.h"
+#include "elf.h"
 #include "dwarf.h"
 #include "orc.h"
-*/
+
 
 #include <fstream>
 #include <sstream>
@@ -22,13 +22,13 @@ void GameHandler::play(string file) {
     CommandType c = ui.getNextInput();
     if(c == CommandType::h)
         hero = shared_ptr <PC> (new Human());
-    /*else if(c == CommandType::e)
-        hero = new Elf();
+    else if(c == CommandType::e)
+        hero = shared_ptr <PC> (new Elf());
     else if(c == CommandType::d)
-        hero = new Dwarf();
+        hero = shared_ptr <PC> (new Dwarf()); 
     else
-        hero = new Orc();
-    */
+        hero = shared_ptr <PC> (new Elf());
+
     vector <vector <CellType>> layout;
     
     ifstream fin(file);
