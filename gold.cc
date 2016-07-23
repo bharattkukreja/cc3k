@@ -2,14 +2,17 @@
 #include "pc.h"
 using namespace std;
 
-void Gold::use(const PC & user) {
-    user.changeGold(value);
-    used = true;
-}
+const unsigned int defaultValue = 1;
 
-Gold::Gold(const Gold & other): used{other.used}, value{other.value} {}
+void Gold::use(PC & user) { user.changeGold(value); }
+
+Gold::Gold(const unsigned int value = defaultValue): value{value} {}
+
+Gold::Gold(const Gold & other): value{other.value} {}
 
 Gold & Gold::operator=(const Gold & other) {
-    used = other.used;
     value = other.value;
+    return *this;
 }
+
+Gold::~Gold() {}
