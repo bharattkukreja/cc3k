@@ -1,23 +1,23 @@
-#include "goblin.h"
-#include "npc.h"
-#include "character.h"
+#include "vampire.h"
 using namespace std;
 
-const int goblinHP = 70;
-const int goblinAtk = 5;
-const int goblinDef = 10;
-const bool goblinHostile = true;
-const int goblinGold = 1;
+const unsigned int vampireHP = 50;
+const unsigned int vampireAtk = 25;
+const unsigned int vampireDef = 25;
+const bool vampireHostile = true;
+const unsigned int vampireGold = 1;
 
-Goblin::Goblin(): hp{goblinHP}, atk{goblinAtk}, def{goblinDef}, hostile{goblinHostile}, goldDropped{goblinGold} {}
-Goblin::Goblin(const Goblin & other): hp{other.hp}, atk{goblinAtk}, def{goblinDef}, hostile{other.hostile}, goldDropped{other.goldDropped} {}
+Vampire::Vampire(): NPC{vampireHP, vampireAtk, vampireDef, vampireGold, vampireHostile} {}
 
-Goblin & Goblin::operator=(const Goblin & other) {
+Vampire::Vampire(const Vampire & other): NPC{other} {}
+
+Vampire & Vampire::operator=(const Vampire & other) {
     hp = other.hp;
     goldDropped = other.goldDropped;
     hostile = other.hostile;
     atk = other.atk;
     def = other.def;
+    return *this;
 }
 
-Goblin::~Goblin() {};
+Vampire::~Vampire() {};
