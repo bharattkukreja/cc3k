@@ -21,5 +21,3 @@ bool NPC::hit(PC & target) {
 NPC::NPC(const unsigned int hp, const unsigned int atk, const unsigned int def, const unsigned int goldDropped, const bool hostile): Character{hp, atk, def}, goldDropped{goldDropped}, hostile{hostile} {}
 
 NPC::NPC(const NPC & other): Character{other}, goldDropped{other.goldDropped}, hostile{other.hostile} {}
-
-NPC::~NPC() {}

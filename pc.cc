@@ -15,8 +15,6 @@ PC & PC::operator=(const PC & other) {
     return *this;
 }
 
-PC::~PC() {}
-
 bool PC::isPC() const { return true; }
 
 void PC::resetPotions() {

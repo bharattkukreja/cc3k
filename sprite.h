@@ -12,7 +12,7 @@ class Sprite { // abstract class for Cells in the Map to point to
     virtual bool isItem() const; // ibid but with Item
     virtual bool isElf() const; // for elves so potions don't negatively affect their stats
 
-    virtual ~Sprite() = 0;
+    virtual ~Sprite() {}
 };
 
 #endif

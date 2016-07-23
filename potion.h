@@ -15,7 +15,7 @@ class Potion : public Item {
     
     Potion(const bool positive, const int value);
     Potion(const Potion & other);
-    virtual ~Potion() = 0;
+    virtual ~Potion() {}
 };
 
 #endif
