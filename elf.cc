@@ -1,11 +1,11 @@
 #include "elf.h"
 using namespace std;
 
-const unsigned int elfHP = 140, humanAtk = 30, humanDef = 10;
+const unsigned int elfHP = 140, elfAtk = 30, elfDef = 10;
 
 bool Elf::isElf() const { return true; }
 
-Elf::Elf(): PC{humanHP, humanAtk, humanDef, 0} {}
+Elf::Elf(): PC{elfHP, elfAtk, elfDef} {}
 
 Elf::Elf(const Elf & other): PC{other} {}
 
@@ -14,6 +14,7 @@ Elf & Elf::operator=(const Elf & other) {
     gold = other.gold;
     atk = other.atk;
     def = other.def;
+    return *this;
 }
 
 Elf::~Elf() {};
