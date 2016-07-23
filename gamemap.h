@@ -26,10 +26,6 @@ class GameMap {
 	//    Called by initialize(...)
 	void populate();
 
-	// Sets up the grid, i.e. constructs all Cells
-	//    Called by initialize(...)
-	void setUpMap();
-
 	// static constants
 	static const unsigned int width;
 	static const unsigned int height;
@@ -38,7 +34,15 @@ class GameMap {
 
 	GameMap();
 
-	// Initializes the grid
+	// Sets up the cell grid, i.e. constructs all Cells
+	//   with a randomized configuration
+        void setUpMap();
+
+	// Sets up the grid, i.e. constructs all Cells
+        //    with the types given by the CellType grid 'map'
+        void setUpMap(std::vector<std::vector<CellType>> map);
+
+	// Initializes the GameMap
 	void initialize(std::unique_ptr<Sprite> &hero);
 
 	// Adjusts state to reflect effects of next turn of the game
