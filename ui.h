@@ -4,7 +4,7 @@
 #include "commands.h"
 #include "cell.h"
 #include <vector>
-
+#include "spritetype.h"
 
 class UI {
     public:
