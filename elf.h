@@ -5,6 +5,8 @@
 
 class Elf : public PC {
  public:
+    bool isElf() const override;
+
     Elf();
     Elf(const Elf & other);
     Elf & operator=(const Elf & other);
