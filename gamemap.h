@@ -4,8 +4,8 @@
 #include <vector>
 #include <utility>
 #include "commands.h"
+#include "cell.h"
 
-class Cell;
 class Sprite;
 class PC;
 class AI;
