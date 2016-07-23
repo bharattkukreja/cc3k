@@ -8,13 +8,13 @@
 
 class UI {
     public:
-        CommandType getNextInput();
-        void output(std::vector <std::vector <Cell>> grid);
+        virtual CommandType getNextInput() = 0;
+        virtual void output(std::vector <std::vector <Cell>> grid) = 0;
         
-        std::string convert(SpriteType s);
-        void output_message(std::string s);
-        void output_number(int n);
-        void newline();
+        virtual std::string convert(SpriteType s) = 0;
+        virtual void output_message(std::string s) = 0;
+        virtual void output_number(int n) = 0;
+        virtual void newline() = 0;
 
 };
 

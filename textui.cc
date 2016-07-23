@@ -4,7 +4,7 @@
 
 using namespace std;
 
-TextUI::TextUI(istream &in = cin, ostream &out = cout) :
+TextUI::TextUI(istream &in, ostream &out) :
     in {in}, out {out} {}
 
 CommandType TextUI::getNextInput() {

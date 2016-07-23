@@ -1,13 +1,13 @@
 #include "gamehandler.h"
 #include "gamemap.h"
-#include "ui.h"
+#include "textui.h"
 #include <iostream>
 #include <cstdlib>
 
 int main(int argc, const char *argv[])
 {
     GameMap g;
-    UI ui;
+    TextUI ui;
     GameHandler gh(g, ui);
     if(argc < 2) {
         std::cout << "Please provide the floor layout" << std::endl;
