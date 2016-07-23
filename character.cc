@@ -1,26 +1,27 @@
 #include "sprite.h"
 #include "character.h"
-#include <cmath>
 using namespace std;
 
 Character::Character(unsigned int hp, unsigned int atk, unsigned int def): hp{hp}, atk{atk}, def{def} {}
 
 Character::Character(const Character & other): hp{other.getHP()}, atk{other.getAtk()}, def{other.getDef()} {}
 
-int Character::getHP() { return hp; }
+unsigned int Character::getHP() const { return hp; }
 
-int Character::getAtk() { return atk; }
+unsigned int Character::getAtk() const { return atk; }
 
-int Character::getDef() { return def; }
+unsigned int Character::getDef() const { return def; }
 
 bool strike(int attack, Character & target) {
     target.getHit(attack);
     return true;
 }
 
+int max(const int a, const int b) {return a > b ? a : b; } // because it wasn't in cmath
+
 void changeAttr(unsigned int & attribute, const int amount, const int minValue) { attribute = max(minValue, attribute + amount); }
 
-virtual void getHit(int vsAtk) {
+void Character::getHit(int vsAtk) {
     int damage = (vsAtk*100) / (100+def) + ((vsAtk*100) % (100+def) > 0);
     changeAttr(hp, -damage, 0);
 }

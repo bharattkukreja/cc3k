@@ -8,9 +8,9 @@ class Character : public Sprite {
     unsigned int hp, atk, def;
  public:
     virtual void getHit(int vsAtk); // getting hit by attacks reduces HP
-    int getHP() const;
-    int getAtk() const;
-    int getDef() const;
+    unsigned int getHP() const;
+    unsigned int getAtk() const;
+    unsigned int getDef() const;
     // nothing needs to directly set HP, atk, or def -- all mutations are changes to the existing value
     Character(unsigned int hp, unsigned int atk, unsigned int def);
     Character(const Character & other);
