@@ -4,6 +4,7 @@
 #include "stationary.h"
 
 class Stairs : public Stationary {
+ public:
     ~Stairs();
 }; // yay empty classes~~
 // this exists so GameMap knows when to make end a floor
