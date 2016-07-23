@@ -16,6 +16,10 @@ class UI {
         virtual void output_number(int n) = 0;
         virtual void newline() = 0;
 
+        virtual ~UI() {
+
+        }
+
 };
 
 #endif
