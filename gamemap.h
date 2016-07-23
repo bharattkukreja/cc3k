@@ -49,7 +49,7 @@ class GameMap {
 	void initialize(std::shared_ptr<PC> hero);
 
 	// Adjusts state to reflect effects of next turn of the game
-	void nextTurn(std::pair<CommandType, CommandType> &commands);
+	void nextTurn(std::pair<CommandType, CommandType> commands);
 
 	// Returns the Cell grid
 	std::vector<std::vector<Cell>> &getGrid();
