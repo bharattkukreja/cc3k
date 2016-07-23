@@ -1,11 +1,16 @@
 #include "gamehandler.h"
+#include "ui.h"
+#include "gamemap.h"
+#include "pc.h"
 
 using namespace std;
+
+GameHandler::GameHandler(GameMap &g, UI &ui) : g{g}, ui{ui} {}
 
 void GameHandler::play(string file) {
     
     ui.output_message("Enter the character you want to play with");
-    Commandtype c = ui.getNextInput();
+    CommandType c = ui.getNextInput();
     if(c == CommandType::h)
         hero = new Human();
     else if(c == CommandType::e)
@@ -56,17 +61,17 @@ void GameHandler::play(string file) {
     
     while(true) {
         pair <CommandType CommandType> command_pair;
-        CommandType input1 = Commandtype::no_value;
-        Commandtype input2 = ui.getNextInput();
-        if(input2 == Commandtype::a || input2 == Commandtype::d) {
+        CommandType input1 = CommandType::no_value;
+        CommandType input2 = ui.getNextInput();
+        if(input2 == CommandType::a || input2 == CommandType::d) {
             input1 = ui.getNextInput();
         }       
-        else if(input2 == Commandtype::r) {
+        else if(input2 == CommandType::r) {
             delete hero;
             ui.output_message("Restarting the game");
             play();
         }
-        else if(input2 == Commandtype::q) {
+        else if(input2 == CommandType::q) {
             delete hero;
             ui.output_message("Thanks for playing the game");
             break;
