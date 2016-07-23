@@ -1,7 +1,7 @@
 #include "elf.h"
 using namespace std;
 
-extern const unsigned int humanHP, humanAtk, humanDef;
+const unsigned int elfHP = 140, humanAtk = 30, humanDef = 10;
 
 Elf::Elf(): PC{humanHP, humanAtk, humanDef, 0} {}
 
@@ -13,3 +13,5 @@ Elf & Elf::operator=(const Elf & other) {
     atk = other.atk;
     def = other.def;
 }
+
+Elf::~Elf() {};
