@@ -10,14 +10,18 @@ class PC : public Character {
  protected:
     unsigned int gold; // players can pick up money, which goes here!
  public:
-    PC(unsigned int HP, unsigned int atk, unsigned int def, unsigned int gold = 0);
+    PC(unsigned int HP, unsigned int atk, unsigned int def);
     PC(const PC & other);
+    PC & operator=(const PC & other);
+    ~PC();
+
     bool isPC() const override;
 
     virtual int getGold() const;
 
     virtual bool hit(NPC & target); // by default, this just calls strike() from character.h
     virtual void resetPotions(); // resets the effects of atk/def potions
+    virtual void changeHP(const int amount);
     virtual void changeGold(const int amount); // changes (usually adds) gold
     virtual int score() const;
 };
