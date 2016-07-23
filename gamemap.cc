@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <vector>
 #include <utility>
 #include "gamemap.h"
@@ -92,7 +93,24 @@ void GameMap::setUpMap(){
     }
 }
 
+void generate_batch() {
+
+}
+
 void GameMap::populate(){
+
+    // spawning PC
+    
+    vector <vector <Cell>> 
+    int count = 1;
+    for (int i = 1; i < GameMap::height - 1; i++) {
+        for (int j = 1; j < GameMap::width - 1; j++) {
+            if(grid[i][j] == CellType::Wall_vertical) {
+                         
+            }
+        }
+    }
+
     // place hero
     for(unsigned int r=1; r<GameMap::height-1; r++){
 	for(unsigned int c=1; c<GameMap::width-1; c++){
