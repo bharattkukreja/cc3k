@@ -60,9 +60,9 @@ void GameMap::setUpMap(){
     for(unsigned int r=0; r<GameMap::width; r++){
         grid.emplace_back(vector<Cell>());
         for(unsigned int c=0; c<GameMap::height; c++){
-            if(r==0 || r==GameMap::width-1){
+            if(r==0 || r==width-1){
                 grid[r].emplace_back(Cell(CellType::Wall_horizontal));
-            } else if(c==0 || r==GameMap::height-1) {
+            } else if(c==0 || r==height-1) {
                 grid[r].emplace_back(Cell(CellType::Wall_vertical));
             } else {
                 grid[r].emplace_back(Cell(CellType::Floor));

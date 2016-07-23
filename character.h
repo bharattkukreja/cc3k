@@ -20,8 +20,7 @@ class Character : public Sprite {
     Character(unsigned int hp, unsigned int atk, unsigned int def);
     Character(const Character & other);
 };
-
-bool stike(int attack, Character & target); // returns true after calling getHit() on target
+template<typename Actor> bool strike(const unsigned int attack, Actor & target); // returns true after calling getHit() on target
 
 void changeAttr(unsigned int & attribute, const int amount, const int minValue); // changes an attribute by amount, bounded below by minValue
 

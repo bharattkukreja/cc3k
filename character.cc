@@ -12,7 +12,7 @@ unsigned int Character::getAtk() const { return atk; }
 
 unsigned int Character::getDef() const { return def; }
 
-bool strike(int attack, Character & target) {
+template<typename Actor> bool strike(const unsigned int attack, Actor & target) {
     target.getHit(attack);
     return true;
 }
