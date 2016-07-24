@@ -204,24 +204,24 @@ void GameMap::decideDirection(pair<CommandType, CommandType> &c_type, unsigned i
     if(c_type.second == CommandType::no && r>0){
         r--;
     } else if(c_type.second == CommandType::ne && r>0
-                                               && c<GameMap::width){
+                                               && c<grid[0].size()){
         r--;
         c++;
     } else if(c_type.second == CommandType::nw && r>0
                                                && c>0){
         r--;
         c--;
-    } else if(c_type.second == CommandType::so && r<GameMap::height){
+    } else if(c_type.second == CommandType::so && r<grid.size()){
         r++;
-    } else if(c_type.second == CommandType::se && r<GameMap::height
-                                               && c<GameMap::width){
+    } else if(c_type.second == CommandType::se && r<grid.size()
+                                               && c<grid[0].size()){
         r++;
         c++;
-    } else if(c_type.second == CommandType::sw && r<GameMap::height
+    } else if(c_type.second == CommandType::sw && r<grid.size()
                                                && c>0){
         r++;
         c--;
-    } else if(c_type.second == CommandType::ea && c<GameMap::width){
+    } else if(c_type.second == CommandType::ea && c<grid[0].size()){
         c++;
     } else if(c_type.second == CommandType::we && c>0){
         c--;
