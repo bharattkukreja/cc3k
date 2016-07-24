@@ -15,8 +15,8 @@ Goblin::Goblin(const Goblin & other): NPC{other} {}
 
 Goblin & Goblin::operator=(const Goblin & other) {
     hp = other.hp;
-    goldDropped = other.goldDropped;
-    hostile = other.hostile;
+    this->setGoldDropped(other.getGoldDropped());
+    this->setHostile(other.isHostile());
     atk = other.atk;
     def = other.def;
     return *this;

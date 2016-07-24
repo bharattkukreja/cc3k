@@ -14,8 +14,8 @@ Vampire::Vampire(const Vampire & other): NPC{other} {}
 
 Vampire & Vampire::operator=(const Vampire & other) {
     hp = other.hp;
-    goldDropped = other.goldDropped;
-    hostile = other.hostile;
+    this->setGoldDropped(other.getGoldDropped());
+    this->setHostile(other.isHostile());
     atk = other.atk;
     def = other.def;
     return *this;

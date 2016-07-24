@@ -1,12 +1,15 @@
 #include <cstdlib>
+#include <ctime>
 #include "npc.h"
 #include "pc.h"
 using namespace std;
 
-bool NPC::isHostile() { return hostile; }
+bool NPC::isHostile() const { return hostile; }
 
 void NPC::setHostile(const bool newHostile) { hostile = newHostile; }
 
+
+void NPC::setGoldDropped(const unsigned int gdNew) { goldDropped = gdNew; }
 
 unsigned int NPC::getGoldDropped() const { return goldDropped; }
 

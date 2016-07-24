@@ -14,8 +14,8 @@ Phoenix::Phoenix(const Phoenix & other): NPC{other} {}
 
 Phoenix & Phoenix::operator=(const Phoenix & other) {
     hp = other.hp;
-    goldDropped = other.goldDropped;
-    hostile = other.hostile;
+    this->setGoldDropped(other.getGoldDropped());
+    this->setHostile(other.isHostile());
     atk = other.atk;
     def = other.def;
     return *this;
