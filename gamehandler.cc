@@ -11,6 +11,7 @@
 #include <fstream>
 #include <sstream>
 #include <utility>
+#include <iostream>             // to be deleted
 
 using namespace std;
 
@@ -32,12 +33,13 @@ void GameHandler::play(string file) {
         hero = shared_ptr <PC> (new Dwarf()); 
     else
         hero = shared_ptr <PC> (new Elf());
-
+    
     vector <vector <CellType>> layout;
     
     ifstream fin(file);
     
     while(!fin.eof()) {
+        
         string line;
         getline(fin, line);
         istringstream iss(line);
@@ -70,8 +72,10 @@ void GameHandler::play(string file) {
     }
 
     g.setUpMap(layout);
+    
     g.initialize(hero);
     
+    cout << "abc" << endl;
     while(true) {
         pair <CommandType, CommandType> command_pair;
         CommandType input1 = CommandType::no_value;
