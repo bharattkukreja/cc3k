@@ -42,6 +42,9 @@ void GameHandler::play(string file) {
     ui.output(g.getGrid());
 
     while(true) {
+
+        ui.display_commands();
+
         pair <CommandType, CommandType> command_pair;
         CommandType input1 = CommandType::no_value;
         CommandType input2 = ui.getNextInput();

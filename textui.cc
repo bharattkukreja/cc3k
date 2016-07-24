@@ -142,6 +142,15 @@ void TextUI::output(vector <vector <Cell>> grid) {
 
 }
 
+void TextUI::display_commands() {
+    out << "Enter a command" <<  endl;
+    out << "Directions : North(no), South(so), East(ea), West(we), NorthEast(ne), NorthWest(nw), SouthEast(se), SouthWest(sw)" << endl;
+    out << "Use potion : u < direction >" << endl;
+    out << "Attack : a < direction >" << endl;
+    out << "Restart : r" <<  endl;
+    out << "Quit : q" << endl;
+}
+
 string TextUI::convert(SpriteType s) {
     string str;
     if(s == SpriteType::Human)
