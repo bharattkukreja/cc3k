@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include "npc.h"
+#include "pc.h"
 using namespace std;
 
 bool NPC::isHostile() { return hostile; }
@@ -13,7 +14,7 @@ bool NPC::isNPC() const { return true; }
 bool NPC::hit(PC & target) {
     bool doesHit = rand() % 2; // randomly generates a bool to give 50% chance to miss
     if (doesHit) {
-        strike(atk, target);
+        target.getHit(atk);
     }
     return doesHit;
 }

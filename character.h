@@ -23,9 +23,6 @@ class Character : public Sprite {
     virtual ~Character() = 0;
 };
 
-
-template<typename Actor> bool strike(const unsigned int attack, Actor & target); // returns true after calling getHit() on target
-
 void changeAttr(unsigned int & attribute, const int amount, const int minValue); // changes an attribute by amount, bounded below by minValue
 
 #endif

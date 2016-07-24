@@ -26,7 +26,8 @@ void PC::resetPotions() {
 }
 
 bool PC::hit(NPC & target) {
-    return strike(atk, target);
+    target.getHit(atk);
+    return true;
 }
 
 int PC::getGold() const { return gold; }
