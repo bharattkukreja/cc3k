@@ -20,7 +20,7 @@ class Character : public Sprite {
     Character(unsigned int hp, unsigned int atk, unsigned int def);
     Character(const Character & other);
 
-    virtual ~Character() {}
+    virtual ~Character() = 0;
 };
 
 

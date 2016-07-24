@@ -18,7 +18,7 @@ class NPC : public Character {
 
     NPC(const unsigned int hp, const unsigned int atk, const unsigned int def, const unsigned int goldDropped, const bool hostile);
     NPC(const NPC & other);
-    virtual ~NPC() {}
+    virtual ~NPC() = 0;
 };
 
 #endif

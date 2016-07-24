@@ -6,6 +6,9 @@ PC::PC(unsigned int HP, unsigned int atk, unsigned int def): Character{hp, atk, 
 
 PC::PC(const PC & other): Character{other.hp, other.atk, other.def}, maxHP{other.maxHP}, baseAtk{other.baseAtk}, baseDef{other.baseDef}, gold{other.gold} {}
 
+PC::~PC() {}
+
+
 PC & PC::operator=(const PC & other) {
     hp = other.hp; atk = other.atk; def = other.def;
     maxHP = other.maxHP;
