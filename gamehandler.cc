@@ -53,22 +53,22 @@ void GameHandler::play(string file) {
         }       
         else if(input2 == CommandType::r) {
             // delete hero;
-            ui.output_message("Restarting the game");
+            ui.output_message("Restarting the game\n");
             play(file);
         }
         else if(input2 == CommandType::q) {
             // delete hero;
-            ui.output_message("Thanks for playing the game");
+            ui.output_message("Thanks for playing the game\n");
             break;
         }
         else if(g.getFloorCount() > 5) {
             // delete hero;
-            ui.output_message("You Won! Congratulations!");
+            ui.output_message("You Won! Congratulations!\n");
             break;
         }
         else if(hero->getHP() == 0) {
             // delete hero;
-            ui.output_message("You Lost!");
+            ui.output_message("You Lost!\n");
             break;
         }
 
