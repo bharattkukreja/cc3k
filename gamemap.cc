@@ -94,7 +94,7 @@ void GameMap::setUpMap(){
     }
 }
 
-
+/*
 void generate_batch(Cell &c, vector<shared_ptr<Cell>> &chamber) {
 	if(chamber.size() == 0 || find(chamber.begin(), chamber.end(), shared_ptr<Cell>(&c)) == chamber.end()){
 		chamber.emplace_back(shared_ptr<Cell>(&c));
@@ -104,11 +104,11 @@ void generate_batch(Cell &c, vector<shared_ptr<Cell>> &chamber) {
 		}
 	}
 }
-
+*/
 
 void GameMap::populate(){
 
-    // spawning PC
+  /*  // spawning PC
     auto chambers = vector<vector<shared_ptr<Cell>>>();
     //int num_chambers = 5;
     
@@ -132,7 +132,7 @@ void GameMap::populate(){
         }
     }
 
-
+*/
 /*
     int count = 1;
     for (int i = 1; i < GameMap::height - 1; i++) {
