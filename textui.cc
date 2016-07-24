@@ -100,19 +100,8 @@ void TextUI::output(vector <vector <Cell>> grid) {
         for (auto single_cell: row) {
             CellType type = single_cell.getType();
             
-            if(type == CellType::Floor)
-                out << ".";
-            else if(type == CellType::Door)
-                out << "+";
-            else if(type == CellType::Passage)
-                out << "#";
-            else if(type == CellType::Wall_horizontal)
-                out << "-";
-            else if(type == CellType::Wall_vertical)
-                out << "|";
-            else if(type == CellType::Space)
-                out << " ";
-            else {
+            if(!single_cell.isEmpty()) {
+                
                 shared_ptr<Sprite> s = single_cell.sprite;
                 SpriteType sprite_type = s->getType();
                 if(sprite_type == SpriteType::Human || sprite_type == SpriteType::Elf ||
@@ -131,8 +120,30 @@ void TextUI::output(vector <vector <Cell>> grid) {
                     out << "M";
                 else if(sprite_type == SpriteType::Phoenix)
                     out << "X";
-                else
+                else if(sprite_type == SpriteType::Dragon)
                     out << "D";
+                else if(sprite_type == SpriteType::Stairs)
+                    out << "\\";
+                else if(sprite_type == SpriteType::Potion)
+                    out << "P";
+                else if(sprite_type == SpriteType::Gold)
+                    out << "G";
+            }
+
+            else {
+
+                if(type == CellType::Floor)
+                    out << ".";
+                else if(type == CellType::Door)
+                    out << "+";
+                else if(type == CellType::Passage)
+                    out << "#";
+                else if(type == CellType::Wall_horizontal)
+                    out << "-";
+                else if(type == CellType::Wall_vertical)
+                    out << "|";
+                else if(type == CellType::Space)
+                    out << " ";
             }
         } 
         out << endl;
