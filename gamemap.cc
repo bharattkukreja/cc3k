@@ -12,6 +12,8 @@
 #include "potion.h"
 #include "stairs.h"
 
+
+#include <iostream>     // to be deleted
 using namespace std;
 
 // Implementation of GameMap class, see gamemap.h for documentation
@@ -67,45 +69,55 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
 void GameMap::setUpMap(){
 }
 
-/*
-void generate_batch(Cell &c, vector<shared_ptr<Cell>> &chamber) {
-	if(chamber.size() == 0 || find(chamber.begin(), chamber.end(), shared_ptr<Cell>(&c)) == chamber.end()){
-		chamber.emplace_back(shared_ptr<Cell>(&c));
+
+void generate_batch(Cell &c, vector<Cell*> &chamber) {
+	if(chamber.size() == 0 || find(chamber.begin(), chamber.end(), &c) == chamber.end()){
+		chamber.emplace_back(&c);
 		auto observers = c.getObservers();
 		for(auto observer: observers){
-			generate_batch(*observer, chamber);
+		    generate_batch(*observer, chamber);
 		}
 	}
 }
-*/
+
 
 void GameMap::populate(){
 
-  /*  // spawning PC
-    auto chambers = vector<vector<shared_ptr<Cell>>>();
-    //int num_chambers = 5;
-    
-    for(auto row: grid){
+    // spawning PC
+    auto chambers = vector<vector<Cell*>>();
+    int num_chambers = 5;
+    int count = 0; 
+    for(auto row: grid) {
         for(auto cell: row){
             bool isThere = false;
             if(cell.getType() == CellType::Floor) {
                 // checking if 
                 for(unsigned int z = 0; z < chambers.size(); z++) {
-                    if(find(chambers[z].begin(), chambers[z].end(), shared_ptr<Cell>(&cell)) != chambers[z].end()) {
+                    if(find(chambers[z].begin(), chambers[z].end(), &cell) != chambers[z].end()) {
                         isThere = true;
                         break;
                     }
                 }
             }
             if(!isThere) {
-                vector <shared_ptr <Cell>> temp;
+                cout << count << endl;
+                count++;
+                vector <Cell*> temp;
                 generate_batch(cell, temp);
                 chambers.emplace_back(temp);
             }
         }
     }
+   
+    srand(time(NULL));
+    int random_chamber = rand() % num_chambers;
+    int random_cell = rand() % chambers[random_chamber].size();
+    
+    cout << "abx" << random_chamber << " " << chambers[random_chamber].size() << endl;
 
-*/
+    player_location.first = chambers[random_chamber][random_cell]->getRow();
+    player_location.second = chambers[random_chamber][random_cell]->getCol();
+    grid[player_location.first][player_location.second].sprite = hero;
 /*
     int count = 1;
     for (int i = 1; i < GameMap::height - 1; i++) {
@@ -116,7 +128,7 @@ void GameMap::populate(){
         }
     }
 */
-
+/*
     // place hero
     bool lbreak = false;
     for(unsigned int r=1; r<grid.size()-1; r++){
@@ -144,7 +156,7 @@ void GameMap::populate(){
 	}
 	if(lbreak) break;
     }
-	
+*/	
     // spawn potions
 
     // spawn gold
