@@ -38,10 +38,10 @@ void GameHandler::play(string file) {
     g.setUpMap(layout);
     
     g.initialize(hero);
-    
-    ui.output(g.getGrid());
 
     while(true) {
+
+	ui.output(g.getGrid());
 
         ui.display_commands();
 
@@ -71,8 +71,6 @@ void GameHandler::play(string file) {
             ui.output_message("You Lost!");
             break;
         }
-        
-        ui.output(g.getGrid());
 
         ui.output_message("Race: " + ui.convert(hero->getType()) + " Gold: ");
         ui.output_number(hero->score());

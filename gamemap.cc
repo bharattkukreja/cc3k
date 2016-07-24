@@ -12,6 +12,10 @@
 #include "potion.h"
 #include "stairs.h"
 
+#ifdef DEBUG
+#include <iostream>
+#endif
+
 using namespace std;
 
 // Implementation of GameMap class, see gamemap.h for documentation
@@ -203,28 +207,52 @@ void GameMap::clear(){
 void GameMap::decideDirection(pair<CommandType, CommandType> &c_type, unsigned int & r, unsigned int & c){
     if(c_type.second == CommandType::no && r>0){
         r--;
+	#ifdef DEBUG
+	cout << "north" << endl;
+	#endif
     } else if(c_type.second == CommandType::ne && r>0
                                                && c<grid[0].size()){
         r--;
         c++;
+	#ifdef DEBUG
+        cout << "north east" << endl;
+        #endif
     } else if(c_type.second == CommandType::nw && r>0
                                                && c>0){
         r--;
         c--;
+	#ifdef DEBUG
+        cout << "north west" << endl;
+        #endif
     } else if(c_type.second == CommandType::so && r<grid.size()){
         r++;
+	#ifdef DEBUG
+        cout << "south" << endl;
+        #endif
     } else if(c_type.second == CommandType::se && r<grid.size()
                                                && c<grid[0].size()){
         r++;
         c++;
+	#ifdef DEBUG
+        cout << "south east" << endl;
+        #endif
     } else if(c_type.second == CommandType::sw && r<grid.size()
                                                && c>0){
         r++;
         c--;
+	#ifdef DEBUG
+        cout << "south west" << endl;
+        #endif
     } else if(c_type.second == CommandType::ea && c<grid[0].size()){
         c++;
+	#ifdef DEBUG
+        cout << "east" << endl;
+        #endif
     } else if(c_type.second == CommandType::we && c>0){
         c--;
+	#ifdef DEBUG
+        cout << "west" << endl;
+        #endif
     }
 }
 
