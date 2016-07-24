@@ -1,6 +1,6 @@
 #include "goblin.h"
 #include "npc.h"
-#include "character.h"
+#include "spritetype.h"
 using namespace std;
 
 const unsigned int goblinHP = 70;
@@ -23,3 +23,6 @@ Goblin & Goblin::operator=(const Goblin & other) {
 }
 
 Goblin::~Goblin() {};
+
+
+SpriteType Goblin::getType() const { return SpriteType::Goblin; }

@@ -1,5 +1,6 @@
 #include "gold.h"
 #include "pc.h"
+#include "spritetype.h"
 using namespace std;
 
 const unsigned int defaultValue = 1;
@@ -16,3 +17,6 @@ Gold & Gold::operator=(const Gold & other) {
 }
 
 Gold::~Gold() {}
+
+
+SpriteType Gold::getType() const { return SpriteType::Gold; }

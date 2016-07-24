@@ -1,4 +1,5 @@
 #include "phoenix.h"
+#include "spritetype.h"
 using namespace std;
 
 const unsigned int phoenixHP = 50;
@@ -21,3 +22,6 @@ Phoenix & Phoenix::operator=(const Phoenix & other) {
 }
 
 Phoenix::~Phoenix() {};
+
+
+SpriteType Phoenix::getType() const { return SpriteType::Phoenix; }

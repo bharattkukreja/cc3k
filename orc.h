@@ -3,8 +3,12 @@
 
 #include "pc.h"
 
+enum class SpriteType;
+
 class Orc : public PC {
  public:
+    SpriteType getType() const override;
+
     int getGold() const override;
 
     Orc();

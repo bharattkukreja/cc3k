@@ -1,9 +1,13 @@
-#include "character.h"
 #include "pc.h"
 #include "human.h"
+#include "spritetype.h"
 using namespace std;
 
+SpriteType Human::getType() const { return SpriteType::Human; }
+
+
 int Human::score() const { return 1.5 * this->getGold(); }
+
 
 const unsigned int humanHP = 140, humanAtk = 25, humanDef = 25;
 

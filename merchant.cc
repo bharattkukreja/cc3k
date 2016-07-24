@@ -1,4 +1,5 @@
 #include "merchant.h"
+#include "spritetype.h"
 using namespace std;
 
 const unsigned int merchantHP = 30;
@@ -26,3 +27,6 @@ Merchant::~Merchant() {};
 void Merchant::setHostile(const bool newHostile) {
     merchantHostile = hostile = newHostile;
 }
+
+
+SpriteType Merchant::getType() const { return SpriteType::Merchant; }

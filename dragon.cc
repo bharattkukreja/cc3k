@@ -1,4 +1,5 @@
 #include "dragon.h"
+#include "spritetype.h"
 using namespace std;
 
 const unsigned int dragonHP = 150;
@@ -21,3 +22,6 @@ Dragon & Dragon::operator=(const Dragon & other) {
 }
 
 Dragon::~Dragon() {};
+
+
+SpriteType Dragon::getType() const { return SpriteType::Dragon; }

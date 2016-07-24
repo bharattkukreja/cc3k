@@ -3,8 +3,12 @@
 
 #include "npc.h"
 
+enum class SpriteType;
+
 class Vampire : public NPC {
  public:
+    SpriteType getType() const override;
+
     Vampire();
     Vampire(const Vampire & other);
     Vampire & operator=(const Vampire & other);

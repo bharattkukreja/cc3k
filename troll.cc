@@ -1,4 +1,5 @@
 #include "troll.h"
+#include "spritetype.h"
 using namespace std;
 
 const unsigned int trollHP = 120;
@@ -21,3 +22,6 @@ Troll & Troll::operator=(const Troll & other) {
 }
 
 Troll::~Troll() {};
+
+
+SpriteType Troll::getType() const { return SpriteType::Troll; }

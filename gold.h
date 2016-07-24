@@ -1,15 +1,16 @@
 #ifndef __GOLD_H_
 #define __GOLD_H_
 
-#include "sprite.h"
-#include "stationary.h"
 #include "item.h"
-#include "pc.h"
-#include "spritetype.h"
+
+class PC;
+enum class SpriteType;
 
 class Gold : public Item {
     unsigned int value;
  public:
+    SpriteType getType() const override;
+
     void use(PC & user) override; // put the gold in the PC's pocket!
     explicit Gold(const unsigned int value);
     Gold(const Gold & other);

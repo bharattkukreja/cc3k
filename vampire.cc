@@ -1,4 +1,5 @@
 #include "vampire.h"
+#include "spritetype.h"
 using namespace std;
 
 const unsigned int vampireHP = 50;
@@ -21,3 +22,6 @@ Vampire & Vampire::operator=(const Vampire & other) {
 }
 
 Vampire::~Vampire() {};
+
+
+SpriteType Vampire::getType() const { return SpriteType::Vampire; }

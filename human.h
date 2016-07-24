@@ -3,9 +3,14 @@
 
 #include "pc.h"
 
+enum class SpriteType;
+
 class Human : public PC {
  public:
+    SpriteType getType() const override;
+
     int score() const override;
+
     Human();
     Human(const Human & other);
     Human & operator=(const Human & other);

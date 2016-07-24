@@ -5,6 +5,8 @@
 
 class Elf : public PC {
  public:
+    SpriteType getType() const override;
+
     bool isElf() const override;
 
     Elf();

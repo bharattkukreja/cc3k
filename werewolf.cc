@@ -1,4 +1,5 @@
 #include "werewolf.h"
+#include "spritetype.h"
 using namespace std;
 
 const unsigned int werewolfHP = 50;
@@ -21,3 +22,5 @@ Werewolf & Werewolf::operator=(const Werewolf & other) {
 }
 
 Werewolf::~Werewolf() {};
+
+SpriteType Werewolf::getType() const { return SpriteType::Werewolf; }

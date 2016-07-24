@@ -3,8 +3,12 @@
 
 #include "stationary.h"
 
+enum class SpriteType;
+
 class Stairs : public Stationary {
  public:
+    SpriteType getType() const override;
+
     Stairs();
     ~Stairs();
 }; // yay empty classes~~
