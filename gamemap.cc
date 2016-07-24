@@ -230,12 +230,13 @@ void GameMap::decideDirection(pair<CommandType, CommandType> &c_type, unsigned i
 
 void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 	// hero action
-	unique_ptr<Cell> target;
+	// make shared? (idk how to make it work
+	Cell *target;
 	unsigned int r = player_location.first;
 	unsigned int c = player_location.second;
 
 	decideDirection(c_type, r, c);
-	target = unique_ptr<Cell>(&grid[r][c]);
+	target = &grid[r][c];
 
 	if((r==player_location.first && c==player_location.second) 
 		|| target->getType() == CellType::Wall_vertical || target->getType() == CellType::Wall_horizontal){
@@ -264,15 +265,15 @@ void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 
 	} else {
 		// try to move to this location
-		if(target != nullptr && (target->sprite->getType() == SpriteType::Stairs)) {
+		if(target != nullptr && !target->isEmpty() && (target->sprite->getType() == SpriteType::Stairs)) {
 			floor_count++;
 			clear();
 			populate();
 			return;
 		} else if(target!=nullptr && (target->isEmpty() || target->sprite->getType() == SpriteType::Gold)){
 			// use gold
-			if(target->sprite->getType() == SpriteType::Gold){
-				dynamic_pointer_cast<Potion>(target->sprite)->use(*hero);
+			if(!target->isEmpty() && target->sprite->getType() == SpriteType::Gold){
+				dynamic_pointer_cast<Item>(target->sprite)->use(*hero);
                         	target->sprite.reset();
                         	target->sprite = nullptr;
 			}
