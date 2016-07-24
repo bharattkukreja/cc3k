@@ -21,11 +21,6 @@ int max(const int a, const int b) {return a > b ? a : b; } // because it wasn't 
 
 void changeAttr(unsigned int & attribute, const int amount, const int minValue) { attribute = max(minValue, attribute + amount); }
 
-void Character::getHit(int vsAtk) {
-    int damage = (vsAtk*100) / (100+def) + ((vsAtk*100) % (100+def) > 0);
-    changeAttr(hp, -damage, 0);
-}
-
 
 void Character::changeHP(const int amount) {
     if (hp + amount > maxHP) { // bounds the amount a potion can heal
@@ -38,3 +33,6 @@ void Character::changeHP(const int amount) {
 void Character::changeAtk(const int amount) { changeAttr(atk, amount, 1); }
 
 void Character::changeDef(const int amount) { changeAttr(def, amount, 1); }
+
+
+void CHaracter::getHit(int vsAtk) { changeHP(-((vsAtk*100) / (100+def) + ((vsAtk*100) / (100+def) > 0))); }
