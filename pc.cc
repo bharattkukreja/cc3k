@@ -2,9 +2,9 @@
 #include "npc.h"
 using namespace std;
 
-PC::PC(const unsigned int HP, const unsigned int atk, const unsigned int def): Character{hp, atk, def}, maxHP{HP}, baseAtk{atk}, baseDef{def}, gold{0} {}
+PC::PC(const unsigned int hp, const unsigned int atk, const unsigned int def): Character{hp, atk, def}, baseAtk{atk}, baseDef{def}, gold{0} {}
 
-PC::PC(const PC & other): Character{other.hp, other.atk, other.def}, maxHP{other.maxHP}, baseAtk{other.baseAtk}, baseDef{other.baseDef}, gold{other.gold} {}
+PC::PC(const PC & other): Character{other}, baseAtk{other.baseAtk}, baseDef{other.baseDef}, gold{other.gold} {}
 
 PC::~PC() {}
 
@@ -33,13 +33,5 @@ bool PC::hit(NPC & target) {
 int PC::getGold() const { return gold; }
 
 void PC::changeGold(const int amount) { changeAttr(gold, amount, 0); }
-
-void PC::changeHP(const int amount) {
-    if (hp + amount > maxHP) { // bounds the amount a potion can heal
-        hp = maxHP;
-    } else {
-        changeAttr(hp, amount, 0);
-    }
-}
 
 int PC::score() const { return this->getGold(); }

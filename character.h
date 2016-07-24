@@ -5,7 +5,7 @@
 
 class Character : public Sprite {
  protected:
-    unsigned int hp, atk, def;
+    unsigned int maxHP, hp, atk, def;
  public:
     virtual void getHit(int vsAtk); // getting hit by attacks reduces HP
     
@@ -14,6 +14,7 @@ class Character : public Sprite {
     unsigned int getDef() const;
  
     // nothing needs to directly set HP, atk, or def -- all mutations are changes to the existing value
+    void changeHP(const int amount); // changes hp by amount, to a minimum of 0 and a maximum of maxHP
     void changeAtk(const int amount); // changes atk by amount, to a minimum of 1
     void changeDef(const int amount); // changes def by amount, to a minimum of 1
 

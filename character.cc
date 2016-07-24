@@ -2,9 +2,9 @@
 #include "character.h"
 using namespace std;
 
-Character::Character(const unsigned int hp, const unsigned int atk, const unsigned int def): hp{hp}, atk{atk}, def{def} {}
+Character::Character(const unsigned int hp, const unsigned int atk, const unsigned int def): maxHP{hp}, hp{hp}, atk{atk}, def{def} {}
 
-Character::Character(const Character & other): hp{other.getHP()}, atk{other.getAtk()}, def{other.getDef()} {}
+Character::Character(const Character & other): maxHP{other.maxHP}, hp{other.hp}, atk{other.hp}, def{other.def} {}
 
 Character::~Character() {}
 
@@ -26,6 +26,14 @@ void Character::getHit(int vsAtk) {
     changeAttr(hp, -damage, 0);
 }
 
+
+void Character::changeHP(const int amount) {
+    if (hp + amount > maxHP) { // bounds the amount a potion can heal
+        hp = maxHP;
+    } else {
+        changeAttr(hp, amount, 0);
+    }
+}
 
 void Character::changeAtk(const int amount) { changeAttr(atk, amount, 1); }
 
