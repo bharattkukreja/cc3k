@@ -28,7 +28,7 @@ GameMap::GameMap() : ai{AI(grid)}, floor_count{1} {
 }
 
 void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
-    for(unsigned int r=0; r<c_grid[r].size(); r++){
+    for(unsigned int r=0; r<c_grid.size(); r++){
 	grid.emplace_back(vector<Cell>());
 	for(unsigned int c=0; c<c_grid[r].size(); c++){
 	    grid[r].emplace_back(Cell(c_grid[r][c]));
@@ -145,25 +145,29 @@ void GameMap::populate(){
 */
 
     // place hero
+    bool lbreak = false;
     for(unsigned int r=1; r<grid.size()-1; r++){
 	for(unsigned int c=1; c<grid[r].size()-1; c++){
 	    if(grid[r][c].getType() == CellType::Floor){
 	        grid[r][c].sprite = shared_ptr<Sprite>(hero);
-		r = height;
-		c = width;
+		lbreak  = true;
+		break;
 	    }
     	}
+	if(lbreak) break;
     }
 
     // spawn stairs
+    lbreak = false;
     for(unsigned int r=grid.size()-1; r>0; r--){
 	for(unsigned int c=grid[r].size()-1; c>0; c--){
 	    if(grid[r][c].getType() == CellType::Floor){
                 grid[r][c].sprite = shared_ptr<Sprite>(new Stairs());
-                r = height;     
-                c = width;
-            }
+                lbreak  = true;
+                break;
+	    }
 	}
+	if(lbreak) break;
     }
 	
     // spawn potions
