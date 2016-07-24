@@ -2,7 +2,7 @@
 #include "character.h"
 using namespace std;
 
-Character::Character(unsigned int hp, unsigned int atk, unsigned int def): hp{hp}, atk{atk}, def{def} {}
+Character::Character(const unsigned int hp, const unsigned int atk, const unsigned int def): hp{hp}, atk{atk}, def{def} {}
 
 Character::Character(const Character & other): hp{other.getHP()}, atk{other.getAtk()}, def{other.getDef()} {}
 
