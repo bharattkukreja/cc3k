@@ -33,9 +33,9 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
 	for(unsigned int c=0; c<c_grid[r].size(); c++){
 	    grid[r].emplace_back(Cell(c_grid[r][c]));
 			
-            if(grid[r][c].getType()==CellType::Wall_horizontal
-                && grid[r][c].getType()==CellType::Wall_vertical
-                && grid[r][c].getType()==CellType::Space){
+            /*if(grid[r][c].getType()==CellType::Wall_horizontal
+                || grid[r][c].getType()==CellType::Wall_vertical
+                || grid[r][c].getType()==CellType::Space){
                 continue;
             }
 
@@ -51,7 +51,7 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
                    && grid[r][c-1].getType()!=CellType::Space){
                 grid[r][c-1].attach(grid[r][c]);
                 grid[r][c].attach(grid[r][c-1]);
-            }
+            }*/
 	}
     }
 }
@@ -145,8 +145,8 @@ void GameMap::populate(){
 */
 
     // place hero
-    for(unsigned int r=1; r<GameMap::height-1; r++){
-	for(unsigned int c=1; c<GameMap::width-1; c++){
+    for(unsigned int r=1; r<grid.size()-1; r++){
+	for(unsigned int c=1; c<grid[r].size()-1; c++){
 	    if(grid[r][c].getType() == CellType::Floor){
 	        grid[r][c].sprite = shared_ptr<Sprite>(hero);
 		r = height;
@@ -156,8 +156,8 @@ void GameMap::populate(){
     }
 
     // spawn stairs
-    for(unsigned int r=GameMap::height-2; r>0; r--){
-	for(unsigned int c=GameMap::width-2; c>0; c--){
+    for(unsigned int r=grid.size()-1; r>0; r--){
+	for(unsigned int c=grid[r].size()-1; c>0; c--){
 	    if(grid[r][c].getType() == CellType::Floor){
                 grid[r][c].sprite = shared_ptr<Sprite>(new Stairs());
                 r = height;     

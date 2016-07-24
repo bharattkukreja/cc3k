@@ -9,7 +9,9 @@ using namespace std;
 
 // This is the implementation for the Cell class, see cell.h for documentation
 
-Cell::Cell(CellType type) : type{type}, sprite{nullptr} {}
+Cell::Cell(CellType type) : type{type}, sprite{nullptr} {
+	observers = vector<shared_ptr<Cell>>();
+}
 
 void Cell::notify(Cell &a_cell) {
 	if(sprite != nullptr && a_cell.sprite!=nullptr && 
