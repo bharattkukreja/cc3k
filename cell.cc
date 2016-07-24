@@ -9,7 +9,7 @@ using namespace std;
 
 // This is the implementation for the Cell class, see cell.h for documentation
 
-Cell::Cell(CellType type) : type{type}, sprite{nullptr} {
+Cell::Cell(CellType type, unsigned int y, unsigned int x) : type{type}, y{y}, x{x}, sprite{nullptr} {
 	observers = vector<shared_ptr<Cell>>();
 }
 
@@ -48,6 +48,14 @@ void Cell::setType(CellType type) {
 
 bool Cell::isEmpty() const {
 	return (sprite == nullptr);
+}
+
+unsigned int Cell::getCol() const {
+	return x;
+}
+
+unsigned int Cell::getRow() const {
+	return y;
 }
 
 Cell::~Cell() {

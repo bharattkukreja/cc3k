@@ -14,12 +14,14 @@ class Cell {
 
 	std::vector<std::shared_ptr<Cell>> observers;
 	CellType type;
+
+	unsigned int y, x;
 	
    public:
 
         std::shared_ptr<Sprite> sprite;
 
-	explicit Cell(CellType type);
+	explicit Cell(CellType type, unsigned int y, unsigned int x);
 
 	// Method called by other cells this cell observes to notify this one
 	//    that a PC is in proximity
@@ -47,6 +49,12 @@ class Cell {
 
 	// Returns whether or not this Cell's sprite is a nullptr
 	bool isEmpty() const;
+
+	// Returns this cell's row in the Grid
+	unsigned int getRow() const;
+
+	// Returns this cell's column in the Grid
+	unsigned int getCol() const;
 
 	~Cell();
 
