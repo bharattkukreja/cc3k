@@ -7,11 +7,14 @@ bool NPC::isHostile() { return hostile; }
 
 void NPC::setHostile(const bool newHostile) { hostile = newHostile; }
 
+
 unsigned int NPC::getGoldDropped() const { return goldDropped; }
+
 
 bool NPC::isNPC() const { return true; }
 
 bool NPC::hit(PC & target) {
+    srand(time(NULL));
     bool doesHit = rand() % 2; // randomly generates a bool to give 50% chance to miss
     if (doesHit) {
         target.getHit(atk);
