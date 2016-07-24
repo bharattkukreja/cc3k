@@ -29,7 +29,7 @@ void GameHandler::play(string file) {
     else if(c == CommandType::d)
         hero = shared_ptr <PC> (new Dwarf()); 
     else
-        hero = shared_ptr <PC> (new Elf());
+        hero = shared_ptr <PC> (new Orc());
     
     vector <vector <CellType>> layout;
     
@@ -38,7 +38,9 @@ void GameHandler::play(string file) {
     g.setUpMap(layout);
     
     g.initialize(hero);
-
+    
+    string action = "Player character has spawned";
+    bool restart = false;
     while(true) {
 
 	ui.output(g.getGrid());
@@ -66,7 +68,7 @@ void GameHandler::play(string file) {
         ui.output_number(hero->getDef());
         ui.newline();
         
-        ui.output_message("Action: \n\n");
+        ui.output_message("Action: " + action + "\n\n");
 
         ui.display_commands();
 
@@ -79,7 +81,8 @@ void GameHandler::play(string file) {
         else if(input2 == CommandType::r) {
             // delete hero;
             ui.output_message("Restarting the game\n");
-            play(file);
+            restart = true;
+            break;
         }
         else if(input2 == CommandType::q) {
             // delete hero;
@@ -101,6 +104,8 @@ void GameHandler::play(string file) {
        // g.nextTurn(command_pair);
         g.nextTurn(make_pair(input1, input2));
     }
+    if(restart)
+        play(file);
 
 }
 
