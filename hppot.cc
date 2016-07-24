@@ -2,7 +2,8 @@
 #include "pc.h"
 using namespace std;
 
-bool HPPot::visiblePositive = HPPot::visibleNegative = false;
+bool HPPot::visiblePositive = false;
+bool HPPot::visibleNegative = false;
 
 const unsigned int valueHPPot = 10;
 

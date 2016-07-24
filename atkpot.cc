@@ -2,7 +2,8 @@
 #include "pc.h"
 using namespace std;
 
-bool AtkPot::visiblePositive = AtkPot::visibleNegative = false;
+bool AtkPot::visiblePositive = false;
+bool AtkPot::visibleNegative = false;
 
 const unsigned int valueAtkPot = 5;
 
