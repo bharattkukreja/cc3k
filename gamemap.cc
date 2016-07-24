@@ -271,7 +271,9 @@ void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 	target = &grid[r][c];
 
 	if((r==player_location.first && c==player_location.second) 
-		|| target->getType() == CellType::Wall_vertical || target->getType() == CellType::Wall_horizontal){
+		|| target->getType() == CellType::Wall_vertical 
+		|| target->getType() == CellType::Wall_horizontal
+		|| target->getType() == CellType::Space){
 		target = nullptr;
 		// invalid location to move to
 	}
