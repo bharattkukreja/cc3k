@@ -41,28 +41,74 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
 	grid.emplace_back(vector<Cell>());
 	for(unsigned int c=0; c<c_grid[r].size(); c++){
 	    grid[r].emplace_back(Cell(c_grid[r][c], r, c));
-	/*		
+			
             if(grid[r][c].getType()==CellType::Wall_horizontal
                 || grid[r][c].getType()==CellType::Wall_vertical
                 || grid[r][c].getType()==CellType::Space){
                 continue;
             }
 
+        }
+    }
+
+    for(int r=1; r<grid.size()-1; r++){
+        for(int c=1; c<grid.size()-1; c++){
+            if(grid[r][c].getType()==CellType::Wall_horizontal
+                || grid[r][c].getType()==CellType::Wall_vertical
+                || grid[r][c].getType()==CellType::Space){
+                continue;
+            }
             if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
                    && grid[r-1][c].getType()!=CellType::Wall_vertical
                    && grid[r-1][c].getType()!=CellType::Space){
-                grid[r-1][c].attach(grid[r][c]);
                 grid[r][c].attach(grid[r-1][c]);
+            }
+
+            if(r>0 && c>0 && grid[r-1][c-1].getType()!=CellType::Wall_horizontal
+                   && grid[r-1][c-1].getType()!=CellType::Wall_vertical
+                   && grid[r-1][c-1].getType()!=CellType::Space){
+                grid[r][c].attach(grid[r-1][c-1]);
             }
 
             if(c>0 && grid[r][c-1].getType()!=CellType::Wall_horizontal
                    && grid[r][c-1].getType()!=CellType::Wall_vertical
                    && grid[r][c-1].getType()!=CellType::Space){
-                grid[r][c-1].attach(grid[r][c]);
                 grid[r][c].attach(grid[r][c-1]);
             }
-		*/
-	}
+                
+            if(r>0 && c<grid[r].size() && grid[r-1][c+1].getType()!=CellType::Wall_horizontal
+                   && grid[r-1][c+1].getType()!=CellType::Wall_vertical
+                   && grid[r-1][c+1].getType()!=CellType::Space){
+                 grid[r][c].attach(grid[r-1][c+1]);
+            }
+
+            if(r<grid.size() && grid[r+1][c].getType()!=CellType::Wall_horizontal
+                   && grid[r+1][c].getType()!=CellType::Wall_vertical
+                   && grid[r+1][c].getType()!=CellType::Space){
+                grid[r][c].attach(grid[r+1][c]);
+            }
+
+            if(r<grid.size() && c>0 && grid[r+1][c-1].getType()!=CellType::Wall_horizontal
+                   && grid[r+1][c-1].getType()!=CellType::Wall_vertical
+                   && grid[r+1][c-1].getType()!=CellType::Space){
+                grid[r][c].attach(grid[r+1][c-1]);
+            }
+
+            if(c<grid[r].size() && grid[r][c+1].getType()!=CellType::Wall_horizontal
+                   && grid[r][c+1].getType()!=CellType::Wall_vertical
+                   && grid[r][c+1].getType()!=CellType::Space){
+                grid[r][c].attach(grid[r][c+1]);
+            }
+                
+            if(r<grid.size() && c<grid[r].size() && grid[r+1][c+1].getType()!=CellType::Wall_horizontal
+                   && grid[r+1][c+1].getType()!=CellType::Wall_vertical
+                   && grid[r+1][c+1].getType()!=CellType::Space){
+                 grid[r][c].attach(grid[r+1][c+1]);
+            }
+
+
+
+        }
     }
 }
 
@@ -71,13 +117,13 @@ void GameMap::setUpMap(){
 
 
 void generate_batch(Cell &c, vector<Cell*> &chamber) {
-	if(chamber.size() == 0 || find(chamber.begin(), chamber.end(), &c) == chamber.end()){
-		chamber.emplace_back(&c);
-		auto observers = c.getObservers();
-		for(auto observer: observers){
-		    generate_batch(*observer, chamber);
-		}
+    if(chamber.size() == 0 || find(chamber.begin(), chamber.end(), &c) == chamber.end()){
+	chamber.emplace_back(&c);
+	auto observers = c.getObservers();
+	for(auto observer: observers){
+	    generate_batch(*observer, chamber);
 	}
+    }
 }
 
 

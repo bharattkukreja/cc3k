@@ -9,9 +9,7 @@ using namespace std;
 
 // This is the implementation for the Cell class, see cell.h for documentation
 
-Cell::Cell(CellType type, unsigned int y, unsigned int x) : type{type}, y{y}, x{x}, sprite{nullptr} {
-	observers = vector<shared_ptr<Cell>>();
-}
+Cell::Cell(CellType type, unsigned int y, unsigned int x) : type{type}, y{y}, x{x}, sprite{nullptr} {}
 
 void Cell::notify(Cell &a_cell) {
 	if(sprite != nullptr && a_cell.sprite!=nullptr && 
@@ -27,10 +25,10 @@ void Cell::notifyAll() {
 }
 
 void Cell::attach(Cell &observer) {
-	observers.emplace_back(shared_ptr<Cell>(&observer));
+	observers.emplace_back(&observer);
 }
 
-vector<shared_ptr<Cell>> Cell::getObservers(){
+vector<Cell*> Cell::getObservers(){
 	return observers;
 }
 

@@ -12,7 +12,7 @@ class Sprite;
 
 class Cell {
 
-	std::vector<std::shared_ptr<Cell>> observers;
+	std::vector<Cell*> observers;
 	CellType type;
 
 	unsigned int y, x;
@@ -34,7 +34,7 @@ class Cell {
 	void attach(Cell &observer);
 
 	// Method to get the observers of a cell
-        std::vector<std::shared_ptr<Cell>> getObservers();
+        std::vector<Cell*> getObservers();
 
 	// Method to remove all observers of a cell
 	void clear();
