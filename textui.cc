@@ -11,6 +11,7 @@ CommandType TextUI::getNextInput() {
     CommandType command;
     string s;
     in >> s;
+    cout << "reached";
     if(s == "no")
         command = CommandType::no;
     else if(s == "so")
@@ -52,6 +53,7 @@ CommandType TextUI::getNextInput() {
     else
         command = CommandType::o;
 
+    cout << "reached";
     return command;
 }
 

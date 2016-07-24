@@ -18,7 +18,11 @@ GameHandler::GameHandler(GameMap &g, UI &ui) : g{g}, ui{ui} {}
 
 void GameHandler::play(string file) {
     
-    ui.output_message("Enter the character you want to play with");
+    ui.output_message("Enter the character you want to play with\n");
+    ui.output_message("Human (h)\n");
+    ui.output_message("Elf (e)\n");
+    ui.output_message("Dwarf (d)\n");
+    ui.output_message("Orc (o)\n");
     CommandType c = ui.getNextInput();
     if(c == CommandType::h)
         hero = shared_ptr <PC> (new Human());

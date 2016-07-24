@@ -94,40 +94,44 @@ void GameMap::setUpMap(){
     }
 }
 
-/*
+
 void generate_batch(Cell &c, vector<shared_ptr<Cell>> &chamber) {
-	if(chamber.size() == 0 || find(chamber.begin(), chamber.end(), c) == chamber.end()){
-		chamber.add(shared_ptr<Cell>(*c));
-		auto observers = chamber.getObservers();
+	if(chamber.size() == 0 || find(chamber.begin(), chamber.end(), shared_ptr<Cell>(&c)) == chamber.end()){
+		chamber.emplace_back(shared_ptr<Cell>(&c));
+		auto observers = c.getObservers();
 		for(auto observer: observers){
 			generate_batch(*observer, chamber);
 		}
 	}
 }
-*/
+
 
 void GameMap::populate(){
-/*
-    // spawning PC
-    auto chambers = vector<vector<shared_ptr<Cell>>> 
-    int num_chambers = 5;
-    for(int i=0; i<num_chambers; i++){
-  	// get start index, Cell start
-	Cell &start;
-	for(auto row: grid){
-	    for(auto cell: row){
-		if(cell.getType() == CellType::Floor){
-		    bool next_start = true;
-		    
-		}
-	    }
-	}
 
-	auto chamber = vector<vector<shared_ptr<Cell>>>(); 
-	generate_batch();
-	chambers.emplace_back(start, chamber);
+    // spawning PC
+    auto chambers = vector<vector<shared_ptr<Cell>>>();
+    //int num_chambers = 5;
+    
+    for(auto row: grid){
+        for(auto cell: row){
+            bool isThere = false;
+            if(cell.getType() == CellType::Floor) {
+                // checking if 
+                for(unsigned int z = 0; z < chambers.size(); z++) {
+                    if(find(chambers[z].begin(), chambers[z].end(), shared_ptr<Cell>(&cell)) != chambers[z].end()) {
+                        isThere = true;
+                        break;
+                    }
+                }
+            }
+            if(!isThere) {
+                vector <shared_ptr <Cell>> temp;
+                generate_batch(cell, temp);
+                chambers.emplace_back(temp);
+            }
+        }
     }
-*/
+
 
 /*
     int count = 1;
