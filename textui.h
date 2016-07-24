@@ -11,6 +11,7 @@ class TextUI : public UI {
     public:
         TextUI(std::istream &in = std::cin, std::ostream &out = std::cout);
         CommandType getNextInput() override;
+        void read_floor(std::string file, std::vector <std::vector <CellType>> &layout);
         void output(std::vector <std::vector <Cell>> grid) override;
         std::string convert(SpriteType s) override;
         void output_message(std::string s) override;

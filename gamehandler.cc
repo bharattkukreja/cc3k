@@ -7,9 +7,6 @@
 #include "dwarf.h"
 #include "orc.h"
 
-
-#include <fstream>
-#include <sstream>
 #include <utility>
 #include <iostream>             // to be deleted
 
@@ -36,46 +33,14 @@ void GameHandler::play(string file) {
     
     vector <vector <CellType>> layout;
     
-    ifstream fin(file);
-    
-    while(!fin.eof()) {
-        
-        string line;
-        getline(fin, line);
-        istringstream iss(line);
-        char ch;
-        vector <CellType> temp;
-
-        while(iss >> ch) {
-            CellType c_type;  
-            
-            if(ch == '|')
-                c_type = CellType::Wall_vertical;
-            else if(ch == '-')
-                c_type = CellType::Wall_horizontal;
-            else if(ch == '+')
-                c_type = CellType::Door;
-            else if(ch == '#')
-                c_type = CellType::Passage;
-            else if(ch == '.')
-                c_type = CellType::Floor;
-            else if(ch == ' ')
-                c_type = CellType::Space;
-            else
-                break;
-            
-            temp.emplace_back(c_type);
-        }
-
-        layout.emplace_back(temp);
-
-    }
-
+    ui.read_floor(file, layout);
+ 
     g.setUpMap(layout);
     
     g.initialize(hero);
     
-    cout << "abc" << endl;
+    ui.output(g.getGrid());
+
     while(true) {
         pair <CommandType, CommandType> command_pair;
         CommandType input1 = CommandType::no_value;

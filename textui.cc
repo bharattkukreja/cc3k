@@ -1,6 +1,8 @@
 #include "textui.h"
 #include "sprite.h"
 #include "spritetype.h"
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -55,6 +57,43 @@ CommandType TextUI::getNextInput() {
     return command;
 }
 
+void TextUI::read_floor(string file, vector <vector <CellType>> &layout) {
+
+    ifstream fin(file);
+
+    while(!fin.eof()) {
+        string line;
+        getline(fin, line);
+        istringstream iss(line);
+        char ch;
+        vector <CellType> temp;
+
+        while(iss >> noskipws >> ch) {
+            CellType c_type;
+
+            if(ch == '|')
+            c_type = CellType::Wall_vertical;
+            else if(ch == '-')
+                c_type = CellType::Wall_horizontal;
+            else if(ch == '+')
+                c_type = CellType::Door;
+            else if(ch == '#')
+                c_type = CellType::Passage;
+            else if(ch == '.')
+                c_type = CellType::Floor;
+            else if(ch == ' ')
+                c_type = CellType::Space;
+            else
+                break;
+
+            temp.emplace_back(c_type);
+
+        }
+
+        layout.emplace_back(temp);
+    }
+}
+
 
 void TextUI::output(vector <vector <Cell>> grid) {
     for (auto row: grid) {
@@ -95,7 +134,8 @@ void TextUI::output(vector <vector <Cell>> grid) {
                 else
                     out << "D";
             }
-        }        
+        } 
+        out << endl;
     } 
 
     out << endl;
