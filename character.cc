@@ -35,4 +35,4 @@ void Character::changeAtk(const int amount) { changeAttr(atk, amount, 1); }
 void Character::changeDef(const int amount) { changeAttr(def, amount, 1); }
 
 
-void CHaracter::getHit(int vsAtk) { changeHP(-((vsAtk*100) / (100+def) + ((vsAtk*100) / (100+def) > 0))); }
+void Character::getHit(int vsAtk) { changeHP(-((vsAtk*100) / (100+def) + ((vsAtk*100) / (100+def) > 0))); }
