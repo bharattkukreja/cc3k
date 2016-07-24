@@ -32,6 +32,13 @@ GameMap::GameMap() : ai{AI(grid)}, floor_count{1} {
 }
 
 void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
+    if(grid.size()>0){
+ 	for(auto row: grid){
+	   row.clear();
+	}
+    }
+    grid.clear();
+
     for(unsigned int r=0; r<c_grid.size(); r++){
 	grid.emplace_back(vector<Cell>());
 	for(unsigned int c=0; c<c_grid[r].size(); c++){
@@ -195,7 +202,7 @@ void GameMap::initialize(shared_ptr<PC> hero){
 void GameMap::clear(){
     for(auto row: grid){
         for(auto cell: row){
-            cell.sprite.reset();
+            cell.sprite = nullptr;
         }
     }
 }
@@ -291,6 +298,7 @@ void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 	} else {
 		// try to move to this location
 		if(target != nullptr && !target->isEmpty() && (target->sprite->getType() == SpriteType::Stairs)) {
+			grid[player_location.first][player_location.second].sprite = nullptr;
 			floor_count++;
 			clear();
 			populate();
