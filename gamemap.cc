@@ -32,8 +32,8 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
 	grid.emplace_back(vector<Cell>());
 	for(unsigned int c=0; c<c_grid[r].size(); c++){
 	    grid[r].emplace_back(Cell(c_grid[r][c]));
-			
-            /*if(grid[r][c].getType()==CellType::Wall_horizontal
+	/*		
+            if(grid[r][c].getType()==CellType::Wall_horizontal
                 || grid[r][c].getType()==CellType::Wall_vertical
                 || grid[r][c].getType()==CellType::Space){
                 continue;
@@ -51,7 +51,8 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
                    && grid[r][c-1].getType()!=CellType::Space){
                 grid[r][c-1].attach(grid[r][c]);
                 grid[r][c].attach(grid[r][c-1]);
-            }*/
+            }
+		*/
 	}
     }
 }
@@ -150,6 +151,8 @@ void GameMap::populate(){
 	for(unsigned int c=1; c<grid[r].size()-1; c++){
 	    if(grid[r][c].getType() == CellType::Floor){
 	        grid[r][c].sprite = shared_ptr<Sprite>(hero);
+		player_location.first = r;
+		player_location.second = c;
 		lbreak  = true;
 		break;
 	    }
