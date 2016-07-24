@@ -26,15 +26,6 @@ bool PC::hit(NPC & target) {
     return strike(atk, target);
 }
 
-void changeAttr(unsigned int & attribute, const int amount, const int minValue) {
-    int result = attribute + amount;
-    if (result > minValue) {
-        attribute += amount;
-    } else {
-        attribute = minValue;
-    }
-}
-
 int PC::getGold() const { return gold; }
 
 void PC::changeGold(const int amount) { changeAttr(gold, amount, 0); }
