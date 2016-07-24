@@ -195,10 +195,7 @@ void GameMap::initialize(shared_ptr<PC> hero){
 void GameMap::clear(){
     for(auto row: grid){
         for(auto cell: row){
-            if(!cell.sprite->isPC()){
-                cell.sprite.reset();
-            }
-            cell.sprite = nullptr;
+            cell.sprite.reset();
         }
     }
 }
