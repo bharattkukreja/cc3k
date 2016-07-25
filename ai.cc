@@ -7,9 +7,9 @@ using namespace std;
 
 void AI::move(vector <pair <unsigned int, unsigned int>> &enemyLocations, vector <vector <Cell>> &grid) {
     for (unsigned int i = 0; i < enemyLocations.size(); i++) {
-        
+
         Cell c = grid[enemyLocations[i].first][enemyLocations[i].second];
-        if(c.sprite == nullptr || c.sprite->getType() == SpriteType::Dragon)
+        if(c.sprite == nullptr || !c.sprite->isNPC() || c.sprite->getType() == SpriteType::Dragon)
             continue;
         
         unsigned int x = enemyLocations[i].first;

@@ -354,6 +354,12 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 			if(e.getHP()<=0 || e.getHP()>hp){ //unsigned int in enemy, so hp actually increases instead of going below 0, needs to be fixed
 				hero->changeGold(e.getGoldDropped());
 				target->sprite = nullptr;
+				for(auto en: enemy_locations){
+					if(en.first == target->getRow() && en.second == target->getCol()){
+						en.first = 0;
+						en.second = 0;
+					}
+				}
 				action = "Player killed " + potType;
 			}
 		}
@@ -362,6 +368,7 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 		// try to move to this location
 		if(target != nullptr && !target->isEmpty() && (target->sprite->getType() == SpriteType::Stairs)) {
 			grid[player_location.first][player_location.second].sprite = nullptr;
+			enemy_locations.clear();
 			floor_count++;
 			clear();
 			populate();
