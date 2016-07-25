@@ -23,17 +23,12 @@ Merchant & Merchant::operator=(const Merchant & other) {
 
 Merchant::~Merchant() {};
 
-// merchants, when set to hostile, all become hostile from then on
-void Merchant::setHostile(const bool newHostile) {
-    this->setHostile(newHostile);
-    merchantHostile = newHostile;
-}
-
 
 unsigned int Merchant::getHit(const unsigned int vsAtk) {
     unsigned int damage = (vsAtk*100) / (100+def) + ((vsAtk*100) / (100+def) > 0);
     changeHP(-damage);
     this->setHostile(true);
+    merchantHostile = true; // merchants, when hit, all become hostile forever
     return damage;
 }
 
