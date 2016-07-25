@@ -312,6 +312,7 @@ void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 			cout << e.getHP() << endl;
 			// remove npc if its HP is less than 0
 			if(e.getHP()<=0 || e.getHP()>hp){
+				hero->changeGold(e.getGoldDropped());
 				for(auto enemy: enemy_locations){
 					if(enemy.first == target->getRow() && enemy.second == target->getCol()){
 						grid[enemy.first][enemy.second].sprite = nullptr;
