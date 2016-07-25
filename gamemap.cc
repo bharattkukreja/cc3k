@@ -279,11 +279,11 @@ void GameMap::decideDirection(pair<CommandType, CommandType> &c_type, unsigned i
 string stringifyType(SpriteType x){
 	string potType;
 	if(x == SpriteType::AtkPot){
-		potType = "AtkPot";
+		potType = "Atk Potions";
 	} else if(x == SpriteType::DefPot){
-		potType = "DefPot";
+		potType = "Def Potions";
 	} else if(x == SpriteType::HPPot){
-		potType = "HPPot";
+		potType = "HP Potions";
 	} else if(x == SpriteType::Gold){
 		potType = "Gold";
         } else if(x == SpriteType::Goblin){
@@ -311,6 +311,8 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 	Cell *target;
 	unsigned int r = player_location.first;
 	unsigned int c = player_location.second;
+
+	unsigned int php = hero->getHP();
 
 	string action = "";
 
@@ -346,7 +348,7 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 
 			string potType = stringifyType(target->sprite->getType());
 
-			action = "Player hit " + potType + " and dealt " + to_string(hp - e.getHP()) + " dmg";
+			action = "Player hit " + potType + " (" + to_string(e.getHP()) + ") and dealt " + to_string(hp - e.getHP()) + " dmg";
 
 			// remove npc if its HP is less than 0
 			if(e.getHP()<=0 || e.getHP()>hp){ //unsigned int in enemy, so hp actually increases instead of going below 0, needs to be fixed
@@ -375,25 +377,24 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 			
 				// move hero
 				target->sprite = hero;
-				unsigned int hp = hero->getHP();
 				grid[player_location.first][player_location.second].sprite = nullptr;
 				player_location.first = r;
 				player_location.second = c;
 				target->notifyAll();
 
-				if(hp != hero->getHP()) { // player was hit
-					for(auto observer: target->getObservers()){ // find out which npc
-						if(observer->hasAttacked() && observer->sprite!=nullptr){
-							string enType = stringifyType(observer->sprite->getType());
-							action = "Player was attacked by " + enType + ", losing " + to_string(hp - hero->getHP()) + " HP";
-							break;
-						}
-					}
-				} else {
-					action =  "Player moved";
-				}
+				action =  "Player moved";
 			}
 		}
+	}
+
+	if(php != hero->getHP()){
+		for(auto observer: target->getObservers()){ // find out which npc
+        	       if(observer->hasAttacked() && observer->sprite!=nullptr){
+      	                     string enType = stringifyType(observer->sprite->getType());
+                             action += " and Player was attacked by " + enType + ", losing " + to_string(php - hero->getHP()) + " HP";
+                             break;
+                       }
+                }
 	}
 
 	ai.move(enemy_locations, grid);
