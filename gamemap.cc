@@ -3,6 +3,7 @@
 #include <utility>
 #include <algorithm>
 #include <map>
+#include <string>
 #include "gamemap.h"
 #include "cell.h"
 #include "commands.h"
@@ -13,7 +14,6 @@
 #include "potion.h"
 #include "stairs.h"
 
-#include <iostream>     // to be deleted
 using namespace std;
 
 // Implementation of GameMap class, see gamemap.h for documentation
@@ -166,8 +166,6 @@ void GameMap::populate(){
 	    }
         }
     }
-
-	cout << endl;
    
     srand(time(NULL));
     int random_chamber = rand() % chambers.size();
@@ -277,12 +275,14 @@ void GameMap::decideDirection(pair<CommandType, CommandType> &c_type, unsigned i
     }
 }
 
-void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
+string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 	// hero action
 	// make shared? (idk how to make it work
 	Cell *target;
 	unsigned int r = player_location.first;
 	unsigned int c = player_location.second;
+
+	string action = "";
 
 	decideDirection(c_type, r, c);
 	target = &grid[r][c];
@@ -301,24 +301,49 @@ void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 		if(target!=nullptr && !target->isEmpty() && target->sprite->isItem()){
 			(dynamic_pointer_cast<Item>(target->sprite))->use(*hero);
 			target->sprite = nullptr;
+
+			string potType = "";
+			if(target->sprite->getType() == SpriteType::Potion){
+                                potType = "Potion";
+			} else {
+				potType = "Gold";
+			}
+
+			action = "Player used " + potType;
 		}
 
 	} else if(c_type.first == CommandType::a){
 		// attack enemy at c_type.second
+	
 		if(target!=nullptr && !target->isEmpty() && target->sprite->isNPC()){
 			NPC &e = *dynamic_pointer_cast<NPC>(target->sprite);
 			unsigned int hp = e.getHP();
 			hero->hit(e);
-			cout << e.getHP() << endl;
+
+			string potType;
+			if(target->sprite->getType() == SpriteType::Goblin){
+                                potType = "Goblin";
+                        } else if(target->sprite->getType() == SpriteType::Merchant){
+                                potType = "Merchant";
+                        } else if(target->sprite->getType() == SpriteType::Dragon){
+                                potType = "Dragon";
+                        } else if(target->sprite->getType() == SpriteType::Vampire){
+                                potType = "Vampire";
+                        } else if(target->sprite->getType() == SpriteType::Werewolf){
+                                potType = "Werewolf";
+                        } else if(target->sprite->getType() == SpriteType::Troll){
+                                potType = "Troll";
+                        } else {
+                                potType = "Phoenix";
+                        }
+
+			action = "Player hit " + potType;
+
 			// remove npc if its HP is less than 0
-			if(e.getHP()<=0 || e.getHP()>hp){
+			if(e.getHP()<=0 || e.getHP()>hp){ //unsigned int in enemy, so hp actually increases instead of going below 0, needs to be fixed
 				hero->changeGold(e.getGoldDropped());
-				for(auto enemy: enemy_locations){
-					if(enemy.first == target->getRow() && enemy.second == target->getCol()){
-						grid[enemy.first][enemy.second].sprite = nullptr;
-					}
-				}
 				target->sprite = nullptr;
+				action = "Player killed " + potType;
 			}
 		}
 
@@ -329,13 +354,14 @@ void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 			floor_count++;
 			clear();
 			populate();
-			return;
+			return "Player reached new floor";
 		} else if(target!=nullptr && (target->isEmpty() || target->sprite->getType() == SpriteType::Gold)){
 			// use gold
 			if(!target->isEmpty() && target->sprite->getType() == SpriteType::Gold){
 				dynamic_pointer_cast<Item>(target->sprite)->use(*hero);
                         	target->sprite.reset();
                         	target->sprite = nullptr;
+				action = "Player used Gold";
 			} else {
 			
 				// move hero
@@ -344,11 +370,13 @@ void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 				player_location.first = r;
 				player_location.second = c;
 				grid[r][c].notifyAll();
+				action =  "Player moved";
 			}
 		}
 	}
 
 	ai.move(enemy_locations, grid);
+	return action;
 }
 
 unsigned int GameMap::getFloorCount() const {

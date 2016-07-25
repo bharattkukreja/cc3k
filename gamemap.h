@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 #include <map>
+#include <string>
 #include "commands.h"
 #include "cell.h"
 #include "ai.h"
@@ -53,7 +54,7 @@ class GameMap {
 	void populate(std::map<std::pair<int, int>, std::shared_ptr<Sprite>> &sprite_locations);
 
 	// Adjusts state to reflect effects of next turn of the game
-	void nextTurn(std::pair<CommandType, CommandType> commands);
+	std::string nextTurn(std::pair<CommandType, CommandType> commands);
 
 	// Returns the Cell grid
 	std::vector<std::vector<Cell>> &getGrid();
