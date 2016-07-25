@@ -24,10 +24,6 @@ class GameMap {
 	AI ai;
 	unsigned int floor_count;
 
-	// Populates the grid, i.e. spawns all Sprites
-	//    Called by initialize(...)
-	void populate();
-
 	// decides direction based on given command pair
 	void decideDirection(std::pair<CommandType, CommandType> &c_type, unsigned int & r, unsigned int & c);
 
@@ -49,6 +45,9 @@ class GameMap {
 
 	// Initializes the GameMap
 	void initialize(std::shared_ptr<PC> hero);
+
+	// Populates the grid, i.e. spawns all Sprites randomly 
+        void populate();
 
 	// populates the gamemap with a given map of locations of initialized sprite pointers
 	void populate(std::map<std::pair<int, int>, std::shared_ptr<Sprite>> &sprite_locations);
