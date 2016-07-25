@@ -296,10 +296,11 @@ void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 	}
 
 	if(c_type.first == CommandType::u){
+
 		// use potion at c_type.second
 		if(target!=nullptr && !target->isEmpty() && target->sprite->isItem()){
 			(dynamic_pointer_cast<Item>(target->sprite))->use(*hero);
-			target->sprite.reset();
+			target->sprite = nullptr;
 		}
 
 	} else if(c_type.first == CommandType::a){
@@ -307,9 +308,14 @@ void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 		if(target!=nullptr && !target->isEmpty() && target->sprite->isNPC()){
 			NPC &e = *dynamic_pointer_cast<NPC>(target->sprite);
 			hero->hit(e);
-			
+			cout << e.getHP() << endl;
 			// remove npc if its HP is less than 0
 			if(e.getHP()<=0){
+				for(auto enemy: enemy_locations){
+					if(grid[enemy.first][enemy.second].sprite == shared_ptr<Sprite>(&e)){
+						grid[enemy.first][enemy.second].sprite = nullptr;
+					}
+				}
 				target->sprite.reset();
 			}
 		}
@@ -328,13 +334,15 @@ void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 				dynamic_pointer_cast<Item>(target->sprite)->use(*hero);
                         	target->sprite.reset();
                         	target->sprite = nullptr;
-			}
+			} else {
 			
-			// move hero
-			target->sprite = hero;
-			grid[player_location.first][player_location.second].sprite = nullptr;
-			player_location.first = r;
-			player_location.second = c;
+				// move hero
+				target->sprite = hero;
+				grid[player_location.first][player_location.second].sprite = nullptr;
+				player_location.first = r;
+				player_location.second = c;
+				grid[r][c].notifyAll();
+			}
 		}
 	}
 

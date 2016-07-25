@@ -5,6 +5,8 @@
 #include "pc.h"
 #include "sprite.h"
 
+#include <iostream>
+
 using namespace std;
 
 // This is the implementation for the Cell class, see cell.h for documentation

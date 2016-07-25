@@ -26,7 +26,7 @@ void AI::move(vector <pair <int, int>> &enemyLocations, vector <vector <Cell>> &
             unsigned int y_coord = y + rand2;
 
             if((x_coord >= 0) && (y_coord >= 0) && (x_coord <= grid.size()) && (y_coord <= grid.at(0).size())) {
-                if(grid[x_coord][y_coord].getType() == CellType::Floor && grid[x_coord][y_coord].isEmpty()) {
+                if(grid[x_coord][y_coord].getType() == CellType::Floor && grid[x_coord][y_coord].isEmpty() && !grid[x][y].isEmpty()) {
                     grid[x_coord][y_coord].sprite = grid[x][y].sprite;
                     grid[x][y].sprite = nullptr;
 		    enemyLocations[i].first = x_coord;
