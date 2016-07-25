@@ -125,6 +125,14 @@ void GameMap::populate(map<pair<int, int>, shared_ptr<Sprite>> &sprite_locations
                         grid[(it->first).first][(it->first).second].sprite = sprite_locations[it->first];
 			if(sprite_locations[it->first]->isNPC())
 				enemy_locations.emplace_back(pair<int , int>(it->first.first, it->first.second));
+
+			// Dragons watch their hoards
+			if(sprite_locations[it->first]->getType() == SpriteType::Dragon){
+				grid[(it->first).first][(it->first).second].clear();
+				for(auto observer: grid[(it->first).first][(it->first).second].getObservers()){
+					grid[(it->first).first][(it->first).second].attach(*observer);
+				}
+			}
                 }
         }
 }
