@@ -30,4 +30,12 @@ void Merchant::setHostile(const bool newHostile) {
 }
 
 
+unsigned int Merchant::getHit(const unsigned int vsAtk) {
+    unsigned int damage = (vsAtk*100) / (100+def) + ((vsAtk*100) / (100+def) > 0);
+    changeHP(-damage);
+    this->setHostile(true);
+    return damage;
+}
+
+
 SpriteType Merchant::getType() const { return SpriteType::Merchant; }

@@ -5,7 +5,8 @@ using namespace std;
 const unsigned int dragonHP = 150;
 const unsigned int dragonAtk = 20;
 const unsigned int dragonDef = 20;
-const bool dragonHostile = false; // individual dragons become hostile when you get close, but other dragons remain
+// not hostile until the player gets within a one-block radius is the same as being hostile & stationary
+const bool dragonHostile = true;
 const unsigned int dragonGold = 1;
 
 Dragon::Dragon(): NPC{dragonHP, dragonAtk, dragonDef, dragonGold, dragonHostile} {}

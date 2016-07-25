@@ -7,7 +7,7 @@ class Character : public Sprite {
  protected:
     unsigned int maxHP, hp, atk, def;
  public:
-    virtual void getHit(int vsAtk); // getting hit by attacks reduces HP
+    virtual unsigned int getHit(const unsigned int vsAtk); // getting hit by attacks reduces HP
     
     unsigned int getHP() const;
     unsigned int getAtk() const;

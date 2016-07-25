@@ -26,8 +26,9 @@ void PC::resetPotions() {
 }
 
 bool PC::hit(NPC & target) {
-    target.getHit(atk);
-    return true;
+    int damage = target.getHit(atk);
+    pair<bool, int> info = make_pair(true, damage);
+    return info;
 }
 
 int PC::getGold() const { return gold; }

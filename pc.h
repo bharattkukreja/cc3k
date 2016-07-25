@@ -2,6 +2,7 @@
 #define __PC_H_
 
 #include "character.h"
+#include <utility>
 
 class NPC;
 
@@ -19,7 +20,7 @@ class PC : public Character {
 
     virtual int getGold() const;
 
-    virtual bool hit(NPC & target); // by default, this just calls strike() from character.h
+    virtual std::pair<bool, int> hit(NPC & target); // by default, this just calls strike() from character.h
     virtual void resetPotions(); // resets the effects of atk/def potions
     virtual void changeGold(const int amount); // changes (usually adds) gold
     virtual int score() const;

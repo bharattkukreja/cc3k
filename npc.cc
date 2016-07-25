@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <ctime>
+#include <utility>
 #include "npc.h"
 #include "pc.h"
 using namespace std;
@@ -16,13 +17,15 @@ unsigned int NPC::getGoldDropped() const { return goldDropped; }
 
 bool NPC::isNPC() const { return true; }
 
-bool NPC::hit(PC & target) {
+pair<bool,int> NPC::hit(PC & target) {
     srand(time(NULL));
     bool doesHit = rand() % 2; // randomly generates a bool to give 50% chance to miss
+    int damage = 0;
     if (doesHit) {
-        target.getHit(atk);
+        damage = target.getHit(atk);
     }
-    return doesHit;
+    pair<bool, int> info = make_pair(doesHit, damage);
+    return info;
 }
 
 

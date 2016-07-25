@@ -14,6 +14,8 @@ class Merchant : public NPC {
     Merchant & operator=(const Merchant & other);
     ~Merchant();
 
+    unsigned int getHit(const unsigned int vsAtk) override; // sets all merchants to hostile
+
     void setHostile(const bool newHostile) override;
 };
 
