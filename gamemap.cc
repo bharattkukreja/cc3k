@@ -300,7 +300,6 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 		// use potion at c_type.second
 		if(target!=nullptr && !target->isEmpty() && target->sprite->isItem()){
 			(dynamic_pointer_cast<Item>(target->sprite))->use(*hero);
-			target->sprite = nullptr;
 
 			string potType = "";
 			if(target->sprite->getType() == SpriteType::Potion){
@@ -310,6 +309,7 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 			}
 
 			action = "Player used " + potType;
+			target->sprite = nullptr;
 		}
 
 	} else if(c_type.first == CommandType::a){
