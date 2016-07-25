@@ -17,7 +17,7 @@ class GameMap {
 
 	std::vector<std::vector<Cell>> grid; // This is the grid of Cells
 	std::pair<unsigned int, unsigned int> player_location;
-	std::vector<std::pair<int, int>> enemy_locations;
+	std::vector<std::pair<unsigned int, unsigned int>> enemy_locations;
 	std::vector<Sprite> sprites;
 	std::shared_ptr<PC> hero;
 	AI ai;

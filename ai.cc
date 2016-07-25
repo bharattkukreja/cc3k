@@ -5,15 +5,15 @@
 
 using namespace std;
 
-void AI::move(vector <pair <int, int>> &enemyLocations, vector <vector <Cell>> &grid) {
+void AI::move(vector <pair <unsigned int, unsigned int>> &enemyLocations, vector <vector <Cell>> &grid) {
     for (unsigned int i = 0; i < enemyLocations.size(); i++) {
         
         Cell c = grid[enemyLocations[i].first][enemyLocations[i].second];
         if(c.sprite == nullptr || c.sprite->getType() == SpriteType::Dragon)
             continue;
         
-        int x = enemyLocations[i].first;
-        int y = enemyLocations[i].second;
+        unsigned int x = enemyLocations[i].first;
+        unsigned int y = enemyLocations[i].second;
         
         while(true) {
             int rand1 = 1 - (rand() % 3);
