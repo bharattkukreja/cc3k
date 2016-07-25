@@ -346,7 +346,7 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 
 			string potType = stringifyType(target->sprite->getType());
 
-			action = "Player hit " + potType;
+			action = "Player hit " + potType + " and dealt " + to_string(hp - e.getHP()) + " dmg";
 
 			// remove npc if its HP is less than 0
 			if(e.getHP()<=0 || e.getHP()>hp){ //unsigned int in enemy, so hp actually increases instead of going below 0, needs to be fixed
@@ -363,7 +363,7 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 			floor_count++;
 			clear();
 			populate();
-			return "Player reached new floor";
+			return "Player reached floor " + to_string(floor_count);
 		} else if(target!=nullptr && (target->isEmpty() || target->sprite->getType() == SpriteType::Gold)){
 			// use gold
 			if(!target->isEmpty() && target->sprite->getType() == SpriteType::Gold){
@@ -383,9 +383,9 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 
 				if(hp != hero->getHP()) { // player was hit
 					for(auto observer: target->getObservers()){ // find out which npc
-						if(observer->hasAttacked()){
+						if(observer->hasAttacked() && observer->sprite!=nullptr){
 							string enType = stringifyType(observer->sprite->getType());
-							action = "Player was attacked by " + enType;
+							action = "Player was attacked by " + enType + ", losing " + to_string(hp - hero->getHP()) + " HP";
 							break;
 						}
 					}
