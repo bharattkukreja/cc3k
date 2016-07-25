@@ -101,9 +101,9 @@ void TextUI::read_floor(string file, vector <vector <CellType>> &layout, map <pa
             else {
                 c_type = CellType::Floor;
 
-                if(ch == '@') {
+                if(ch == '@') 
                    sprite = shared_ptr<Human>(new Human());
-                }
+                
                 else if(ch == '\\')
                     sprite = shared_ptr<Stairs>(new Stairs());
                     

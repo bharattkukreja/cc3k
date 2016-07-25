@@ -78,7 +78,7 @@ void GameHandler::play(string file) {
         pair <CommandType, CommandType> command_pair;
         CommandType input1 = CommandType::no_value;
         CommandType input2 = ui.getNextInput();
-        if(input2 == CommandType::a || input2 == CommandType::d) {
+        if(input2 == CommandType::a || input2 == CommandType::u) {
             input1 = ui.getNextInput();
         }       
         else if(input2 == CommandType::r) {
