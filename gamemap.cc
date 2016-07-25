@@ -53,11 +53,10 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
 
     for(unsigned int r=1; r<grid.size()-1; r++){
         for(unsigned int c=1; c<grid.size()-1; c++){
-            if(grid[r][c].getType()==CellType::Wall_horizontal
-                || grid[r][c].getType()==CellType::Wall_vertical
-                || grid[r][c].getType()==CellType::Space){
+            if(grid[r][c].getType()!=CellType::Floor){
                 continue;
             }
+
             if(r>0 && grid[r-1][c].getType()!=CellType::Wall_horizontal
                    && grid[r-1][c].getType()!=CellType::Wall_vertical
                    && grid[r-1][c].getType()!=CellType::Space){
@@ -106,13 +105,22 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
                  grid[r][c].attach(grid[r+1][c+1]);
             }
 
-
-
         }
     }
 }
 
 void GameMap::setUpMap(){
+}
+
+void GameMap::populate(map<pair<int, int>, shared_ptr<Sprite>> &sprite_locations){
+        for(auto it = sprite_locations.begin(); it!=sprite_locations.end(); ++it){
+                if(sprite_locations[it->first]->getType() == SpriteType::Human){
+                        sprite_locations[it->first].reset();
+                        grid[(it->first).first][(it->first).second].sprite = hero;
+                } else {
+                        grid[(it->first).first][(it->first).second].sprite = sprite_locations[it->first];
+                }
+        }
 }
 
 void generate_batch(Cell &c, vector<Cell*> &chamber) {
@@ -125,28 +133,17 @@ void generate_batch(Cell &c, vector<Cell*> &chamber) {
     }
 }
 
-void GameMap::populate(map<pair<int, int>, shared_ptr<Sprite>> sprite_locations){
-	for(auto it = sprite_locations.begin(); it!=sprite_locations.end(); ++it){
-		if(sprite_locations[it->first]->getType() == SpriteType::Human){
-			sprite_locations[it->first].reset();
-			grid[(it->first).first][(it->first).second].sprite = hero;
-		} else {
-			grid[(it->first).first][(it->first).second].sprite = sprite_locations[it->first];
-		}
-	}
-}
-
 void GameMap::populate(){
 
     // spawning PC
     auto chambers = vector<vector<Cell*>>(); 
-    for(auto row: grid) {
-        for(auto cell: row){
+    for(unsigned int r=0; r<grid.size(); r++) {
+        for(unsigned int c=0; c<grid[r].size(); c++){
             bool isThere = false;
-            if(cell.getType() == CellType::Floor) {
+            if(grid[r][c].getType() == CellType::Floor) {
                 // checking if 
                 for(unsigned int z = 0; z < chambers.size(); z++) {
-                    if(find(chambers[z].begin(), chambers[z].end(), &cell) != chambers[z].end()) {
+                    if(find(chambers[z].begin(), chambers[z].end(), &grid[r][c]) != chambers[z].end()) {
                         isThere = true;
                         break;
                     }
@@ -154,14 +151,17 @@ void GameMap::populate(){
 
             	if(!isThere) {
                 	vector <Cell*> temp;
-                	generate_batch(cell, temp);
-			cout << temp.size() << endl;
-      			cout << "********************" << endl;
+                	generate_batch(grid[r][c], temp);
+			//cout << temp.size() << ", ";
 	          	chambers.emplace_back(temp);
+			r = 0;
+			c = 0;
             	}
 	    }
         }
     }
+
+	cout << endl;
    
     srand(time(NULL));
     int random_chamber = rand() % chambers.size();
@@ -223,7 +223,7 @@ void GameMap::initialize(shared_ptr<PC> hero){
     this->hero.reset();
     this->hero = hero;
     floor_count = 1;
-    populate();
+    //populate();
 }
 
 void GameMap::clear(){
