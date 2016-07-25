@@ -1,5 +1,6 @@
 #include "atkpot.h"
 #include "pc.h"
+#include "spritetype.h"
 using namespace std;
 
 bool AtkPot::visiblePositive = false;
@@ -8,6 +9,7 @@ bool AtkPot::visibleNegative = false;
 const unsigned int valueAtkPot = 5;
 
 bool AtkPot::isVisible() const { return positive ? visiblePositive : visibleNegative; }
+
 
 AtkPot::AtkPot(const bool positive): Potion{positive, valueAtkPot} {}
 
@@ -21,3 +23,5 @@ void AtkPot::use(PC & user) {
 }
 
 AtkPot::~AtkPot() {};
+
+SpriteType AtkPot::getType() const { return SpriteType::AtkPot; }

@@ -12,6 +12,3 @@ Potion::Potion(const bool positive, const int value): positive{positive}, value{
 Potion::Potion(const Potion & other): positive{other.positive}, value{other.value} {}
 
 Potion::~Potion() {}
-
-
-SpriteType Potion::getType() const { return SpriteType::Potion; }

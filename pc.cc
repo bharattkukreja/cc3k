@@ -1,5 +1,6 @@
 #include "pc.h"
 #include "npc.h"
+#include <utility>
 using namespace std;
 
 PC::PC(const unsigned int hp, const unsigned int atk, const unsigned int def): Character{hp, atk, def}, baseAtk{atk}, baseDef{def}, gold{0} {}
@@ -25,7 +26,7 @@ void PC::resetPotions() {
     def = baseDef;
 }
 
-bool PC::hit(NPC & target) {
+pair<bool,int> PC::hit(NPC & target) {
     int damage = target.getHit(atk);
     pair<bool, int> info = make_pair(true, damage);
     return info;

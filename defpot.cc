@@ -1,5 +1,6 @@
 #include "defpot.h"
 #include "pc.h"
+#include "spritetype.h"
 using namespace std;
 
 bool DefPot::visiblePositive = false;
@@ -21,3 +22,6 @@ void DefPot::use(PC & user) {
 }
 
 DefPot::~DefPot() {};
+
+
+SpriteType DefPot::getType() const { return SpriteType::DefPot; }

@@ -1,3 +1,4 @@
+#include "spritetype.h"
 #include "hppot.h"
 #include "pc.h"
 using namespace std;
@@ -8,6 +9,7 @@ bool HPPot::visibleNegative = false;
 const unsigned int valueHPPot = 10;
 
 bool HPPot::isVisible() const { return positive ? visiblePositive : visibleNegative; }
+
 
 HPPot::HPPot(const bool positive): Potion{positive, valueHPPot} {}
 
@@ -21,3 +23,6 @@ void HPPot::use(PC & user) {
 }
 
 HPPot::~HPPot() {}
+
+
+SpriteType HPPot::getType() const { return SpriteType::HPPot; }

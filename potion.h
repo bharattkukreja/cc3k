@@ -3,15 +3,11 @@
 
 #include "item.h"
 
-enum class SpriteType;
-
 class Potion : public Item {
  protected:
     bool positive;
     int value;
  public:
-    SpriteType getType() const override;
-
     virtual bool isVisible() const = 0; // requires static variables from subclasses
     bool isPositive() const;
     int getValue() const;
