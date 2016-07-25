@@ -87,9 +87,9 @@ void TextUI::read_file(string file) {
     }
 }
 
-void TextUI::read_floor(vector <vector <CellType>> &layout, map <pair <int, int>, shared_ptr <Sprite>> &sprite_coords) {
+bool TextUI::read_floor(vector <vector <CellType>> &layout, map <pair <int, int>, shared_ptr <Sprite>> &sprite_coords) {
 
-    
+    bool empty_map = true;
     for (unsigned int row = 0; row < 25; row++) {
         
         vector <CellType> temp;
@@ -113,6 +113,7 @@ void TextUI::read_floor(vector <vector <CellType>> &layout, map <pair <int, int>
             else if(ch == ' ')
                 c_type = CellType::Space;
             else {
+                empty_map = false;
                 c_type = CellType::Floor;
 
                 if(ch == '@') 
@@ -182,6 +183,7 @@ void TextUI::read_floor(vector <vector <CellType>> &layout, map <pair <int, int>
     }
 
     file_vector.erase(file_vector.begin(), file_vector.begin() + 25);
+    return empty_map;
         
 }
 

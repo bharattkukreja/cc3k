@@ -22,6 +22,8 @@ void GameHandler::play(string file) {
     ui.output_message("Dwarf (d)\n");
     ui.output_message("Orc (o)\n");
     CommandType c = ui.getNextInput();
+    
+    bool default_map;   // is true if the map is the defualt one(empty)
     if(c == CommandType::h)
         hero = shared_ptr <PC> (new Human());
     else if(c == CommandType::e)
@@ -35,13 +37,16 @@ void GameHandler::play(string file) {
     map <pair <int, int>, shared_ptr<Sprite>> sprite_coords;
     
     ui.read_file(file);
-    ui.read_floor(layout, sprite_coords);
- 
+    default_map = ui.read_floor(layout, sprite_coords);
+    
     g.setUpMap(layout);
     
     g.initialize(hero);
     
-    g.populate(sprite_coords);
+    if(default_map)
+        g.populate();
+    else
+        g.populate(sprite_coords);
 
     string action = "Player character has spawned";
     bool restart = false;
@@ -102,7 +107,7 @@ void GameHandler::play(string file) {
             ui.output_message("You Lost!\n");
             break;
         }
-
+        
        // pair <CommandType CommandType> command_pair = make_pair(input1, input2);
        // g.nextTurn(command_pair);
         
@@ -114,14 +119,17 @@ void GameHandler::play(string file) {
             break;
         }
 
-
+        
         if(g.getFloorCount() != floor_count) {
             sprite_coords.clear();
             layout.clear();
-            ui.read_floor(layout, sprite_coords);
+            default_map = ui.read_floor(layout, sprite_coords);
                        
             g.setUpMap(layout);
-            g.populate(sprite_coords);
+            if(default_map)
+                g.populate();
+            else
+                g.populate(sprite_coords);
         }
 
     }
