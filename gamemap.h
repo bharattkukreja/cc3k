@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <utility>
+#include <map>
 #include "commands.h"
 #include "cell.h"
 #include "ai.h"
@@ -47,6 +48,9 @@ class GameMap {
 
 	// Initializes the GameMap
 	void initialize(std::shared_ptr<PC> hero);
+
+	// populates the gamemap with a given map of locations of initialized sprite pointers
+	void populate(std::map<std::pair<int, int>, std::shared_ptr<Sprite>> sprite_locations);
 
 	// Adjusts state to reflect effects of next turn of the game
 	void nextTurn(std::pair<CommandType, CommandType> commands);

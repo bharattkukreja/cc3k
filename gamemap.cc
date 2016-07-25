@@ -2,6 +2,7 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
+#include <map>
 #include "gamemap.h"
 #include "cell.h"
 #include "commands.h"
@@ -11,7 +12,6 @@
 #include "item.h"
 #include "potion.h"
 #include "stairs.h"
-
 
 #include <iostream>     // to be deleted
 using namespace std;
@@ -51,8 +51,8 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
         }
     }
 
-    for(int r=1; r<grid.size()-1; r++){
-        for(int c=1; c<grid.size()-1; c++){
+    for(unsigned int r=1; r<grid.size()-1; r++){
+        for(unsigned int c=1; c<grid.size()-1; c++){
             if(grid[r][c].getType()==CellType::Wall_horizontal
                 || grid[r][c].getType()==CellType::Wall_vertical
                 || grid[r][c].getType()==CellType::Space){
@@ -115,7 +115,6 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
 void GameMap::setUpMap(){
 }
 
-
 void generate_batch(Cell &c, vector<Cell*> &chamber) {
     if(chamber.size() == 0 || find(chamber.begin(), chamber.end(), &c) == chamber.end()){
 	chamber.emplace_back(&c);
@@ -126,13 +125,21 @@ void generate_batch(Cell &c, vector<Cell*> &chamber) {
     }
 }
 
+void GameMap::populate(map<pair<int, int>, shared_ptr<Sprite>> sprite_locations){
+	for(auto it = sprite_locations.begin(); it!=sprite_locations.end(); ++it){
+		if(sprite_locations[it->first]->getType() == SpriteType::Human){
+			sprite_locations[it->first].reset();
+			grid[(it->first).first][(it->first).second].sprite = hero;
+		} else {
+			grid[(it->first).first][(it->first).second].sprite = sprite_locations[it->first];
+		}
+	}
+}
 
 void GameMap::populate(){
 
     // spawning PC
-    auto chambers = vector<vector<Cell*>>();
-    int num_chambers = 5;
-    int count = 0; 
+    auto chambers = vector<vector<Cell*>>(); 
     for(auto row: grid) {
         for(auto cell: row){
             bool isThere = false;
@@ -144,22 +151,23 @@ void GameMap::populate(){
                         break;
                     }
                 }
-            }
-            if(!isThere) {
-                cout << count << endl;
-                count++;
-                vector <Cell*> temp;
-                generate_batch(cell, temp);
-                chambers.emplace_back(temp);
-            }
+
+            	if(!isThere) {
+                	vector <Cell*> temp;
+                	generate_batch(cell, temp);
+			cout << temp.size() << endl;
+      			cout << "********************" << endl;
+	          	chambers.emplace_back(temp);
+            	}
+	    }
         }
     }
    
     srand(time(NULL));
-    int random_chamber = rand() % num_chambers;
+    int random_chamber = rand() % chambers.size();
     int random_cell = rand() % chambers[random_chamber].size();
     
-    cout << "abx" << random_chamber << " " << chambers[random_chamber].size() << endl;
+    //cout << "abx" << random_chamber << " " << chambers[random_chamber].size() << endl;
 
     player_location.first = chambers[random_chamber][random_cell]->getRow();
     player_location.second = chambers[random_chamber][random_cell]->getCol();
