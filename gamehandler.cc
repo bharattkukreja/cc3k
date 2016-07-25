@@ -97,11 +97,6 @@ void GameHandler::play(string file) {
             break;
         }
  
-        else if(g.getFloorCount() > 5) {
-            // delete hero;
-            ui.output_message("You Won! Congratulations!\n");
-            break;
-        }
         else if(hero->getHP() == 0) {
             // delete hero;
             ui.output_message("You Lost!\n");
@@ -112,6 +107,13 @@ void GameHandler::play(string file) {
        // g.nextTurn(command_pair);
         
         action = g.nextTurn(make_pair(input1, input2));
+
+        if(g.getFloorCount() > 5) {
+            // delete hero;
+            ui.output_message("You Won! Congratulations!\n");
+            break;
+        }
+
 
         if(g.getFloorCount() != floor_count) {
             sprite_coords.clear();
