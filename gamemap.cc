@@ -279,11 +279,11 @@ void GameMap::decideDirection(pair<CommandType, CommandType> &c_type, unsigned i
 string stringifyType(SpriteType x){
 	string potType;
 	if(x == SpriteType::AtkPot){
-		potType = "Atk Potions";
+		potType = "Atk Potion";
 	} else if(x == SpriteType::DefPot){
-		potType = "Def Potions";
+		potType = "Def Potion";
 	} else if(x == SpriteType::HPPot){
-		potType = "HP Potions";
+		potType = "HP Potion";
 	} else if(x == SpriteType::Gold){
 		potType = "Gold";
         } else if(x == SpriteType::Goblin){
@@ -313,6 +313,8 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 	unsigned int c = player_location.second;
 
 	unsigned int php = hero->getHP();
+	unsigned int patk = hero->getAtk();
+	unsigned int pdef = hero->getDef();
 
 	string action = "";
 
@@ -335,6 +337,15 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 
 			string potType = stringifyType(target->sprite->getType());
 			action = "Player used " + potType;
+
+			if(target->sprite->getType() == SpriteType::AtkPot){
+				action += ", Atk changed by " + to_string(hero->getAtk() - patk);
+			} else if(target->sprite->getType() == SpriteType::DefPot){
+				action += ", Def changed by " + to_string(hero->getDef() - pdef);
+			} else if(target->sprite->getType() == SpriteType::HPPot){
+				action += ", HP changed by " + to_string(hero->getHP() - php);
+			}
+
 			target->sprite = nullptr;
 		}
 
