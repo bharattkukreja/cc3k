@@ -3,6 +3,19 @@
 #include "spritetype.h"
 #include <fstream>
 #include <sstream>
+#include "human.h"
+#include "stairs.h"
+#include "vampire.h"
+#include "goblin.h"
+#include "phoenix.h"
+#include "troll.h"
+#include "merchant.h"
+#include "werewolf.h"
+#include "dragon.h"
+#include "hppot.h"
+#include "atkpot.h"
+#include "defpot.h"
+#include "gold.h"
 
 using namespace std;
 
@@ -57,20 +70,22 @@ CommandType TextUI::getNextInput() {
     return command;
 }
 
-void TextUI::read_floor(string file, vector <vector <CellType>> &layout) {
+void TextUI::read_floor(string file, vector <vector <CellType>> &layout, map <pair <int, int>, shared_ptr <Sprite>> &sprite_coords) {
 
     ifstream fin(file);
-
-    while(!fin.eof()) {
+    int row = 0;
+    int col = 0;
+    while(row < 25) {
         string line;
         getline(fin, line);
         istringstream iss(line);
         char ch;
         vector <CellType> temp;
-
+        
+        col = 0;
         while(iss >> noskipws >> ch) {
             CellType c_type;
-
+            shared_ptr <Sprite> sprite = nullptr;
             if(ch == '|')
             c_type = CellType::Wall_vertical;
             else if(ch == '-')
@@ -83,15 +98,77 @@ void TextUI::read_floor(string file, vector <vector <CellType>> &layout) {
                 c_type = CellType::Floor;
             else if(ch == ' ')
                 c_type = CellType::Space;
-            else
-                break;
+            else {
+                c_type = CellType::Floor;
 
+                if(ch == '@') {
+                   sprite = shared_ptr<Human>(new Human());
+                }
+                else if(ch == '\\')
+                    sprite = shared_ptr<Stairs>(new Stairs());
+                    
+                else if(ch == 'V')
+                    sprite = shared_ptr<Vampire>(new Vampire());
+
+                else if(ch == 'W')
+                    sprite = shared_ptr<Werewolf>(new Werewolf());
+
+                else if(ch == 'N')
+                    sprite = shared_ptr<Goblin>(new Goblin());
+
+                else if(ch == 'M')
+                    sprite = shared_ptr<Merchant>(new Merchant());
+
+                else if(ch == 'D')
+                    sprite = shared_ptr<Dragon>(new Dragon());
+
+                else if(ch == 'X')
+                    sprite = shared_ptr<Phoenix>(new Phoenix());
+
+                else if(ch == 'T')
+                    sprite = shared_ptr<Troll>(new Troll());
+
+                else if(ch == '0')
+                    sprite = shared_ptr<HPPot>(new HPPot(true));
+
+                else if(ch == '1')
+                    sprite = shared_ptr<AtkPot>(new AtkPot(true));
+
+                else if(ch == '2')
+                    sprite = shared_ptr<DefPot>(new DefPot(true));
+
+                else if(ch == '3')
+                    sprite = shared_ptr<HPPot>(new HPPot(false));
+
+                else if(ch == '4')
+                    sprite = shared_ptr<AtkPot>(new AtkPot(false));
+                
+                else if(ch == '5') 
+                    sprite = shared_ptr<DefPot>(new DefPot(false));
+
+                else if(ch == '6')
+                    sprite = shared_ptr<Gold>(new Gold(1));
+
+                else if(ch == '7')
+                    sprite = shared_ptr<Gold>(new Gold(2));
+
+                else if(ch == '8')
+                    sprite = shared_ptr<Gold>(new Gold(4));
+                else 
+                    sprite = shared_ptr<Gold>(new Gold(6));
+
+                sprite_coords[make_pair(row, col)] = shared_ptr<Sprite>(sprite);
+            }
+                
+            col++;
             temp.emplace_back(c_type);
 
         }
 
         layout.emplace_back(temp);
+        row++;
     }
+    cout << "row : " << row << " col: " << col << endl;
 }
 
 

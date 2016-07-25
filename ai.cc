@@ -9,8 +9,11 @@ void AI::move() {
         int y = enemyLocations[i].second;
         
         while(true) {
-            int rand1 = 1 - (rand() % 2);
-            int rand2 = 1 - (rand() % 2);
+            int rand1 = 1 - (rand() % 3);
+            int rand2 = 1 - (rand() % 3);
+            
+            if(rand1 == 0 && rand2 == 0)
+                continue;
             
             unsigned int x_coord = x + rand1;
             unsigned int y_coord = y + rand2;

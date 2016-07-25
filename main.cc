@@ -12,7 +12,7 @@ int main(int argc, const char *argv[])
     TextUI ui(cin, cout);
     GameHandler gh(g, ui);
     if(argc < 2) {
-        std::cout << "Please provide the floor layout" << std::endl;
+        std::cout << "You didn't provide the floor layout" << std::endl;
         exit(0);
     }
     gh.play(argv[1]);

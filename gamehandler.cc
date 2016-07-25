@@ -32,13 +32,16 @@ void GameHandler::play(string file) {
         hero = shared_ptr <PC> (new Orc());
     
     vector <vector <CellType>> layout;
-    
-    ui.read_floor(file, layout);
+    map <pair <int, int>, shared_ptr<Sprite>> sprite_coords;
+
+    ui.read_floor(file, layout, sprite_coords);
  
     g.setUpMap(layout);
     
     g.initialize(hero);
     
+    g.populate(sprite_coords);
+
     string action = "Player character has spawned";
     bool restart = false;
     while(true) {
