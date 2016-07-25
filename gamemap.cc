@@ -276,9 +276,17 @@ void GameMap::decideDirection(pair<CommandType, CommandType> &c_type, unsigned i
 }
 
 // Converts a SpriteType to a string
-string stringifyNPCType(SpriteType x){
+string stringifyType(SpriteType x){
 	string potType;
-        if(x == SpriteType::Goblin){
+	if(x == SpriteType::AtkPot){
+		potType = "AtkPot";
+	} else if(x == SpriteType::DefPot){
+		potType = "DefPot";
+	} else if(x == SpriteType::HPPot){
+		potType = "HPPot";
+	} else if(x == SpriteType::Gold){
+		potType = "Gold";
+        } else if(x == SpriteType::Goblin){
 	        potType = "Goblin";
         } else if(x == SpriteType::Merchant){
                 potType = "Merchant";
@@ -323,13 +331,7 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 		if(target!=nullptr && !target->isEmpty() && target->sprite->isItem()){
 			(dynamic_pointer_cast<Item>(target->sprite))->use(*hero);
 
-			string potType = "";
-			if(target->sprite->getType() == SpriteType::Potion){
-                                potType = "Potion";
-			} else {
-				potType = "Gold";
-			}
-
+			string potType = stringifyType(target->sprite->getType());
 			action = "Player used " + potType;
 			target->sprite = nullptr;
 		}
@@ -342,7 +344,7 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 			unsigned int hp = e.getHP();
 			hero->hit(e);
 
-			string potType = stringifyNPCType(target->sprite->getType());
+			string potType = stringifyType(target->sprite->getType());
 
 			action = "Player hit " + potType;
 
@@ -382,7 +384,7 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 				if(hp != hero->getHP()) { // player was hit
 					for(auto observer: target->getObservers()){ // find out which npc
 						if(observer->hasAttacked()){
-							string enType = stringifyNPCType(observer->sprite->getType());
+							string enType = stringifyType(observer->sprite->getType());
 							action = "Player was attacked by " + enType;
 							break;
 						}
