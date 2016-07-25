@@ -15,6 +15,8 @@ class UI {
         virtual bool read_floor(std::vector <std::vector <CellType>> &layout, std::map <std::pair <int, int>, std::shared_ptr<Sprite>> &sprite_coords) = 0;
         virtual void output(std::vector <std::vector <Cell>> grid) = 0;
         virtual void display_commands() = 0;
+        virtual std::string convert_direction(CommandType input) = 0;
+        virtual void put_direction(std::string &action, std::string direction) = 0;
         virtual std::string convert(SpriteType s) = 0;
         virtual void output_message(std::string s) = 0;
         virtual void output_number(int n) = 0;

@@ -83,6 +83,8 @@ void GameHandler::play(string file) {
         ui.display_commands();
 
         pair <CommandType, CommandType> command_pair;
+        
+        // input1 : u/a, input2 : direction 
         CommandType input1 = CommandType::no_value;
         CommandType input2 = ui.getNextInput();
         
@@ -108,17 +110,19 @@ void GameHandler::play(string file) {
             break;
         }
         
-       // pair <CommandType CommandType> command_pair = make_pair(input1, input2);
-       // g.nextTurn(command_pair);
-        
+        string direction;
+        if(input1 == CommandType::no_value) {
+            direction = ui.convert_direction(input2);
+        }
+    
         action = g.nextTurn(make_pair(input1, input2));
+        ui.put_direction(action, direction);
 
         if(g.getFloorCount() > 5) {
             // delete hero;
             ui.output_message("You Won! Congratulations!\n");
             break;
         }
-
         
         if(g.getFloorCount() != floor_count) {
             sprite_coords.clear();

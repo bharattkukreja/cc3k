@@ -246,6 +246,49 @@ void TextUI::output(vector <vector <Cell>> grid) {
 
 }
 
+string TextUI::convert_direction(CommandType input) {
+    string direction = "";
+    if(input == CommandType::no)
+        direction = "north";
+    else if(input == CommandType::so)
+        direction = "south";
+    else if(input == CommandType::ea)
+        direction = "east";
+    else if(input == CommandType::we)
+        direction = "west";
+    else if(input == CommandType::nw)
+        direction = "north-west";
+    else if(input == CommandType::ne)
+        direction = "north-east";
+    else if(input == CommandType::sw)
+        direction = "south-west";
+    else if(input == CommandType::se)
+        direction = "south-east";
+
+    return direction;
+}
+
+void TextUI::put_direction(string &action, string direction) {
+    istringstream iss(action);
+    ostringstream oss;
+    string word;
+    bool flag = false;
+    while(iss >> word) {
+        if(word == "and") {
+            oss << direction;
+            oss << " ";
+            flag = true;
+        }
+        oss << word << " ";
+    }
+    
+    if(!flag)
+        action = action + " " + direction;
+    else
+        action = oss.str();
+    
+}
+
 void TextUI::display_commands() {
     out << "Enter a command" <<  endl;
     out << "Directions : North(no), South(so), East(ea), West(we), NorthEast(ne), NorthWest(nw), SouthEast(se), SouthWest(sw)" << endl;
