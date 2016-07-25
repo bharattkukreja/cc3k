@@ -27,6 +27,8 @@ class GameMap {
 	// decides direction based on given command pair
 	void decideDirection(std::pair<CommandType, CommandType> &c_type, unsigned int & r, unsigned int & c);
 
+	void generate_batch(Cell &c, std::vector<Cell*> &chambers);
+
 	// static constants
 	static const unsigned int width;
 	static const unsigned int height;
