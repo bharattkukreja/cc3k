@@ -70,22 +70,36 @@ CommandType TextUI::getNextInput() {
     return command;
 }
 
-void TextUI::read_floor(string file, vector <vector <CellType>> &layout, map <pair <int, int>, shared_ptr <Sprite>> &sprite_coords) {
-
+void TextUI::read_file(string file) {
     ifstream fin(file);
-    int row = 0;
-    int col = 0;
-    while(row < 25) {
+    while(!fin.eof()) {
         string line;
         getline(fin, line);
         istringstream iss(line);
         char ch;
-        vector <CellType> temp;
+        vector <char> temp;
         
-        col = 0;
         while(iss >> noskipws >> ch) {
+            temp.emplace_back(ch);
+        }
+        
+        file_vector.emplace_back(temp);
+    }
+}
+
+void TextUI::read_floor(vector <vector <CellType>> &layout, map <pair <int, int>, shared_ptr <Sprite>> &sprite_coords) {
+
+    
+    for (unsigned int row = 0; row < 25; row++) {
+        
+        vector <CellType> temp;
+
+        for (unsigned int col = 0; col < file_vector[row].size(); col++) {
+            char ch = file_vector[row][col];
+        
             CellType c_type;
             shared_ptr <Sprite> sprite = nullptr;
+            
             if(ch == '|')
             c_type = CellType::Wall_vertical;
             else if(ch == '-')
@@ -159,16 +173,16 @@ void TextUI::read_floor(string file, vector <vector <CellType>> &layout, map <pa
 
                 sprite_coords[make_pair(row, col)] = shared_ptr<Sprite>(sprite);
             }
-                
-            col++;
+
             temp.emplace_back(c_type);
-
         }
-
+        
         layout.emplace_back(temp);
-        row++;
+
     }
-    cout << "row : " << row << " col: " << col << endl;
+
+    file_vector.erase(file_vector.begin(), file_vector.begin() + 25);
+        
 }
 
 

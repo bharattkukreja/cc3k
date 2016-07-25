@@ -33,8 +33,9 @@ void GameHandler::play(string file) {
     
     vector <vector <CellType>> layout;
     map <pair <int, int>, shared_ptr<Sprite>> sprite_coords;
-
-    ui.read_floor(file, layout, sprite_coords);
+    
+    ui.read_file(file);
+    ui.read_floor(layout, sprite_coords);
  
     g.setUpMap(layout);
     
@@ -45,9 +46,10 @@ void GameHandler::play(string file) {
     string action = "Player character has spawned";
     bool restart = false;
     while(true) {
-
-	ui.output(g.getGrid());
         
+	ui.output(g.getGrid());
+        unsigned int floor_count = g.getFloorCount();
+
         ui.output_message("Race: " + ui.convert(hero->getType()) + " Gold: ");
         ui.output_number(hero->score());
 
@@ -94,6 +96,7 @@ void GameHandler::play(string file) {
             ui.output_message("Thanks for playing the game\n");
             break;
         }
+ 
         else if(g.getFloorCount() > 5) {
             // delete hero;
             ui.output_message("You Won! Congratulations!\n");
@@ -108,6 +111,16 @@ void GameHandler::play(string file) {
        // pair <CommandType CommandType> command_pair = make_pair(input1, input2);
        // g.nextTurn(command_pair);
         g.nextTurn(make_pair(input1, input2));
+
+        if(g.getFloorCount() != floor_count) {
+            sprite_coords.clear();
+            layout.clear();
+            ui.read_floor(layout, sprite_coords);
+                       
+            g.setUpMap(layout);
+            g.populate(sprite_coords);
+        }
+
     }
     if(restart)
         play(file);
