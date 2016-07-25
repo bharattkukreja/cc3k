@@ -217,7 +217,7 @@ void TextUI::output(vector <vector <Cell>> grid) {
                     out << "D";
                 else if(sprite_type == SpriteType::Stairs)
                     out << "\\";
-                else if(sprite_type == SpriteType::Potion)
+                else if(sprite_type == SpriteType::AtkPot || sprite_type == SpriteType::DefPot || sprite_type == SpriteType::HPPot)
                     out << "P";
                 else if(sprite_type == SpriteType::Gold)
                     out << "G";
