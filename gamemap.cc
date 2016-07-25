@@ -25,8 +25,8 @@ const unsigned int GameMap::height = 30;
 
 // Methods
 
-GameMap::GameMap() : ai{AI(grid)}, floor_count{1} {
-	grid = vector<vector<Cell>>();
+GameMap::GameMap() : floor_count{1} {
+//	grid = vector<vector<Cell>>();
 }
 
 void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
@@ -107,6 +107,8 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
 
         }
     }
+
+ //	ai = AI{grid};
 }
 
 void GameMap::setUpMap(){
@@ -117,8 +119,12 @@ void GameMap::populate(map<pair<int, int>, shared_ptr<Sprite>> &sprite_locations
                 if(sprite_locations[it->first]->getType() == SpriteType::Human){
                         sprite_locations[it->first].reset();
                         grid[(it->first).first][(it->first).second].sprite = hero;
+			player_location.first = it->first.first;
+			player_location.second = it->first.second;
                 } else {
                         grid[(it->first).first][(it->first).second].sprite = sprite_locations[it->first];
+			if(sprite_locations[it->first]->isNPC())
+				enemy_locations.emplace_back(pair<int , int>(it->first.first, it->first.second));
                 }
         }
 }
@@ -332,7 +338,7 @@ void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 		}
 	}
 
-	ai.move();
+	ai.move(enemy_locations, grid);
 }
 
 unsigned int GameMap::getFloorCount() const {

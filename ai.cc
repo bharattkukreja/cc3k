@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void AI::move() {
+void AI::move(vector <pair <int, int>> &enemyLocations, vector <vector <Cell>> &grid) {
     for (unsigned int i = 0; i < enemyLocations.size(); i++) {
         int x = enemyLocations[i].first;
         int y = enemyLocations[i].second;
@@ -22,6 +22,8 @@ void AI::move() {
                 if(grid[x_coord][y_coord].getType() == CellType::Floor) {
                     grid[x_coord][y_coord].sprite = grid[x][y].sprite;
                     grid[x][y].sprite = nullptr;
+		    enemyLocations[i].first = x_coord;
+		    enemyLocations[i].second = y_coord;
                     break;
                 }
             }
@@ -29,5 +31,5 @@ void AI::move() {
     }
 }
 
-AI::AI(vector <vector <Cell>> grid) : grid {grid} {}
+//AI::AI(vector <vector <Cell>> &grid) : grid {grid} {}
 

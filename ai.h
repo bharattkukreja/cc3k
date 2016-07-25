@@ -6,12 +6,11 @@
 #include <vector>
 
 class AI {
-    std::vector <std::pair <int, int>> enemyLocations;
-    std::vector <std::vector <Cell>> &grid;
+//    std::vector <std::vector <Cell>> grid;
 
 public:
-    void move();
-    AI(std::vector <std::vector <Cell>> grid);
+    void move(std::vector <std::pair <int, int>> &enemyLocations, std::vector <std::vector <Cell>> &grid);
+    //explicit AI(std::vector <std::vector <Cell>> &grid);
 };
 
 
