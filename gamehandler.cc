@@ -110,7 +110,8 @@ void GameHandler::play(string file) {
 
        // pair <CommandType CommandType> command_pair = make_pair(input1, input2);
        // g.nextTurn(command_pair);
-        g.nextTurn(make_pair(input1, input2));
+        
+        action = g.nextTurn(make_pair(input1, input2));
 
         if(g.getFloorCount() != floor_count) {
             sprite_coords.clear();
