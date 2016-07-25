@@ -383,7 +383,7 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 			floor_count++;
 			clear();
 			populate();
-			return "Player reached floor " + to_string(floor_count);
+			return "Player moved and Player reached floor " + to_string(floor_count);
 		} else if(target!=nullptr && (target->isEmpty() || target->sprite->getType() == SpriteType::Gold)){
 			// use gold
 			if(!target->isEmpty() && target->sprite->getType() == SpriteType::Gold){
