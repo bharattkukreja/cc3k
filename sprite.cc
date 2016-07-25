@@ -14,7 +14,9 @@ bool Sprite::isNPC() const { return getType() == SpriteType::Vampire ||
                                     getType() == SpriteType::Goblin ||
                                     getType() == SpriteType::Phoenix; }
 
-bool Sprite::isItem() const { return getType() == SpriteType::Potion ||
+bool Sprite::isItem() const { return getType() == SpriteType::AtkPot ||
+				     getType() == SpriteType::DefPot ||
+				     getType() == SpriteType::HPPot ||
 				     getType() == SpriteType::Gold; }
 
 bool Sprite::isElf() const { return getType() == SpriteType::Elf; }
