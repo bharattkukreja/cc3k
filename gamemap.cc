@@ -307,16 +307,17 @@ void GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 		// attack enemy at c_type.second
 		if(target!=nullptr && !target->isEmpty() && target->sprite->isNPC()){
 			NPC &e = *dynamic_pointer_cast<NPC>(target->sprite);
+			unsigned int hp = e.getHP();
 			hero->hit(e);
 			cout << e.getHP() << endl;
 			// remove npc if its HP is less than 0
-			if(e.getHP()<=0){
+			if(e.getHP()<=0 || e.getHP()>hp){
 				for(auto enemy: enemy_locations){
-					if(grid[enemy.first][enemy.second].sprite == shared_ptr<Sprite>(&e)){
+					if(enemy.first == target->getRow() && enemy.second == target->getCol()){
 						grid[enemy.first][enemy.second].sprite = nullptr;
 					}
 				}
-				target->sprite.reset();
+				target->sprite = nullptr;
 			}
 		}
 

@@ -9,7 +9,7 @@ void AI::move(vector <pair <int, int>> &enemyLocations, vector <vector <Cell>> &
     for (unsigned int i = 0; i < enemyLocations.size(); i++) {
         
         Cell c = grid[enemyLocations[i].first][enemyLocations[i].second];
-        if(c.sprite->getType() == SpriteType::Dragon)
+        if(c.sprite == nullptr || c.sprite->getType() == SpriteType::Dragon)
             continue;
         
         int x = enemyLocations[i].first;
