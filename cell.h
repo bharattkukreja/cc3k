@@ -15,6 +15,7 @@ class Cell {
 	std::vector<Cell*> observers;
 	CellType type;
 
+	bool attacked;
 	unsigned int y, x;
 	
    public:
@@ -49,6 +50,9 @@ class Cell {
 
 	// Returns whether or not this Cell's sprite is a nullptr
 	bool isEmpty() const;
+
+	// Returns whether or not the cell's sprite just attacked a PC
+	bool hasAttacked();
 
 	// Returns this cell's row in the Grid
 	unsigned int getRow() const;

@@ -11,13 +11,20 @@ using namespace std;
 
 // This is the implementation for the Cell class, see cell.h for documentation
 
-Cell::Cell(CellType type, unsigned int y, unsigned int x) : type{type}, y{y}, x{x}, sprite{nullptr} {}
+Cell::Cell(CellType type, unsigned int y, unsigned int x) : type{type}, attacked{false}, y{y}, x{x}, sprite{nullptr} {}
 
 void Cell::notify(Cell &a_cell) {
 	if(sprite != nullptr && a_cell.sprite!=nullptr && 
 		a_cell.sprite->isPC() && sprite->isNPC() && (dynamic_pointer_cast<NPC>(sprite))->isHostile()){
 		(dynamic_pointer_cast<NPC>(sprite))->hit(*dynamic_pointer_cast<PC>(a_cell.sprite));
+		attacked = true;
 	}
+}
+
+bool Cell::hasAttacked() {
+	bool temp = attacked;
+	attacked = false;
+	return temp;
 }
 
 void Cell::notifyAll() {

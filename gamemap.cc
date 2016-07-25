@@ -275,6 +275,28 @@ void GameMap::decideDirection(pair<CommandType, CommandType> &c_type, unsigned i
     }
 }
 
+// Converts a SpriteType to a string
+string stringifyNPCType(SpriteType x){
+	string potType;
+        if(x == SpriteType::Goblin){
+	        potType = "Goblin";
+        } else if(x == SpriteType::Merchant){
+                potType = "Merchant";
+        } else if(x == SpriteType::Dragon){
+                potType = "Dragon";
+        } else if(x == SpriteType::Vampire){
+                potType = "Vampire";
+        } else if(x == SpriteType::Werewolf){
+                potType = "Werewolf";
+        } else if(x == SpriteType::Troll){
+                potType = "Troll";
+        } else {
+                potType = "Phoenix";
+        }
+
+	return potType;
+}
+
 string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 	// hero action
 	// make shared? (idk how to make it work
@@ -320,22 +342,7 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 			unsigned int hp = e.getHP();
 			hero->hit(e);
 
-			string potType;
-			if(target->sprite->getType() == SpriteType::Goblin){
-                                potType = "Goblin";
-                        } else if(target->sprite->getType() == SpriteType::Merchant){
-                                potType = "Merchant";
-                        } else if(target->sprite->getType() == SpriteType::Dragon){
-                                potType = "Dragon";
-                        } else if(target->sprite->getType() == SpriteType::Vampire){
-                                potType = "Vampire";
-                        } else if(target->sprite->getType() == SpriteType::Werewolf){
-                                potType = "Werewolf";
-                        } else if(target->sprite->getType() == SpriteType::Troll){
-                                potType = "Troll";
-                        } else {
-                                potType = "Phoenix";
-                        }
+			string potType = stringifyNPCType(target->sprite->getType());
 
 			action = "Player hit " + potType;
 
@@ -366,11 +373,23 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 			
 				// move hero
 				target->sprite = hero;
+				unsigned int hp = hero->getHP();
 				grid[player_location.first][player_location.second].sprite = nullptr;
 				player_location.first = r;
 				player_location.second = c;
 				target->notifyAll();
-				action =  "Player moved";
+
+				if(hp != hero->getHP()) { // player was hit
+					for(auto observer: target->getObservers()){ // find out which npc
+						if(observer->hasAttacked()){
+							string enType = stringifyNPCType(observer->sprite->getType());
+							action = "Player was attacked by " + enType;
+							break;
+						}
+					}
+				} else {
+					action =  "Player moved";
+				}
 			}
 		}
 	}
