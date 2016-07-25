@@ -26,6 +26,9 @@ CommandType TextUI::getNextInput() {
     CommandType command;
     string s;
     in >> s;
+    if(in.eof())
+        exit(0);
+
     if(s == "no")
         command = CommandType::no;
     else if(s == "so")

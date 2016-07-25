@@ -24,14 +24,14 @@ void GameHandler::play(string file) {
     CommandType c = ui.getNextInput();
     
     bool default_map;   // is true if the map is the defualt one(empty)
-    if(c == CommandType::h)
-        hero = shared_ptr <PC> (new Human());
-    else if(c == CommandType::e)
+    if(c == CommandType::e)
         hero = shared_ptr <PC> (new Elf());
     else if(c == CommandType::d)
         hero = shared_ptr <PC> (new Dwarf()); 
-    else
+    else if(c == CommandType::o)
         hero = shared_ptr <PC> (new Orc());
+    else 
+        hero = shared_ptr <PC> (new Human());
     
     vector <vector <CellType>> layout;
     map <pair <int, int>, shared_ptr<Sprite>> sprite_coords;
