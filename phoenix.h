@@ -9,6 +9,8 @@ class Phoenix : public NPC {
  public:
     SpriteType getType() const override;
 
+    bool isHostile() const override;
+
     Phoenix();
     Phoenix(const Phoenix & other);
     Phoenix & operator=(const Phoenix & other);

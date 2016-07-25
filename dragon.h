@@ -7,6 +7,8 @@ enum class SpriteType;
 
 class Dragon : public NPC {
  public:
+    bool isHostile() const override;
+
     SpriteType getType() const override;
 
     Dragon();

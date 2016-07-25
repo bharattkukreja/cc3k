@@ -9,6 +9,8 @@ class Werewolf : public NPC {
  public:
     SpriteType getType() const override;
 
+    bool isHostile() const override;
+
     Werewolf();
     Werewolf(const Werewolf & other);
     Werewolf & operator=(const Werewolf & other);

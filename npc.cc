@@ -5,10 +5,6 @@
 #include "pc.h"
 using namespace std;
 
-bool NPC::isHostile() const { return hostile; }
-
-void NPC::setHostile(const bool newHostile) { hostile = newHostile; }
-
 
 void NPC::setGoldDropped(const unsigned int gdNew) { goldDropped = gdNew; }
 
@@ -29,8 +25,8 @@ pair<bool,int> NPC::hit(PC & target) {
 }
 
 
-NPC::NPC(const unsigned int hp, const unsigned int atk, const unsigned int def, const unsigned int goldDropped, const bool hostile): Character{hp, atk, def}, goldDropped{goldDropped}, hostile{hostile} {}
+NPC::NPC(const unsigned int hp, const unsigned int atk, const unsigned int def, const unsigned int goldDropped): Character{hp, atk, def}, goldDropped{goldDropped} {}
 
-NPC::NPC(const NPC & other): Character{other}, goldDropped{other.goldDropped}, hostile{other.hostile} {}
+NPC::NPC(const NPC & other): Character{other}, goldDropped{other.goldDropped} {}
 
 NPC::~NPC() {}

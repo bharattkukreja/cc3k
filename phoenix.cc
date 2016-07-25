@@ -8,14 +8,16 @@ const unsigned int phoenixDef = 25;
 const bool phoenixHostile = true;
 const unsigned int phoenixGold = 1;
 
-Phoenix::Phoenix(): NPC{phoenixHP, phoenixAtk, phoenixDef, phoenixGold, phoenixHostile} {}
+bool Phoenix::isHostile() const { return phoenixHostile; }
+
+
+Phoenix::Phoenix(): NPC{phoenixHP, phoenixAtk, phoenixDef, phoenixGold} {}
 
 Phoenix::Phoenix(const Phoenix & other): NPC{other} {}
 
 Phoenix & Phoenix::operator=(const Phoenix & other) {
     hp = other.hp;
     this->setGoldDropped(other.getGoldDropped());
-    this->setHostile(other.isHostile());
     atk = other.atk;
     def = other.def;
     return *this;

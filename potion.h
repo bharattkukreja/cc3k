@@ -8,7 +8,6 @@ class Potion : public Item {
     bool positive;
     int value;
  public:
-    virtual bool isVisible() const = 0; // requires static variables from subclasses
     bool isPositive() const;
     int getValue() const;
     // don't need setters for positive or value because they don't change after the potion is ctor'd

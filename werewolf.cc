@@ -8,14 +8,16 @@ const unsigned int werewolfDef = 25;
 const bool werewolfHostile = true;
 const unsigned int werewolfGold = 1;
 
-Werewolf::Werewolf(): NPC{werewolfHP, werewolfAtk, werewolfDef, werewolfGold, werewolfHostile} {}
+bool Werewolf::isHostile() const { return werewolfHostile; }
+
+
+Werewolf::Werewolf(): NPC{werewolfHP, werewolfAtk, werewolfDef, werewolfGold} {}
 
 Werewolf::Werewolf(const Werewolf & other): NPC{other} {}
 
 Werewolf & Werewolf::operator=(const Werewolf & other) {
     hp = other.hp;
     this->setGoldDropped(other.getGoldDropped());
-    this->setHostile(other.isHostile());
     atk = other.atk;
     def = other.def;
     return *this;

@@ -9,6 +9,8 @@ class Goblin : public NPC {
  public:
     SpriteType getType() const override;
 
+    bool isHostile() const override;
+
     Goblin();
     Goblin(const Goblin & other);
     Goblin & operator=(const Goblin & other);

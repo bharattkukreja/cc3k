@@ -7,12 +7,10 @@ enum class SpriteType;
 class PC;
 
 class DefPot : public Potion {
-    static bool visiblePositive, visibleNegative;
  public:
     SpriteType getType() const override;
 
     void use(PC & user) override; // DefPots change their user's attack
-    bool isVisible() const override; // gets visible based on whether the potion is positive or negative
 
     explicit DefPot(const bool positive); // value is a default value and isVisible comes with them
     DefPot(const DefPot & other);

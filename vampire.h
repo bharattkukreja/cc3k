@@ -9,6 +9,8 @@ class Vampire : public NPC {
  public:
     SpriteType getType() const override;
 
+    bool isHostile() const override;
+
     Vampire();
     Vampire(const Vampire & other);
     Vampire & operator=(const Vampire & other);

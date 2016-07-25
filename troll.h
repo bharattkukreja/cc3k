@@ -9,6 +9,8 @@ class Troll : public NPC {
  public:
     SpriteType getType() const override;
 
+    bool isHostile() const override;
+
     Troll();
     Troll(const Troll & other);
     Troll & operator=(const Troll & other);

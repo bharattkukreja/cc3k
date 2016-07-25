@@ -8,14 +8,16 @@ const unsigned int vampireDef = 25;
 const bool vampireHostile = true;
 const unsigned int vampireGold = 1;
 
-Vampire::Vampire(): NPC{vampireHP, vampireAtk, vampireDef, vampireGold, vampireHostile} {}
+bool Vampire::isHostile() const { return vampireHostile; }
+
+
+Vampire::Vampire(): NPC{vampireHP, vampireAtk, vampireDef, vampireGold} {}
 
 Vampire::Vampire(const Vampire & other): NPC{other} {}
 
 Vampire & Vampire::operator=(const Vampire & other) {
     hp = other.hp;
     this->setGoldDropped(other.getGoldDropped());
-    this->setHostile(other.isHostile());
     atk = other.atk;
     def = other.def;
     return *this;

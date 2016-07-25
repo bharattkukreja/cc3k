@@ -9,6 +9,8 @@ class Merchant : public NPC {
  public:
     SpriteType getType() const override;
 
+    bool isHostile() const override;
+
     Merchant();
     Merchant(const Merchant & other);
     Merchant & operator=(const Merchant & other);

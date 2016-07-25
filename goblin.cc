@@ -9,14 +9,16 @@ const unsigned int goblinDef = 10;
 const bool goblinHostile = true;
 const unsigned int goblinGold = 1;
 
-Goblin::Goblin(): NPC{goblinHP, goblinAtk, goblinDef, goblinGold, goblinHostile} {}
+bool Goblin::isHostile() const { return goblinHostile; }
+
+
+Goblin::Goblin(): NPC{goblinHP, goblinAtk, goblinDef, goblinGold} {}
 
 Goblin::Goblin(const Goblin & other): NPC{other} {}
 
 Goblin & Goblin::operator=(const Goblin & other) {
     hp = other.hp;
     this->setGoldDropped(other.getGoldDropped());
-    this->setHostile(other.isHostile());
     atk = other.atk;
     def = other.def;
     return *this;
