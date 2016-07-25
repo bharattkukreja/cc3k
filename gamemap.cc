@@ -369,7 +369,7 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 				grid[player_location.first][player_location.second].sprite = nullptr;
 				player_location.first = r;
 				player_location.second = c;
-				grid[r][c].notifyAll();
+				target->notifyAll();
 				action =  "Player moved";
 			}
 		}
