@@ -7,12 +7,14 @@ class PC;
 enum class SpriteType;
 
 class Gold : public Item {
-    unsigned int value;
+    int value;
  public:
     SpriteType getType() const override;
 
     void use(PC & user) override; // put the gold in the PC's pocket!
-    explicit Gold(const unsigned int value);
+
+    Gold();
+    explicit Gold(const int value);
     Gold(const Gold & other);
     Gold & operator=(const Gold & other);
     // no move ctor/assignment operator because there is no heap allocated data that would make this go faster

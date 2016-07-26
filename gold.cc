@@ -3,11 +3,14 @@
 #include "spritetype.h"
 using namespace std;
 
-const unsigned int defaultValue = 1;
-
 void Gold::use(PC & user) { user.changeGold(value); }
 
-Gold::Gold(const unsigned int value = defaultValue): value{value} {}
+
+const int defaultValue = 1;
+
+Gold::Gold(): value{defaultValue} {}
+
+Gold::Gold(const int value): value{value} {}
 
 Gold::Gold(const Gold & other): value{other.value} {}
 
