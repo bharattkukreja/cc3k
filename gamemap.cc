@@ -25,9 +25,6 @@
 #include "defpot.h"
 #include "gold.h"
 
-
-
-
 using namespace std;
 
 // Implementation of GameMap class, see gamemap.h for documentation
@@ -66,7 +63,7 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
     }
 
     for(unsigned int r=1; r<grid.size()-1; r++){
-        for(unsigned int c=1; c<grid.size()-1; c++){
+        for(unsigned int c=1; c<grid[r].size()-1; c++){
             if(grid[r][c].getType()!=CellType::Floor){
                 continue;
             }
