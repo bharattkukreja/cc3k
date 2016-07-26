@@ -79,6 +79,13 @@ void GameHandler::play(string file) {
         ui.newline();
         
         ui.output_message("Action: " + action + "\n\n");
+        
+        if(hero->getHP() <= 0) {
+            // delete hero;
+            ui.output_message("Player was killed. You Lost!\n");
+            break;
+        }
+
 
         ui.display_commands();
 
@@ -104,11 +111,11 @@ void GameHandler::play(string file) {
             break;
         }
  
-        else if(hero->getHP() == 0) {
+        /*else if(hero->getHP() <= 0) {
             // delete hero;
-            ui.output_message("You Lost!\n");
+            ui.output_message("Player was killed. You Lost!\n");
             break;
-        }
+        }*/
         
         string direction;
         if(input1 == CommandType::no_value) {
@@ -140,6 +147,9 @@ void GameHandler::play(string file) {
     if(restart)
         play(file);
 
+    ui.output_message("Do you want to play again? (y/n)\n");
+    if(ui.getNextInput() == CommandType::y)
+        play(file);
 }
 
 

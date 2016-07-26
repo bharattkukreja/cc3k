@@ -3,7 +3,7 @@
 #include "spritetype.h"
 using namespace std;
 
-const unsigned int valueAtkPot = 5;
+const int valueAtkPot = 5;
 
 
 AtkPot::AtkPot(const bool positive): Potion{positive, valueAtkPot} {}
