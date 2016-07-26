@@ -9,7 +9,7 @@ int Orc::getGold() const { return gold / 2; }
 SpriteType Orc::getType() const { return SpriteType::Orc; }
 
 
-const unsigned int orcHP = 180, orcAtk = 35, orcDef = 25;
+const int orcHP = 180, orcAtk = 35, orcDef = 25;
 
 Orc::Orc(): PC{orcHP, orcAtk, orcDef} {}
 

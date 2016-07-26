@@ -4,7 +4,7 @@ using namespace std;
 
 bool Potion::isPositive() const { return positive; }
 
-int Potion::getValue() const { return value; }
+int Potion::getValue() const { return positive ? value : -value; }
 
 
 Potion::Potion(const bool positive, const int value): positive{positive}, value{value} {}

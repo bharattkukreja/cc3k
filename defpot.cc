@@ -7,7 +7,7 @@ const unsigned int valueDefPot = 5;
 
 DefPot::DefPot(const bool positive): Potion{positive, valueDefPot} {}
 
-DefPot::DefPot(const DefPot & other): Potion{other.positive, other.value} {}
+DefPot::DefPot(const DefPot & other): Potion{other} {}
 
 void DefPot::use(PC & user) {
     int effect = value;

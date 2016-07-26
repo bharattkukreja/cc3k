@@ -9,7 +9,7 @@ SpriteType Human::getType() const { return SpriteType::Human; }
 int Human::score() const { return 1.5 * this->getGold(); }
 
 
-const unsigned int humanHP = 140, humanAtk = 25, humanDef = 25;
+const int humanHP = 140, humanAtk = 25, humanDef = 25;
 
 Human::Human(): PC{humanHP, humanAtk, humanDef} {}
 

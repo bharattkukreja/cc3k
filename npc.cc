@@ -6,9 +6,9 @@
 using namespace std;
 
 
-void NPC::setGoldDropped(const unsigned int gdNew) { goldDropped = gdNew; }
+void NPC::setGoldDropped(const int gdNew) { goldDropped = gdNew; }
 
-unsigned int NPC::getGoldDropped() const { return goldDropped; }
+int NPC::getGoldDropped() const { return goldDropped; }
 
 
 bool NPC::isNPC() const { return true; }
@@ -25,7 +25,7 @@ pair<bool,int> NPC::hit(PC & target) {
 }
 
 
-NPC::NPC(const unsigned int hp, const unsigned int atk, const unsigned int def, const unsigned int goldDropped): Character{hp, atk, def}, goldDropped{goldDropped} {}
+NPC::NPC(const int hp, const int atk, const int def, const int goldDropped): Character{hp, atk, def}, goldDropped{goldDropped} {}
 
 NPC::NPC(const NPC & other): Character{other}, goldDropped{other.goldDropped} {}
 

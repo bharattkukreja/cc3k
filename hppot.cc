@@ -8,7 +8,7 @@ const unsigned int valueHPPot = 10;
 
 HPPot::HPPot(const bool positive): Potion{positive, valueHPPot} {}
 
-HPPot::HPPot(const HPPot & other): Potion{other.positive, other.value} {}
+HPPot::HPPot(const HPPot & other): Potion{other} {}
 
 void HPPot::use(PC & user) {
     int effect = value;

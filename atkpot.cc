@@ -8,7 +8,7 @@ const unsigned int valueAtkPot = 5;
 
 AtkPot::AtkPot(const bool positive): Potion{positive, valueAtkPot} {}
 
-AtkPot::AtkPot(const AtkPot & other): Potion{other.positive, other.value} {}
+AtkPot::AtkPot(const AtkPot & other): Potion{other} {}
 
 void AtkPot::use(PC & user) {
     int effect = value;

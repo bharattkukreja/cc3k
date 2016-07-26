@@ -2,11 +2,11 @@
 #include "spritetype.h"
 using namespace std;
 
-const unsigned int trollHP = 120;
-const unsigned int trollAtk = 25;
-const unsigned int trollDef = 15;
+const int trollHP = 120;
+const int trollAtk = 25;
+const int trollDef = 15;
 const bool trollHostile = true;
-const unsigned int trollGold = 1;
+const int trollGold = 1;
 
 bool Troll::isHostile() const { return trollHostile; }
 

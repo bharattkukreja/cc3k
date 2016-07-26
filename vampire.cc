@@ -2,11 +2,11 @@
 #include "spritetype.h"
 using namespace std;
 
-const unsigned int vampireHP = 50;
-const unsigned int vampireAtk = 25;
-const unsigned int vampireDef = 25;
+const int vampireHP = 50;
+const int  vampireAtk = 25;
+const int vampireDef = 25;
 const bool vampireHostile = true;
-const unsigned int vampireGold = 1;
+const int vampireGold = 1;
 
 bool Vampire::isHostile() const { return vampireHostile; }
 

@@ -3,7 +3,7 @@
 #include <utility>
 using namespace std;
 
-PC::PC(const unsigned int hp, const unsigned int atk, const unsigned int def): Character{hp, atk, def}, baseAtk{atk}, baseDef{def}, gold{0} {}
+PC::PC(const int hp, const int atk, const int def): Character{hp, atk, def}, baseAtk{atk}, baseDef{def}, gold{0} {}
 
 PC::PC(const PC & other): Character{other}, baseAtk{other.baseAtk}, baseDef{other.baseDef}, gold{other.gold} {}
 

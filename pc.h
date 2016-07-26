@@ -7,11 +7,11 @@
 class NPC;
 
 class PC : public Character {
-    unsigned int baseAtk, baseDef; // base values allow easy reset of changes made by potions. maxHP bounds their effect
+    int baseAtk, baseDef; // base values allow easy reset of changes made by potions. maxHP bounds their effect
  protected:
-    unsigned int gold; // players can pick up money, which goes here!
+    int gold; // players can pick up money, which goes here!
  public:
-    PC(unsigned int HP, unsigned int atk, unsigned int def);
+    PC(int HP, int atk, int def);
     PC(const PC & other);
     PC & operator=(const PC & other);
     virtual ~PC() = 0;

@@ -2,11 +2,11 @@
 #include "spritetype.h"
 using namespace std;
 
-const unsigned int phoenixHP = 50;
-const unsigned int phoenixAtk = 25;
-const unsigned int phoenixDef = 25;
+const int phoenixHP = 50;
+const int phoenixAtk = 25;
+const int phoenixDef = 25;
 const bool phoenixHostile = true;
-const unsigned int phoenixGold = 1;
+const int phoenixGold = 1;
 
 bool Phoenix::isHostile() const { return phoenixHostile; }
 

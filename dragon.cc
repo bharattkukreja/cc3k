@@ -2,12 +2,12 @@
 #include "spritetype.h"
 using namespace std;
 
-const unsigned int dragonHP = 150;
-const unsigned int dragonAtk = 20;
-const unsigned int dragonDef = 20;
+const int dragonHP = 150;
+const int dragonAtk = 20;
+const int dragonDef = 20;
 // not hostile until the player gets within a one-block radius is the same as being hostile & stationary
 const bool dragonHostile = true;
-const unsigned int dragonGold = 1;
+const int dragonGold = 1;
 
 bool Dragon::isHostile() const { return dragonHostile; }
 

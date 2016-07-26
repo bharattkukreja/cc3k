@@ -3,7 +3,7 @@
 #include "spritetype.h"
 using namespace std;
 
-const unsigned int dwarfHP = 100, dwarfAtk = 20, dwarfDef = 30;
+const int dwarfHP = 100, dwarfAtk = 20, dwarfDef = 30;
 
 
 SpriteType Dwarf::getType() const { return SpriteType::Dwarf; }

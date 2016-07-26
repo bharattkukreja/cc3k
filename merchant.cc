@@ -2,11 +2,11 @@
 #include "spritetype.h"
 using namespace std;
 
-const unsigned int merchantHP = 30;
-const unsigned int merchantAtk = 70;
-const unsigned int merchantDef = 5;
+const int merchantHP = 30;
+const int merchantAtk = 70;
+const int merchantDef = 5;
 bool merchantHostile = false;
-const unsigned int merchantGold = 4;
+const int merchantGold = 4;
 
 bool Merchant::isHostile() const { return merchantHostile; }
 
@@ -26,8 +26,8 @@ Merchant & Merchant::operator=(const Merchant & other) {
 Merchant::~Merchant() {};
 
 
-unsigned int Merchant::getHit(const unsigned int vsAtk) {
-    unsigned int damage = (vsAtk*100) / (100+def) + ((vsAtk*100) / (100+def) > 0);
+int Merchant::getHit(const int vsAtk) {
+    int damage = (vsAtk*100) / (100+def) + ((vsAtk*100) / (100+def) > 0);
     changeHP(-damage);
     merchantHostile = true; // merchants, when hit, all become hostile forever
     return damage;

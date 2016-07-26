@@ -3,11 +3,11 @@
 #include "spritetype.h"
 using namespace std;
 
-const unsigned int goblinHP = 70;
-const unsigned int goblinAtk = 5;
-const unsigned int goblinDef = 10;
+const int goblinHP = 70;
+const int goblinAtk = 5;
+const int goblinDef = 10;
 const bool goblinHostile = true;
-const unsigned int goblinGold = 1;
+const int goblinGold = 1;
 
 bool Goblin::isHostile() const { return goblinHostile; }
 

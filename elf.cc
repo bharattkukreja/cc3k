@@ -3,7 +3,7 @@
 #include "spritetype.h"
 using namespace std;
 
-const unsigned int elfHP = 140, elfAtk = 30, elfDef = 10;
+const int elfHP = 140, elfAtk = 30, elfDef = 10;
 
 
 SpriteType Elf::getType() const { return SpriteType::Elf; }
