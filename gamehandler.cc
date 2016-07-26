@@ -56,7 +56,7 @@ void GameHandler::play(string file) {
         unsigned int floor_count = g.getFloorCount();
 
         ui.output_message("Race: " + ui.convert(hero->getType()) + " Gold: ");
-        ui.output_number(hero->score());
+        ui.output_number(hero->getGold());
 
         for(int i = 0; i < 50; i++)
             ui.output_message(" ");
