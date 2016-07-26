@@ -203,9 +203,19 @@ void GameMap::populate(){
     player_location.second = chambers[random_chamber][random_pos]->getCol();
     grid[player_location.first][player_location.second].sprite = hero;
 
+    // spawn stairs
+    unsigned int rand_stairs = rand()%chambers.size();
+    if(rand_stairs==random_chamber){
+	if(rand_stairs<chambers.size()-1){
+	    rand_stairs++;
+	} else {
+	    rand_stairs--;
+	}
+    }
+    random_pos = rand() % chambers[rand_stairs].size();
+    chambers[rand_stairs][random_pos]->sprite = shared_ptr<Stairs>(new Stairs());
 
     // spawn potions
-    
     
     int total_potions = 3;
     int potion_count = 0;
@@ -446,9 +456,9 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 	unsigned int r = player_location.first;
 	unsigned int c = player_location.second;
 
-	unsigned int php = hero->getHP();
-	unsigned int patk = hero->getAtk();
-	unsigned int pdef = hero->getDef();
+	int php = hero->getHP();
+	int patk = hero->getAtk();
+	int pdef = hero->getDef();
 
 	string action = "";
 
@@ -496,7 +506,7 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 			action = "Player hit " + potType + " (" + to_string(e.getHP()) + ") and dealt " + to_string(hp - e.getHP()) + " dmg";
 
 			// remove npc if its HP is less than 0
-			if(e.getHP()<=0 || e.getHP()>hp){ //unsigned int in enemy, so hp actually increases instead of going below 0, needs to be fixed
+			if(e.getHP()<=0){
 				hero->changeGold(e.getGoldDropped());
 				target->sprite = nullptr;
 				for(auto en: enemy_locations){
