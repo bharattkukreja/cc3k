@@ -133,8 +133,10 @@ void GameHandler::play(string file) {
         
         if(g.getFloorCount() != floor_count) {
             sprite_coords.clear();
-            layout.clear();
-            default_map = ui.read_floor(layout, sprite_coords);
+            if(!default_map) {
+                layout.clear();
+                default_map = ui.read_floor(layout, sprite_coords);
+            }
                        
             g.setUpMap(layout);
             if(default_map)

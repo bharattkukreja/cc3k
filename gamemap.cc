@@ -288,8 +288,10 @@ void GameMap::populate(){
             while(true) {
                 int x = 1 - (rand() % 3);
                 int y = 1 - (rand() % 3);
+                if(x == 0 && y == 0)
+                    continue;
                 Cell* dragon_pos = &grid[random_cell->getRow() + x][random_cell->getCol() + y];
-                if(dragon_pos->isEmpty()) {
+                if(dragon_pos->getType() ==  CellType::Floor && dragon_pos->isEmpty()) {
                     dragon_pos->sprite = shared_ptr<Dragon>(new Dragon());
 		    dragon_pos->clear();
 		    for(auto observer: random_cell->getObservers()){
