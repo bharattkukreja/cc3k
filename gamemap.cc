@@ -36,9 +36,7 @@ const unsigned int GameMap::height = 30;
 
 // Methods
 
-GameMap::GameMap() : floor_count{1} {
-//	grid = vector<vector<Cell>>();
-}
+GameMap::GameMap() : floor_count{1} {}
 
 void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
     if(grid.size()>0){
@@ -103,10 +101,6 @@ void GameMap::setUpMap(vector<vector<CellType>> &c_grid){
         }
     }
 
- //	ai = AI{grid};
-}
-
-void GameMap::setUpMap(){
 }
 
 void GameMap::populate(map<pair<int, int>, shared_ptr<Sprite>> &sprite_locations){
@@ -349,33 +343,12 @@ void GameMap::populate(){
         enemy_count++;
     }
 
-
-/*    // spawn stairs
-    lbreak = false;
-    for(unsigned int r=grid.size()-1; r>0; r--){
-	for(unsigned int c=grid[r].size()-1; c>0; c--){
-	    if(grid[r][c].getType() == CellType::Floor){
-                grid[r][c].sprite = shared_ptr<Sprite>(new Stairs());
-                lbreak  = true;
-                break;
-	    }
-	}
-	if(lbreak) break;
-    }
-*/	
-    // spawn potions
-
-    // spawn gold
-
-    // spawn enemies
-
 }
 
 void GameMap::initialize(shared_ptr<PC> hero){
     this->hero.reset();
     this->hero = hero;
     floor_count = 1;
-    //populate();
 }
 
 void GameMap::clear(){
@@ -455,7 +428,6 @@ string stringifyType(SpriteType x){
 
 string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 	// hero action
-	// make shared? (idk how to make it work
 	Cell *target;
 	unsigned int r = player_location.first;
 	unsigned int c = player_location.second;

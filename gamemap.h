@@ -27,6 +27,7 @@ class GameMap {
 	// decides direction based on given command pair
 	void decideDirection(std::pair<CommandType, CommandType> &c_type, unsigned int & r, unsigned int & c);
 
+	// generates 'batches' of cells that denote individual chambers in the map
 	void generate_batch(Cell &c, std::vector<Cell*> &chambers);
 
 	// static constants
@@ -36,10 +37,6 @@ class GameMap {
    public:
 
 	GameMap();
-
-	// Sets up the cell grid, i.e. constructs all Cells
-	//   with a randomized configuration
-        void setUpMap();
 
 	// Sets up the grid, i.e. constructs all Cells
         //    with the types given by the CellType grid 'map'
