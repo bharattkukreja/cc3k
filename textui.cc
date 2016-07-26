@@ -85,12 +85,13 @@ void TextUI::read_file(string file) {
         istringstream iss(line);
         char ch;
         vector <char> temp;
-        
+         
         while(iss >> noskipws >> ch) {
             temp.emplace_back(ch);
         }
-        
-        file_vector.emplace_back(temp);
+
+        if(temp.size() != 0)
+            file_vector.emplace_back(temp);
     }
 }
 

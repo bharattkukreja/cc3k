@@ -6,9 +6,7 @@
 #include "elf.h"
 #include "dwarf.h"
 #include "orc.h"
-
 #include <utility>
-#include <iostream>             // to be deleted
 
 using namespace std;
 
@@ -39,6 +37,7 @@ void GameHandler::play(string file) {
     ui.read_file(file);
     default_map = ui.read_floor(layout, sprite_coords);
     
+    // Sets up the grid
     g.setUpMap(layout);
     
     g.initialize(hero);
@@ -100,23 +99,15 @@ void GameHandler::play(string file) {
             input2 = ui.getNextInput();
         }       
         else if(input2 == CommandType::r) {
-            // delete hero;
             ui.output_message("Restarting the game\n");
             restart = true;
             break;
         }
         else if(input2 == CommandType::q) {
-            // delete hero;
             ui.output_message("Thanks for playing the game\n");
             break;
         }
  
-        /*else if(hero->getHP() <= 0) {
-            // delete hero;
-            ui.output_message("Player was killed. You Lost!\n");
-            break;
-        }*/
-        
         string direction;
         if(input1 == CommandType::no_value) {
             direction = ui.convert_direction(input2);
@@ -126,7 +117,6 @@ void GameHandler::play(string file) {
         ui.put_direction(action, direction);
 
         if(g.getFloorCount() > 5) {
-            // delete hero;
             ui.output_message("You Won! Congratulations!\n");
             break;
         }
@@ -146,12 +136,17 @@ void GameHandler::play(string file) {
         }
 
     }
-    if(restart)
+    
+    if(restart) {
         play(file);
+    }
+    else {
 
-    ui.output_message("Do you want to play again? (y/n)\n");
-    if(ui.getNextInput() == CommandType::y)
-        play(file);
+        ui.output_message("Do you want to play again? (y/n)\n");
+        if(ui.getNextInput() == CommandType::y)
+            play(file);
+    }
+    
 }
 
 
