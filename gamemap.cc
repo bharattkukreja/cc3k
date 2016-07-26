@@ -160,7 +160,7 @@ void GameMap::generate_batch(Cell &c, vector<Cell*> &chamber) {
 
 void GameMap::populate(){
     
-    int random_chamber;
+    unsigned int random_chamber;
     int random_pos;
     Cell* random_cell;    
 
@@ -291,6 +291,10 @@ void GameMap::populate(){
                 Cell* dragon_pos = &grid[random_cell->getRow() + x][random_cell->getCol() + y];
                 if(dragon_pos->isEmpty()) {
                     dragon_pos->sprite = shared_ptr<Dragon>(new Dragon());
+		    dragon_pos->clear();
+		    for(auto observer: dragon_pos->getObservers()){
+			dragon_pos->attach(*observer);
+		    }
                     enemy_locations.emplace_back(make_pair(dragon_pos->getRow(), dragon_pos->getCol()));
                     break;
                 }                    
