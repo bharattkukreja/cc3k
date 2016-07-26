@@ -3,7 +3,7 @@
 #include "pc.h"
 using namespace std;
 
-const unsigned int valueHPPot = 10;
+const int valueHPPot = 10;
 
 
 HPPot::HPPot(const bool positive): Potion{positive, valueHPPot} {}
