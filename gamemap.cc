@@ -13,6 +13,20 @@
 #include "item.h"
 #include "potion.h"
 #include "stairs.h"
+#include "vampire.h"
+#include "goblin.h"
+#include "phoenix.h"
+#include "troll.h"
+#include "merchant.h"
+#include "werewolf.h"
+#include "dragon.h"
+#include "hppot.h"
+#include "atkpot.h"
+#include "defpot.h"
+#include "gold.h"
+
+
+
 
 using namespace std;
 
@@ -145,6 +159,10 @@ void GameMap::generate_batch(Cell &c, vector<Cell*> &chamber) {
 }
 
 void GameMap::populate(){
+    
+    int random_chamber;
+    int random_pos;
+    Cell* random_cell;    
 
     // spawning PC
     auto chambers = vector<vector<Cell*>>(); 
@@ -178,41 +196,147 @@ void GameMap::populate(){
     }
    
     srand(time(NULL));
-    int random_chamber = rand() % chambers.size();
-    int random_cell = rand() % chambers[random_chamber].size();
+    random_chamber = rand() % chambers.size();
+    random_pos = rand() % chambers[random_chamber].size();
     
-    //cout << "abx" << random_chamber << " " << chambers[random_chamber].size() << endl;
-
-    player_location.first = chambers[random_chamber][random_cell]->getRow();
-    player_location.second = chambers[random_chamber][random_cell]->getCol();
+    player_location.first = chambers[random_chamber][random_pos]->getRow();
+    player_location.second = chambers[random_chamber][random_pos]->getCol();
     grid[player_location.first][player_location.second].sprite = hero;
-/*
-    int count = 1;
-    for (int i = 1; i < GameMap::height - 1; i++) {
-        for (int j = 1; j < GameMap::width - 1; j++) {
-            if(grid[i][j] == CellType::Wall_vertical) {
-                         
+
+
+    // spawn potions
+    
+    
+    int total_potions = 3;
+    int potion_count = 0;
+            
+    while(potion_count < 10) {
+                    
+        int random_potion = rand() % total_potions;
+        int positivity = rand() % 2;
+
+        while(true) {
+            random_chamber = rand() % chambers.size();
+            random_pos = rand() % chambers[random_chamber].size();
+            random_cell = chambers[random_chamber][random_pos];
+            if(random_cell->isEmpty())
+                break;
+        }
+
+        if(random_potion == 0) {
+            if(positivity == 0)
+                random_cell->sprite = shared_ptr<HPPot>(new HPPot(false));
+            else
+                random_cell->sprite = shared_ptr<HPPot>(new HPPot(true));
+        }
+        
+        else if(random_potion == 1) {
+            if(positivity == 0)
+                random_cell->sprite = shared_ptr<AtkPot>(new AtkPot(false));
+            else
+                random_cell->sprite = shared_ptr<AtkPot>(new AtkPot(true));
+        }                                    
+        
+        else {
+            if(positivity == 0)
+                random_cell->sprite = shared_ptr<DefPot>(new DefPot(false));
+            else 
+                random_cell->sprite = shared_ptr<DefPot>(new DefPot(true));
+        }
+
+        potion_count++;
+    }
+
+
+    // spawn gold
+    
+    int gold_count = 0;
+
+    while(gold_count < 10) {
+        int random_gold = rand() % 8;
+
+        while(true) {
+            random_chamber = rand() % chambers.size();
+            random_pos = rand() % chambers[random_chamber].size();
+            random_cell = chambers[random_chamber][random_pos];
+            if(random_cell->isEmpty())
+                break;
+        }
+
+                               
+        // Small horde has probability 1/4 = 2/8
+        if(random_gold <= 1)
+            random_cell->sprite = shared_ptr<Gold>(new Gold(1));
+                               
+        // Normal horde has probability 5/8
+        else if(random_gold > 1 && random_gold <= 6)
+            random_cell->sprite = shared_ptr<Gold>(new Gold(2));
+                                                                                                
+        // Dragon horde has probability 1/8
+        else {
+            random_cell->sprite = shared_ptr<Gold>(new Gold(6));
+            while(true) {
+                int x = 1 - (rand() % 3);
+                int y = 1 - (rand() % 3);
+                Cell* dragon_pos = &grid[random_cell->getRow() + x][random_cell->getCol() + y];
+                if(dragon_pos->isEmpty()) {
+                    dragon_pos->sprite = shared_ptr<Dragon>(new Dragon());
+                    enemy_locations.emplace_back(make_pair(dragon_pos->getRow(), dragon_pos->getCol()));
+                    break;
+                }                    
             }
         }
-    }
-*/
-/*
-    // place hero
-    bool lbreak = false;
-    for(unsigned int r=1; r<grid.size()-1; r++){
-	for(unsigned int c=1; c<grid[r].size()-1; c++){
-	    if(grid[r][c].getType() == CellType::Floor){
-	        grid[r][c].sprite = shared_ptr<Sprite>(hero);
-		player_location.first = r;
-		player_location.second = c;
-		lbreak  = true;
-		break;
-	    }
-    	}
-	if(lbreak) break;
+                               
+        gold_count++;
+    }                       
+
+
+    // spawn enemies
+
+    int enemy_count = 0;
+    
+    while(enemy_count < 10) {
+        int random_enemy = rand() % 18;
+
+        while(true) {
+            random_chamber = rand() % chambers.size();
+            random_pos = rand() % chambers[random_chamber].size();
+            random_cell = chambers[random_chamber][random_pos];
+            if(random_cell->isEmpty())
+                break;
+        }
+
+        // Werewolf has probability 2/9 = 4/18
+        if(random_enemy <= 3)
+            random_cell->sprite = shared_ptr<Werewolf>(new Werewolf());
+
+        // Vampire has probability 3/18
+        else if(random_enemy > 3 && random_enemy <= 6)
+            random_cell->sprite = shared_ptr<Vampire>(new Vampire());
+
+        // Goblin has probability 5/18
+        else if(random_enemy > 6 && random_enemy <= 11)
+            random_cell->sprite = shared_ptr<Goblin>(new Goblin());
+
+        // Troll has probability 1/9 = 2/18
+        else if(random_enemy > 11 && random_enemy <= 13)
+            random_cell->sprite = shared_ptr<Troll>(new Troll());
+
+        // Phoenix has probability 1/9 = 2/18
+        else if(random_enemy > 13 && random_enemy <= 15)
+            random_cell->sprite = shared_ptr<Phoenix>(new Phoenix());
+
+        // Merchant has probability 1/9 = 2/18
+        else
+            random_cell->sprite = shared_ptr<Merchant>(new Merchant());
+
+        enemy_locations.emplace_back(make_pair(random_cell->getRow(), random_cell->getCol()));
+
+        enemy_count++;
     }
 
-    // spawn stairs
+
+/*    // spawn stairs
     lbreak = false;
     for(unsigned int r=grid.size()-1; r>0; r--){
 	for(unsigned int c=grid[r].size()-1; c>0; c--){
