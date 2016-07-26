@@ -67,8 +67,12 @@ CommandType TextUI::getNextInput() {
         command = CommandType::e;
     else if(s == "d")
         command = CommandType::d;
-    else
+    else if(s == "o")
         command = CommandType::o;
+    else if(s == "y")
+        command =  CommandType::y;
+    else
+        command = CommandType::n;
 
     return command;
 }
