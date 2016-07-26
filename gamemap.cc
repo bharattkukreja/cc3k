@@ -292,8 +292,9 @@ void GameMap::populate(){
                 if(dragon_pos->isEmpty()) {
                     dragon_pos->sprite = shared_ptr<Dragon>(new Dragon());
 		    dragon_pos->clear();
-		    for(auto observer: dragon_pos->getObservers()){
-			dragon_pos->attach(*observer);
+		    for(auto observer: random_cell->getObservers()){
+			if(observer->getRow()!=dragon_pos->getRow() || observer->getCol()!=dragon_pos->getCol()) 
+			    dragon_pos->attach(*observer);
 		    }
                     enemy_locations.emplace_back(make_pair(dragon_pos->getRow(), dragon_pos->getCol()));
                     break;
@@ -495,6 +496,9 @@ string GameMap::nextTurn(pair<CommandType, CommandType> c_type){
 			}
 
 			target->sprite = nullptr;
+
+			ai.move(enemy_locations, grid);
+        		return action;
 		}
 
 	} else if(c_type.first == CommandType::a){
